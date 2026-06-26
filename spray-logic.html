@@ -16,7 +16,7 @@
 (function(){
   const cv = document.getElementById('c'), ctx = cv.getContext('2d');
   const ORANGE='#c5531f', WATER='#3aa0ff', MUTED='#b3ada3', CREAM='#cfcabf';
-  const distM=[30,110,190,270], radM=47;
+  const distM=[30,110,190,270], radM=50;
   let W=0,H=0,dpr=1, cx=0, axisY=0, trunkY=0, scale=1, rad=1, squash=0.42, towers=[];
 
   function layout(){
@@ -32,13 +32,14 @@
     squash = Math.min(0.42, room/rad);
     towers = [];
     for (let s=0;s<distM.length;s++){
-      towers.push({step:s, x: cx - distM[s]*scale});
-      towers.push({step:s, x: cx + distM[s]*scale});
+      const g = s<2 ? 0 : 1;            // fire 2 guns per side at once (4 total): near pair, then far pair
+      towers.push({step:g, x: cx - distM[s]*scale});
+      towers.push({step:g, x: cx + distM[s]*scale});
     }
   }
   window.addEventListener('resize', layout);
 
-  const STEP=3600, STEPS=distM.length, HOLD=2800, CYCLE=STEPS*STEP+HOLD;
+  const STEP=3600, STEPS=2, HOLD=2800, CYCLE=STEPS*STEP+HOLD;
   const start = performance.now();
   const easeFill = t => Math.min(1, Math.max(0, t/0.7));
   function wetOf(tw, step, localT, done){
@@ -123,7 +124,7 @@
     const topY = Math.max(15, H*0.11);
     const rT1 = cx + distM[0]*scale, rT2 = cx + distM[1]*scale;
     dim(rT1, rT2, topY, '80 m');                                   // one spacing
-    dim(cx, cx-(distM[3]+radM)*scale, topY, '~317 m');            // total reach, opposite side
+    dim(cx, cx-(distM[3]+radM)*scale, topY, '~320 m');            // total reach, opposite side
     ctx.fillStyle=CREAM; ctx.font='700 11px Montserrat, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
     ctx.fillText('TRAILER (& PUMP)', cx, trunkY-15);
     // one sprinkler label with leader
