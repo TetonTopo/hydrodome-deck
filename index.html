@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HydroDome — Carmanah Style</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0f0f; --bg2:#1b1b1b; --bg3:#161616;
+    --orange:#c5531f; --orange-soft:#fbe9df;
+    --white:#f3efe9; --muted:#a39d94; --ink:#1a1a1a; --ink-soft:#5d5953;
+    --hydro-blue:#2e86d6; --dome-red:#d2452a;
+  }
+  .reveal{font-family:'Inter',sans-serif;}
+  .reveal h1,.reveal h2,.reveal h3{font-family:'Montserrat',sans-serif;margin:0;}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{padding:0;height:100%;}
+  html,body{background:#0f0f0f;}
+  /* keep the stage dark through every transition so there's no white flash/strobe */
+  .reveal-viewport,.reveal,.reveal .slides,.reveal .backgrounds{background:#0f0f0f !important;}
+  .root{position:absolute;inset:0;background:var(--bg);color:var(--white);overflow:hidden;}
+
+  /* logo — Tabler flame in ring + HYDRO/DOME wordmark */
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo .ring{width:46px;height:46px;border-radius:50% 50% 8px 8px / 46% 46% 8px 8px;border:2px solid var(--orange);
+    display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:24px;}
+  .logo .word{font-family:'Montserrat';line-height:.92;}
+  .logo .word .h{font-weight:800;font-size:20px;letter-spacing:1.5px;color:var(--hydro-blue);}
+  .logo .word .d{font-weight:800;font-size:20px;letter-spacing:1.5px;color:var(--dome-red);}
+
+  .pad{padding:40px 76px;display:flex;flex-direction:column;justify-content:center;height:100%;box-sizing:border-box;}
+  .carm{width:54px;height:54px;border-radius:50%;display:block;}
+  .kicker{letter-spacing:5px;font-size:14px;color:var(--muted);text-transform:uppercase;font-weight:600;font-family:'Montserrat';}
+  .head{font-family:'Montserrat';font-weight:800;text-transform:uppercase;font-size:44px;color:#fff;letter-spacing:.5px;margin:8px 0 0;line-height:1.05;}
+  .head .hot{color:var(--orange);}
+  .rule{width:92px;height:4px;background:var(--orange);border-radius:2px;margin:14px 0 24px;}
+  .toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .wcard{background:#fff;border-radius:16px;padding:24px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .wcard .ic{width:58px;height:58px;border-radius:50% 50% 9px 9px / 46% 46% 9px 9px;background:var(--orange-soft);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:29px;margin-bottom:15px;}
+  .wcard h3{font-family:'Montserrat';font-weight:700;font-size:20px;color:var(--ink);margin:0 0 9px;line-height:1.2;}
+  .wcard p{font-size:15.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
+  .note{margin-top:18px;font-size:15px;color:var(--muted);}
+  .note .hot{color:var(--orange);font-weight:500;}
+
+  .strip{margin-top:26px;background:var(--bg2);border-left:4px solid var(--orange);border-radius:8px;
+    padding:22px 26px;font-size:18.5px;color:var(--white);line-height:1.5;display:flex;gap:14px;align-items:center;}
+  .strip i{color:var(--orange);font-size:26px;flex:0 0 auto;}
+  .strip b{color:var(--orange);font-weight:600;}
+
+  /* roadmap */
+  .phases{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  .phase{background:var(--bg2);border-top:4px solid var(--orange);border-radius:12px;padding:22px 18px;}
+  .phase .pic{width:46px;height:46px;border-radius:11px;background:rgba(197,83,31,.16);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px;}
+  .phase .when{font-size:15px;color:var(--muted);margin-bottom:8px;}
+  .phase .what{font-size:21px;font-weight:600;color:#fff;line-height:1.18;margin-bottom:11px;font-family:'Montserrat';}
+  .phase .tag{font-size:15.5px;color:var(--muted);}
+  .phase .tag.hot{color:var(--orange);font-weight:500;}
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px;}
+  .metric{background:var(--bg3);border-radius:12px;padding:22px 22px;}
+  .metric .ml{font-size:15px;color:var(--muted);display:flex;align-items:center;gap:7px;}
+  .metric .ml i{color:var(--orange);font-size:18px;}
+  .metric .mv{font-size:38px;font-weight:700;color:#fff;font-family:'Montserrat';margin-top:6px;}
+  .metric .mv.hot{color:var(--orange);}
+  .recur{margin-top:24px;font-size:16.5px;color:var(--muted);display:flex;align-items:center;gap:9px;}
+  .recur i{color:var(--orange);font-size:20px;}
+  /* roadmap timeline: staggered left-to-right fade-in on slide entry */
+  .reveal section.present .phase{animation:phaseIn .9s ease both;}
+  .reveal section.present .phase:nth-child(1){animation-delay:.15s;}
+  .reveal section.present .phase:nth-child(2){animation-delay:.55s;}
+  .reveal section.present .phase:nth-child(3){animation-delay:.95s;}
+  .reveal section.present .phase:nth-child(4){animation-delay:1.35s;}
+  .reveal section.present .phase:nth-child(5){animation-delay:1.75s;}
+  @keyframes phaseIn{from{opacity:0;transform:translateX(-26px);}to{opacity:1;transform:none;}}
+
+  .split{display:flex;gap:42px;flex:1;align-items:stretch;min-height:0;}
+  .split .ctext{flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .split .imgbox{position:relative;flex:0 0 45%;border-radius:16px;overflow:hidden;border:1px solid #2c2c2c;background:#000;}
+  .split .imgbox img{width:100%;height:100%;object-fit:cover;display:block;}
+  .split .imgbox.contain{flex:0 0 38%;background:#0c0c0c;}
+  .split .imgbox.contain img{object-fit:contain;}
+  .lede{font-size:21px;color:var(--white);line-height:1.55;margin:0 0 26px;max-width:580px;}
+  .lede b{color:var(--orange);font-weight:600;}
+  .blist{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:20px;}
+  .blist li{display:flex;gap:16px;align-items:flex-start;}
+  .blist li .bic{flex:0 0 auto;width:50px;height:50px;border-radius:12px;background:var(--bg2);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:26px;margin-top:1px;}
+  .blist li .btx{font-size:19px;color:var(--white);line-height:1.55;}
+  .blist li .btx b{color:#fff;font-weight:600;}
+  .blist li .btx .sub{color:var(--muted);}
+  .blist.tight{gap:16px;}
+  .blist.tight li .btx{font-size:17.5px;}
+  .banner{width:100%;height:300px;border-radius:16px;overflow:hidden;border:1px solid #2c2c2c;flex:0 0 auto;}
+  .banner img{width:100%;height:100%;object-fit:cover;object-position:center 82%;display:block;}
+  .carmhist{font-size:18px;color:var(--white);line-height:1.5;text-align:center;max-width:none;margin:14px auto 16px;}
+  .carmhist b{color:#fff;font-weight:600;}
+  .imgcap{position:relative;}
+
+  /* DOME FRAME — arch top (Frame 01) + red outline (Frame 02). Reusable photo treatment. */
+  .dome{
+    border:3px solid var(--dome-red) !important;
+    border-radius:50% 50% 16px 16px / 46% 46% 16px 16px !important;
+    box-shadow:0 0 0 1px rgba(210,69,42,.18), 0 14px 34px rgba(0,0,0,.45) !important;
+  }
+  /* slightly shallower arch for short/wide banners so it reads as a dome, not a sliver */
+  .dome.wide{border-radius:120px 120px 16px 16px / 60px 60px 16px 16px !important;}
+  /* competitor frames: square + neutral border — these are NOT our products */
+  .imgbox.square{border-radius:0 !important;border:1px solid #3a3a3a !important;box-shadow:none !important;}
+
+  /* AUTO-SEQUENCE — cards/bullets fade up one-by-one automatically on slide entry (no clicks) */
+  @keyframes riseIn{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
+  .reveal section.present .auto-seq>*{animation:riseIn 1.0s ease both;}
+  .reveal section.present .auto-seq>*:nth-child(1){animation-delay:.35s;}
+  .reveal section.present .auto-seq>*:nth-child(2){animation-delay:1.25s;}
+  .reveal section.present .auto-seq>*:nth-child(3){animation-delay:2.15s;}
+  .reveal section.present .auto-seq>*:nth-child(4){animation-delay:3.05s;}
+  .reveal section.present .auto-seq>*:nth-child(5){animation-delay:3.95s;}
+  .reveal section.present .auto-seq>*:nth-child(6){animation-delay:4.85s;}
+  /* extra-slow variant (Carmanah services) */
+  .reveal section.present .auto-seq.vslow>*{animation-duration:1.4s;}
+  .reveal section.present .auto-seq.vslow>*:nth-child(1){animation-delay:.5s;}
+  .reveal section.present .auto-seq.vslow>*:nth-child(2){animation-delay:2.3s;}
+  .reveal section.present .auto-seq.vslow>*:nth-child(3){animation-delay:4.1s;}
+
+  /* EmberCast — subtle drifting red embers, looping while the slide is shown */
+  .embers{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+  .ember{position:absolute;bottom:4%;border-radius:50%;opacity:0;
+    background:radial-gradient(circle,#ff8a4c 0%,#d2452a 65%,rgba(210,69,42,0) 100%);
+    box-shadow:0 0 6px 1px rgba(210,69,42,.55);}
+  .e1{left:13%;width:5px;height:5px;} .e2{left:28%;width:4px;height:4px;}
+  .e3{left:47%;width:6px;height:6px;} .e4{left:62%;width:4px;height:4px;}
+  .e5{left:78%;width:5px;height:5px;} .e6{left:90%;width:3px;height:3px;}
+  .reveal section.present .e1{animation:driftA 10s linear 0s infinite;}
+  .reveal section.present .e2{animation:driftB 13s linear 2.2s infinite;}
+  .reveal section.present .e3{animation:driftA 12s linear 1.1s infinite;}
+  .reveal section.present .e4{animation:driftB 15s linear 3.6s infinite;}
+  .reveal section.present .e5{animation:driftA 14s linear .6s infinite;}
+  .reveal section.present .e6{animation:driftB 11s linear 2.7s infinite;}
+  @keyframes driftA{
+    0%{opacity:0;transform:translate(0,30px) scale(.8);}
+    8%{opacity:.85;}
+    35%{transform:translate(40px,-150px) scale(1);}
+    60%{transform:translate(-20px,-280px) scale(.95);opacity:.7;}
+    85%{opacity:.35;}
+    100%{opacity:0;transform:translate(70px,-430px) scale(.6);}
+  }
+  @keyframes driftB{
+    0%{opacity:0;transform:translate(0,30px) scale(.7);}
+    10%{opacity:.8;}
+    40%{transform:translate(-45px,-170px) scale(1);}
+    70%{transform:translate(30px,-300px) scale(.9);opacity:.6;}
+    100%{opacity:0;transform:translate(-30px,-450px) scale(.5);}
+  }
+
+  /* Market references (elevator slide) */
+  .refscroll{flex:1;min-height:0;overflow:auto;margin-top:4px;padding-right:12px;}
+  .refgrid{columns:2;column-gap:34px;}
+  .refitem{break-inside:avoid;margin:0 0 15px;padding-left:30px;position:relative;}
+  .refitem .rn{position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50% 50% 5px 5px / 46% 46% 5px 5px;
+    background:rgba(197,83,31,.18);color:var(--orange);font-family:'Montserrat';font-weight:700;font-size:12px;
+    display:flex;align-items:center;justify-content:center;}
+  .refitem .rc{font-size:13.5px;color:#fff;font-weight:600;line-height:1.35;}
+  .refitem .rs{font-size:12px;color:var(--muted);line-height:1.35;margin-top:2px;}
+  .refitem a{color:var(--hydro-blue);text-decoration:none;word-break:break-all;}
+  .refnote{font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.35;margin-top:3px;}
+
+  /* team */
+  .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+  .teamgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .teamgrid .tcard{padding:22px 18px 20px;}
+  .teamgrid .tcard .photo{width:120px;height:120px;margin-bottom:14px;
+    border-radius:50% 50% 14px 14px / 46% 46% 14px 14px;border:3px solid var(--dome-red);}
+  .teamgrid .tcard p{font-size:14px;}
+  .tcard{background:#fff;border-radius:16px;padding:30px 18px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;}
+  .tcard .photo{width:132px;height:132px;border-radius:50%;object-fit:cover;margin-bottom:18px;border:3px solid var(--orange);}
+  .tcard h3{font-family:'Montserrat';font-weight:700;font-size:19px;color:var(--ink);margin:0 0 6px;line-height:1.15;}
+  .tcard .role{font-family:'Montserrat';font-size:13.5px;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:11px;}
+  .tcard p{font-size:14.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
+
+  .tk2{font-family:'Montserrat';font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--orange);font-size:16px;}
+  .bigtitle{font-family:'Montserrat';font-weight:800;font-size:74px;color:#fff;line-height:1.0;margin:10px 0 20px;}
+
+  .imgph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    border:2px dashed #3a3a3a;border-radius:16px;text-align:center;padding:24px;
+    background:repeating-linear-gradient(45deg,#141414,#141414 12px,#171717 12px,#171717 24px);}
+  .imgph i{font-size:46px;color:var(--orange);}
+  .imgph .pl{font-size:14.5px;color:var(--white);font-family:'Montserrat';font-weight:600;letter-spacing:.5px;}
+  .imgph .sub{font-size:13px;color:var(--muted);max-width:240px;line-height:1.4;}
+
+  /* device / monitor frame (live app embedded in screen) */
+  .device{flex:0 0 50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .monitor{width:100%;background:#232323;border-radius:16px;padding:14px;border:1px solid #343434;box-shadow:0 18px 44px rgba(0,0,0,.55);}
+  .monitor .screen{position:relative;aspect-ratio:16/10;width:100%;border-radius:8px;overflow:hidden;border:1px solid #2a2a2a;
+    background:linear-gradient(160deg,#0d1117,#0c0f14);display:flex;align-items:center;justify-content:center;}
+  .monitor .screen .imgph{border:none;border-radius:0;width:100%;height:100%;background:transparent;}
+  .monitor .screen iframe.embed{position:absolute;top:0;left:0;width:250%;height:250%;transform:scale(.4);transform-origin:top left;border:0;display:block;}
+  .imgbox iframe{position:absolute;top:0;left:0;width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:0;display:block;}
+  .stand-neck{width:36px;height:20px;background:#1f1f1f;}
+  .stand-base{width:130px;height:13px;background:#232323;border-radius:0 0 9px 9px;}
+  /* Virtual Model: the screen glides in when the slide is shown */
+  .reveal section.present .vmodel{animation:modelIn .7s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes modelIn{from{opacity:0;transform:translateX(60px) scale(.95);}to{opacity:1;transform:none;}}
+
+  .vsgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .vscard{background:var(--bg2);border-radius:14px;border-top:4px solid var(--orange);padding:22px 20px;}
+  .vscard .vh{display:flex;align-items:center;gap:11px;margin-bottom:15px;}
+  .vscard .vh .vic{width:42px;height:42px;border-radius:10px;background:rgba(197,83,31,.16);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto;}
+  .vscard .vh h3{font-family:'Montserrat';font-weight:700;font-size:16.5px;color:#fff;line-height:1.15;}
+  .vscard ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;}
+  .vscard li{display:flex;gap:10px;font-size:15px;color:var(--white);line-height:1.45;}
+  .vscard li i{color:var(--orange);font-size:17px;margin-top:2px;flex:0 0 auto;}
+  .vscard li b{color:#fff;font-weight:600;}
+  .vsfoot{margin-top:16px;font-size:13.5px;color:var(--muted);}
+
+  .vnav-cue{margin-top:18px;display:flex;align-items:center;gap:16px;
+    background:linear-gradient(90deg,rgba(197,83,31,.20),rgba(197,83,31,.04));
+    border:1px solid rgba(197,83,31,.45);border-radius:12px;padding:15px 22px;}
+  .vnav-cue i{font-size:34px;color:var(--orange);flex:0 0 auto;animation:bobdown 1.6s ease-in-out infinite;}
+  .vnav-cue div{font-size:16.5px;color:var(--white);line-height:1.45;}
+  .vnav-cue b{color:#fff;font-weight:700;}
+  .vnav-cue .hot{color:var(--orange);font-weight:600;}
+  @keyframes bobdown{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+  /* market metrics stack — taller, bigger, condensed to the right */
+  .mkt{display:flex;flex-direction:column;gap:20px;justify-content:center;flex:1;}
+  .mcard{background:var(--bg2);border-left:5px solid var(--orange);border-radius:12px;padding:24px 26px;}
+  .mcard .mt{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);font-family:'Montserrat';
+    font-weight:600;letter-spacing:.6px;text-transform:uppercase;}
+  .mcard .mt i{color:var(--orange);font-size:20px;}
+  .mcard .mn{font-size:37px;font-weight:700;color:#fff;font-family:'Montserrat';margin:6px 0 4px;}
+  .mcard .mn .hot{color:var(--orange);}
+  .mcard .ms{font-size:16px;color:var(--muted);line-height:1.45;}
+
+  .infobox{background:var(--bg2);border-radius:12px;padding:18px 20px;}
+  .infobox + .infobox{margin-top:16px;}
+  .infobox h4{font-family:'Montserrat';font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;
+    margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .infobox.work h4{color:var(--orange);}
+  .infobox.short h4{color:#d9b38c;}
+  .infobox ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;}
+  .infobox li{display:flex;gap:9px;font-size:14.5px;color:var(--white);line-height:1.45;}
+  .infobox li i{font-size:16px;margin-top:2px;flex:0 0 auto;}
+  .infobox.work li i{color:var(--orange);}
+  .infobox.short li i{color:#d9b38c;}
+  .specrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;}
+  .spec{font-size:12.5px;color:var(--muted);background:var(--bg3);border-radius:6px;padding:5px 10px;
+    display:flex;align-items:center;gap:6px;}
+  .spec i{color:var(--orange);font-size:14px;}
+  .upcue{margin-top:16px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:8px;}
+  .upcue i{color:var(--orange);font-size:17px;}
+
+  .contact{display:flex;flex-direction:column;gap:16px;margin-top:14px;}
+  .crow{display:flex;align-items:center;gap:14px;}
+  .crow .cic{width:48px;height:48px;border-radius:12px;background:rgba(197,83,31,.16);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto;}
+  .crow .cl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'Montserrat';}
+  .crow .cv{font-size:20px;color:#fff;font-weight:600;line-height:1.3;}
+  .crow .cv .hot{color:var(--orange);}
+
+  /* Our Solution: spray-logic animation banner on top */
+  .solbanner{flex:0 0 auto;width:100%;height:192px;border-radius:14px;overflow:hidden;background:#0f0f0f;margin-bottom:18px;}
+  .solbanner iframe{width:100%;height:100%;border:0;display:block;}
+  .solrow{flex:1;display:flex;gap:36px;align-items:center;min-height:0;}
+  .solrow .blist{flex:1;}
+  .solbul li{gap:13px;}
+  .solbul li .bic{width:42px;height:42px;font-size:21px;border-radius:11px;}
+  .solbul li .btx{font-size:15px;line-height:1.45;}
+  .solimg{flex:0 0 33%;height:300px;border-radius:14px;overflow:hidden;border:1px solid #2c2c2c;align-self:center;}
+  .solimg img{width:100%;height:100%;object-fit:cover;display:block;}
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+  <!-- TITLE -->
+  <section data-transition="zoom">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+        <div style="display:flex;align-items:center;gap:14px;"><img class="carm" src="assets/carmanah-logo.svg" alt="Carmanah Wildfire"><div class="kicker">A project of Carmanah Wildfire</div></div>
+      </div>
+      <div class="split" style="margin-top:18px;">
+        <div class="ctext">
+          <div class="tk2">Wildfire defence &amp; smart water management</div>
+          <h1 class="bigtitle">HydroDome <span class="hot">Mobile</span></h1>
+          <p class="lede">A rapidly deployable system that protects communities and critical infrastructure from wildfire — stood up in hours, autonomous once running.</p>
+        </div>
+        <div class="imgbox dome"><img src="assets/community.jpg" alt="HydroDome mobile deployed in a community"></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- TEAM -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div>
+          <div class="kicker">Our team</div>
+          <div class="head">HydroDome leadership <span class="hot">&amp; technical team</span></div>
+        </div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="teamgrid">
+        <div class="tcard"><img class="photo" src="assets/nick.jpg" alt="Nick Hill"><h3>Nick Hill</h3><div class="role">Founder / CEO</div><p>Founder, Carmanah Wildfire. 15+ years of wildfire field leadership.</p></div>
+        <div class="tcard"><img class="photo" src="assets/dakotah.jpg" alt="Dakotah Daily"><h3>Dakotah Daily</h3><div class="role">Chief Innovation Officer &amp; PM</div><p>Wildfire geospatial specialist and experienced project manager.</p></div>
+        <div class="tcard"><img class="photo" src="assets/brian.jpg" alt="Brian Mueller"><h3>Brian Mueller</h3><div class="role">Lead Systems Engineer</div><p>Design, welding, and fabrication; UAV and systems expert.</p></div>
+        <div class="tcard"><img class="photo" src="assets/mehran.jpg" alt="Dr. Mehran Mehrandezh"><h3>Dr. Mehran Mehrandezh</h3><div class="role">Technical Advisor</div><p>PhD, Professor of Industrial Systems Engineering.</p></div>
+        <div class="tcard"><img class="photo" src="assets/aws.jpg" alt="Aws Al-Mubarak"><h3>Aws Al-Mubarak</h3><div class="role">Advisor</div><p>8 years BC Wildfire — Division Supervisor and NFPA structural firefighter.</p></div>
+        <div class="tcard"><img class="photo" src="assets/micah.jpg" alt="Micah Bayless"><h3>Micah Bayless</h3><div class="role">Technical Advisor</div><p>Senior Aerospace Engineer — power delivery specialist.</p></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- CARMANAH (ABOUT) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Who we are</div>
+          <div class="head">Carmanah <span class="hot">Wildfire</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="banner" style="height:232px;"><img src="assets/carmanah-team.jpg" alt="Carmanah Wildfire crew"></div>
+      <p class="carmhist">Founded in 2019 — boots on the ground since 2021, grown from 30 to <b>160+ seasonal employees</b> delivering wildfire response across <b>BC, Alberta, and the Yukon.</b></p>
+      <div class="grid3 auto-seq vslow">
+        <div class="wcard"><div class="ic"><i class="ti ti-flame"></i></div><h3>Type II &amp; III Fire Crews</h3><p>Reliable, mentorship-driven wildfire crews for extended suppression and complex operations.</p></div>
+        <div class="wcard"><div class="ic"><i class="ti ti-school"></i></div><h3>Wildfire &amp; Crew Training</h3><p>Hands-on programs for communities, industry &amp; First Nations — plus internal boot camps to international standards.</p></div>
+        <div class="wcard"><div class="ic"><i class="ti ti-trees"></i></div><h3>Falling, Danger Trees &amp; Vegetation</h3><p>Certified fallers and DTAs for land clearing, ROW maintenance, and hazard-tree removal.</p></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- EMBERCAST (PROBLEM) -->
+  <section data-transition="fade">
+    <div class="root">
+      <div class="embers"><span class="ember e1"></span><span class="ember e2"></span><span class="ember e3"></span><span class="ember e4"></span><span class="ember e5"></span><span class="ember e6"></span></div>
+      <div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">The problem</div>
+          <div class="head">Ember<span class="hot">Cast</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <p class="lede">Burning debris is launched ahead of the fire front by convective updrafts — <b>igniting structures hours before the flames arrive.</b></p>
+          <ul class="blist auto-seq">
+            <li><span class="bic"><i class="ti ti-arrows-split"></i></span><span class="btx">Embers flank the line.</span></li>
+            <li><span class="bic"><i class="ti ti-alert-triangle"></i></span><span class="btx">They split resources at the worst possible moment.</span></li>
+            <li><span class="bic"><i class="ti ti-flame"></i></span><span class="btx">They turn defended communities into new fire sources.</span></li>
+          </ul>
+        </div>
+        <div class="imgbox contain"><img src="assets/embercast.jpg" alt="EmberCast diagram"></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- TRADITIONAL APPROACHES -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">What works, what doesn't</div>
+          <div class="head">Traditional <span class="hot">approaches</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="imgbox dome"><img src="assets/spu-traditional.jpg" alt="HydroDome rooftop sprinkler protection unit"></div>
+        <div class="ctext">
+          <p class="lede">We've built and deployed wildfire defense systems in the field — and <b>seen what works and what doesn't.</b></p>
+          <ul class="blist">
+            <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Structure protection pre-wets buildings with large water-moving systems, creating a humidity dome.</span></li>
+            <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">It has saved thousands of homes — but <b>setup time limits its reach</b> when fires move fast.</span></li>
+            <li><span class="bic"><i class="ti ti-bolt"></i></span><span class="btx">The answer: a pre-staged, rapidly deployable trailer already on site, protecting the perimeter before the fire arrives.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- OUR SOLUTION -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Our solution</div>
+          <div class="head">HydroDome <span class="hot">on Wheels</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="solbanner"><iframe src="spray-logic.html" title="Sequential spray logic" loading="lazy" scrolling="no"></iframe></div>
+      <div class="solrow">
+        <ul class="blist tight solbul auto-seq">
+          <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Sequentially sprays <b>8 Nelson Big Gun sprinklers across ~6 hectares</b> — using a pump sized for two guns, not eight.</span></li>
+          <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">Fewer, larger sprinklers mean a <b>1–2 person, 1–2 hour setup.</b></span></li>
+          <li><span class="bic"><i class="ti ti-settings"></i></span><span class="btx">Sequential spraying runs on a <b>50 hp pump instead of 300 hp.</b></span></li>
+          <li><span class="bic"><i class="ti ti-wifi"></i></span><span class="btx">Wireless, independently controlled heads activate by weather and conditions — semi-autonomous with remote monitoring.</span></li>
+          <li><span class="bic"><i class="ti ti-shield-check"></i></span><span class="btx">A new category: more coverage and less setup than a structure trailer, smaller and cheaper than a single giant cannon.</span></li>
+        </ul>
+        <div class="solimg dome"><img src="assets/mill.jpg" alt="HydroDome mobile protecting an industrial site"></div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- COMPETITORS — vertical elevator stack (convex cube-roll on all) -->
+  <section>
+
+  <section data-transition="convex">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Competitive landscape</div>
+          <div class="head">How HydroDome <span class="hot">stacks up</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="vsgrid">
+        <div class="vscard fragment fade-up">
+          <div class="vh"><span class="vic"><i class="ti ti-truck"></i></span><h3>vs WASP &mdash; SPU Trailers</h3></div>
+          <ul>
+            <li><i class="ti ti-clock"></i><span><b>1&ndash;2 person, ~1&ndash;2 hr</b> deploy vs. a 5-person crew over 2&ndash;4 hours.</span></li>
+            <li><i class="ti ti-droplet"></i><span>Wets the <b>entire zone</b>, not just structures &mdash; denying ember cast in the gaps WASP leaves dry.</span></li>
+            <li><i class="ti ti-components"></i><span>A handful of large heads instead of <b>100+ small components</b> to set up and maintain.</span></li>
+          </ul>
+        </div>
+        <div class="vscard fragment fade-up">
+          <div class="vh"><span class="vic"><i class="ti ti-flame"></i></span><h3>vs FireWolf &mdash; Single Cannon</h3></div>
+          <ul>
+            <li><i class="ti ti-arrows-shuffle"></i><span>Broad-area ember defense vs. point suppression &mdash; <b>complementary, not interchangeable.</b></span></li>
+            <li><i class="ti ti-chart-area"></i><span><b>~6 ha</b> zone coverage vs. FireWolf's single ~1.3 ha point &mdash; roughly <b>4&times; the area</b> at comparable cost.</span></li>
+            <li><i class="ti ti-clock-pause"></i><span>Pre-wets ahead of the front instead of chasing a hot spot.</span></li>
+          </ul>
+        </div>
+        <div class="vscard fragment fade-up">
+          <div class="vh"><span class="vic"><i class="ti ti-tower"></i></span><h3>vs RainStream&trade; &mdash; Telescopic Towers</h3></div>
+          <ul>
+            <li><i class="ti ti-engine"></i><span>Same wind-carried principle, but a <b>much smaller pump</b> by firing sequentially instead of one giant cannon.</span></li>
+            <li><i class="ti ti-tag"></i><span>Lower cost (~$700K CAD RainStream vs. HydroDome's preliminary <b>~$300K* target</b>) for comparable or greater coverage.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="vnav-cue"><i class="ti ti-chevrons-down"></i><div><b>Want the detail?</b> Press <b>&darr;</b> (or swipe down) to drop into a deep-dive on each system &mdash; <span class="hot">WASP</span>, <span class="hot">FireWolf</span>, then <span class="hot">RainStream</span>. Press <b>&uarr;</b> to come back to this comparison.</div></div>
+      <div class="vsfoot">*Preliminary figure.</div>
+    </div></div>
+  </section>
+
+  <section data-transition="convex">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Competitor deep-dive &middot; 1 of 3</div>
+          <div class="head">WASP <span class="hot">trailers</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <div class="infobox work"><h4><i class="ti ti-settings"></i>How it works</h4>
+            <ul>
+              <li><i class="ti ti-building-warehouse"></i><span>Type 2 Structure Protection Unit &mdash; a rolling warehouse of <b>100+ sprinklers</b> (gutter mounts, roof butterfly sprinklers, ground spikes) and up to 15,000 ft of forestry hose.</span></li>
+              <li><i class="ti ti-tools"></i><span>Crew manually plumbs each structure, creating individual "humidity bubbles" over 25&ndash;30 scattered structures.</span></li>
+            </ul>
+            <div class="specrow"><span class="spec"><i class="ti ti-users"></i>5-person crew</span><span class="spec"><i class="ti ti-clock"></i>2&ndash;4+ hr deploy</span><span class="spec"><i class="ti ti-tag"></i>~$200K&ndash;$225K CAD</span></div>
+          </div>
+          <div class="infobox short"><h4><i class="ti ti-alert-triangle"></i>Shortcomings</h4>
+            <ul>
+              <li><i class="ti ti-droplet-off"></i><span>Only wets the structures and their immediate footprint &mdash; the land between properties stays dry, so embers can still ignite vegetation and spread structure-to-structure.</span></li>
+              <li><i class="ti ti-hammer"></i><span>Highly labour-intensive: roof climbing, hand-laid hose, no remote or autonomous operation; hundreds of small components to install and maintain.</span></li>
+            </ul>
+          </div>
+          <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the comparison &middot; &darr; for FireWolf</div>
+        </div>
+        <div class="imgbox square"><div class="imgph"><i class="ti ti-photo"></i><div class="pl">WASP trailer photo</div><div class="sub">Asset coming &mdash; drop WASP SPU trailer image here.</div></div></div>
+      </div>
+    </div></div>
+  </section>
+
+  <section data-transition="convex">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Competitor deep-dive &middot; 2 of 3</div>
+          <div class="head">FireWolf <span class="hot">(Edmonton)</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <div class="infobox work"><h4><i class="ti ti-settings"></i>How it works</h4>
+            <ul>
+              <li><i class="ti ti-target"></i><span>Robotic thermal-imaging water cannon (Unifire Force 50) on a telescoping mast; the camera detects the hottest point and auto-aims &mdash; <b>active fire suppression, not pre-wetting.</b></span></li>
+            </ul>
+            <div class="specrow"><span class="spec"><i class="ti ti-user"></i>1 operator</span><span class="spec"><i class="ti ti-clock"></i>10&ndash;15 min setup</span><span class="spec"><i class="ti ti-ruler-2"></i>~65 m throw / ~1.3 ha</span><span class="spec"><i class="ti ti-tag"></i>~$500K CAD</span></div>
+          </div>
+          <div class="infobox short"><h4><i class="ti ti-arrows-shuffle"></i>Why HydroDome is different</h4>
+            <ul>
+              <li><i class="ti ti-flame"></i><span>FireWolf fights an active fire at <b>one point</b>; HydroDome pre-wets an <b>entire zone</b> before the fire arrives.</span></li>
+              <li><i class="ti ti-chart-area"></i><span>8 sprinklers across the trailer's coverage vs. one cannon &mdash; roughly <b>4&times; the area</b> &mdash; and at lower cost than FireWolf's robotic platform.</span></li>
+            </ul>
+          </div>
+          <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the comparison &middot; &darr; for RainStream</div>
+        </div>
+        <div class="imgbox square"><div class="imgph"><i class="ti ti-photo"></i><div class="pl">FireWolf photo</div><div class="sub">Asset coming &mdash; drop FireWolf cannon/mast image here.</div></div></div>
+      </div>
+    </div></div>
+  </section>
+
+  <section data-transition="convex">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Competitor deep-dive &middot; 3 of 3</div>
+          <div class="head">Wildfire Innovations <span class="hot">&mdash; RainStream&trade;</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <div class="infobox work"><h4><i class="ti ti-settings"></i>How it works</h4>
+            <ul>
+              <li><i class="ti ti-tower"></i><span>Trailer-mounted engine/pump driving a single ~100 ft (30 m) telescoping mast with one high-volume cannon on top &mdash; a "sprinkler on steroids."</span></li>
+              <li><i class="ti ti-wind"></i><span>Positioned on the upwind edge; launches water ~100 ft up so wind carries a dense mist downwind, forming a <b>"synthetic rain" curtain</b> over the footprint.</span></li>
+            </ul>
+            <div class="specrow"><span class="spec"><i class="ti ti-users"></i>1&ndash;2 person</span><span class="spec"><i class="ti ti-clock"></i>~10&ndash;40 min</span><span class="spec"><i class="ti ti-chart-area"></i>1&ndash;18 ac (0.4&ndash;7 ha)</span><span class="spec"><i class="ti ti-tag"></i>~$700K CAD</span></div>
+          </div>
+          <div class="infobox short"><h4><i class="ti ti-alert-triangle"></i>Shortcomings</h4>
+            <ul>
+              <li><i class="ti ti-engine"></i><span>One giant cannon running continuously demands a <b>large pump</b> &mdash; which drives the size, weight, and ~$700K price.</span></li>
+              <li><i class="ti ti-wind"></i><span>Coverage swings hard with conditions &mdash; the 1&ndash;18 acre range tells the story; a calm or wrong-direction wind day shrinks the protected footprint.</span></li>
+            </ul>
+          </div>
+          <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the comparison &middot; &rarr; to continue the deck</div>
+        </div>
+        <div class="imgbox square"><div class="imgph"><i class="ti ti-photo"></i><div class="pl">RainStream photo</div><div class="sub">Asset coming &mdash; drop RainStream tower/mist image here.</div></div></div>
+      </div>
+    </div></div>
+  </section>
+
+  </section>
+  <!-- END competitors stack -->
+
+  <!-- INTELLIGENT COMMAND & CONTROL -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">The technology</div>
+          <div class="head">Intelligent command <span class="hot">&amp; control</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <p class="lede">Predict where embers land &mdash; <b>apply exactly enough water, nowhere wasted.</b></p>
+          <ul class="blist tight auto-seq">
+            <li><span class="bic"><i class="ti ti-cloud-storm"></i></span><span class="btx"><b>Real-time weather monitoring</b> <span class="sub">&mdash; predicts where embers will land.</span></span></li>
+            <li><span class="bic"><i class="ti ti-calculator"></i></span><span class="btx"><b>Redbook fuel-moisture codes + ignition modeling</b> <span class="sub">&mdash; calculates the right amount of water, no waste.</span></span></li>
+            <li><span class="bic"><i class="ti ti-layout-grid"></i></span><span class="btx"><b>Zone-by-zone sequencing</b> <span class="sub">&mdash; covers the whole site on a single pump.</span></span></li>
+            <li><span class="bic"><i class="ti ti-adjustments"></i></span><span class="btx"><b>Smart water management</b> <span class="sub">&mdash; auto-adjusts spray and pump cycling.</span></span></li>
+            <li><span class="bic"><i class="ti ti-router"></i></span><span class="btx"><b>LoRa mesh backup comms</b> <span class="sub">&mdash; no cellular or internet needed.</span></span></li>
+            <li><span class="bic"><i class="ti ti-dashboard"></i></span><span class="btx"><b>Single dashboard</b> <span class="sub">&mdash; live flow, pressure, water, and fire-weather.</span></span></li>
+          </ul>
+        </div>
+        <div class="device">
+          <div class="monitor"><div class="screen">
+            <iframe class="embed" src="https://tetontopo.github.io/hydrodome-mobile-command/" title="HydroDome Mobile — Command &amp; Control" loading="lazy"></iframe>
+          </div></div>
+          <div class="stand-neck"></div><div class="stand-base"></div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- MARKET OPPORTUNITY — elevator: press down for sources & references -->
+  <section>
+
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">The opportunity</div>
+          <div class="head">Market <span class="hot">opportunity</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split" style="flex:0 0 588px;">
+        <div class="imgbox" style="flex:0 0 58%;"><iframe src="https://tetontopo.github.io/hydrodome-maps/#5/54.5/-124.5" title="Canadian WUI infrastructure at risk" loading="lazy"></iframe></div>
+        <div class="mkt">
+          <div class="mcard"><div class="mt"><i class="ti ti-world"></i>Total addressable market</div><div class="mn"><span class="hot">$4.5B</span></div><div class="ms">600 high-risk WUI communities &times; $7.5M per deployment.</div></div>
+          <div class="mcard"><div class="mt"><i class="ti ti-target"></i>Serviceable addressable</div><div class="mn">$1.2B</div><div class="ms">160 BC + AB municipalities with capable water infrastructure and high WUI risk.</div></div>
+          <div class="mcard"><div class="mt"><i class="ti ti-coin"></i>Obtainable (3 yrs)</div><div class="mn">$22.5M &ndash; $37.5M</div><div class="ms">3&ndash;5 deployments over three years (conservative).</div></div>
+        </div>
+      </div>
+      <div class="vnav-cue"><i class="ti ti-chevrons-down"></i><div><b>Where do these numbers come from?</b> Press <b>&darr;</b> (or swipe down) for the full <span class="hot">sources &amp; references</span> behind the TAM / SAM / SOM figures. Press <b>&uarr;</b> to come back.</div></div>
+    </div></div>
+  </section>
+
+  <section data-transition="convex">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Market opportunity &middot; sources</div>
+          <div class="head">References <span class="hot">&amp; calculations</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="refscroll"><div class="refgrid">
+        <div class="refitem"><span class="rn">1</span><div class="rc">32.3 million hectares of WUI in Canada</div><div class="rs">University of Alberta — "Mapping Canadian Wildland Fire Interface Areas." <a href="https://era.library.ualberta.ca/items/4320a427-6732-4bdc-935b-de4d219893d1">era.library.ualberta.ca</a></div></div>
+        <div class="refitem"><span class="rn">2</span><div class="rc">~$5B insured wildfire losses (past decade)</div><div class="rs">ICLR (2021) + MyChoice Insurance (Oct 2025). <a href="https://www.iclr.org/wp-content/uploads/2021/05/ICLR-SPA-Risk-Impact-Analysis-for-the-National-WUI-Fire-Guide-2021.pdf">iclr.org</a> &middot; <a href="https://www.mychoice.ca/blog/wildfire-insurance-canada/">mychoice.ca</a></div></div>
+        <div class="refitem"><span class="rn">3</span><div class="rc">2023 season — $945M insured damages (national)</div><div class="rs">Statistics Canada (June 2025), GDP-at-risk wildfire analysis. <a href="https://www150.statcan.gc.ca/n1/pub/36-28-0001/2025006/article/00004-eng.htm">statcan.gc.ca</a></div></div>
+        <div class="refitem"><span class="rn">4</span><div class="rc">2016 Fort McMurray — $9.9B total economic impact</div><div class="rs">ScienceDirect (2023), "We didn't start the fire: Effects of a natural disaster on consumers' financial distress." <a href="https://www.sciencedirect.com/science/article/abs/pii/S0095069623000086">sciencedirect.com</a></div></div>
+        <div class="refitem"><span class="rn">5</span><div class="rc">2023 Quebec season — ~$8B total cost</div><div class="rs">CBC News (Aug 2025), provincially-funded study. <a href="https://www.cbc.ca/news/canada/montreal/quebec-wildfire-season-economic-impact-1.7613377">cbc.ca</a></div><div class="refnote">TAM rationale: 500–700 high-risk WUI communities nationally (StatCan 2023 — every province/territory affected); 600 = mid-range conservative estimate.</div></div>
+        <div class="refitem"><span class="rn">6</span><div class="rc">British Columbia — 161 municipalities</div><div class="rs">Province of BC. "There are currently 161 municipalities, ranging in population from just over 100 to over 630,000 people." <a href="https://www2.gov.bc.ca/gov/content/governments/local-governments/facts-framework/systems/municipalities">www2.gov.bc.ca</a></div></div>
+        <div class="refitem"><span class="rn">7</span><div class="rc">BC WUI Risk Class Maps</div><div class="rs">BC Government — Wildland Urban Interface Risk Class Maps. <a href="https://www2.gov.bc.ca/gov/content/safety/wildfire-status/prevention/fire-fuel-management/wui-risk-class-maps">www2.gov.bc.ca</a></div></div>
+        <div class="refitem"><span class="rn">8</span><div class="rc">Alberta — 107 urban areas (avg pop 25,232)</div><div class="rs">Statistics Canada (2006 Census) via Wikipedia compilation. <a href="https://en.wikipedia.org/wiki/List_of_population_centres_in_Alberta">en.wikipedia.org</a></div><div class="refnote">SAM rationale: ~85–95 BC + ~65–75 AB municipalities in the 1K–100K target range → ~150–170; 160 = mid-range estimate.</div></div>
+        <div class="refitem"><span class="rn">9</span><div class="rc">NRC-IRAP Dual-Use Defence Program — $244.2M</div><div class="rs">Government of Canada (Jan 9, 2026). Originally cited as $240M; actual $244.2M. <a href="https://www.canada.ca/en/national-research-council/news/2026/01/minister-joly-announces-over-240-million-to-boost-defence-innovation-support-for-canadian-small-and-medium-sized-businesses-developing-dual-use-tec.html">canada.ca</a></div></div>
+        <div class="refitem"><span class="rn">10</span><div class="rc">ITB (Industrial &amp; Technological Benefits) Policy</div><div class="rs">Innovation, Science &amp; Economic Development Canada (ISED). <a href="https://ised-isde.canada.ca/site/industrial-technological-benefits/en/industrial-and-technological-benefits">ised-isde.canada.ca</a></div><div class="refnote">SOM rationale: Yr1 = 1 pilot deployment; Yr2 = 1–2; Yr3 = 1–2. Conservative 3-yr projection (grant cycles, TRL 5+ for IRAP eligibility, pilot validation; each deployment = a 6–12 month project).</div></div>
+      </div></div>
+      <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the market slide &middot; &rarr; to continue the deck</div>
+    </div></div>
+  </section>
+
+  </section>
+
+  <!-- PARTNERS -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div>
+          <div class="kicker">Our partners</div>
+          <div class="head">Backed by a national <span class="hot">innovation network</span></div>
+        </div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="grid3">
+        <div class="wcard"><div class="ic"><i class="ti ti-school"></i></div><h3>Mitacs</h3><p>Funds and embeds university research talent — our engineering team at the University of Regina.</p></div>
+        <div class="wcard"><div class="ic"><i class="ti ti-flask"></i></div><h3>NRC Industrial Research Assistance Program</h3><p>R&amp;D funding plus a dedicated Industrial Technology Advisor (Matthew Liutkus).</p></div>
+        <div class="wcard"><div class="ic"><i class="ti ti-world"></i></div><h3>Global Affairs Canada</h3><p>CanExport Innovation grant supporting market expansion.</p></div>
+        <div class="wcard"><div class="ic"><i class="ti ti-rocket"></i></div><h3>Innovation, Science &amp; Economic Development Canada</h3><p>Accelerated Growth Service advisor (Amy Gopal).</p></div>
+        <div class="wcard"><div class="ic"><i class="ti ti-building"></i></div><h3>University of Regina</h3><p>Host campus and PhD engineering team building the prototype.</p></div>
+        <div class="wcard"><div class="ic"><i class="ti ti-shield"></i></div><h3>NATO DIANA</h3><p>$100K defense-innovation challenge (in application).</p></div>
+      </div>
+      <div class="note">Developed within and fiscally supported by <span class="hot">Carmanah Wildfire Ltd.</span></div>
+    </div></div>
+  </section>
+
+  <!-- COMMERCIAL REVENUE PATHWAYS (cards come in one at a time) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div>
+          <div class="kicker">Go to market</div>
+          <div class="head">Commercial <span class="hot">revenue pathways</span></div>
+        </div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="grid3">
+        <div class="wcard fragment fade-up"><div class="ic"><i class="ti ti-building-factory-2"></i></div><h3>Revenue beyond grants</h3><p>Vineyards, mines, pipelines, data centres, airports, ski resorts, and remote camps can buy a deployable unit directly.</p></div>
+        <div class="wcard fragment fade-up"><div class="ic"><i class="ti ti-receipt"></i></div><h3>Flexible ownership</h3><p>Sell, lease, or a "HydroDome Ready" annual contract — the customer owns the asset and deploys it when fire threatens, with no standing crew.</p></div>
+        <div class="wcard fragment fade-up"><div class="ic"><i class="ti ti-bolt"></i></div><h3>Faster deployments</h3><p>A property owner's two-week decision beats a multi-year municipal cycle, with a clear, direct return on investment.</p></div>
+      </div>
+      <div class="strip"><i class="ti ti-businessplan"></i><span>Backed by an existing revenue base — these units extend <b>Carmanah's profitable BC Wildfire Service contract work</b> into year-round structure protection, funding growth without relying on grants.</span></div>
+    </div></div>
+  </section>
+
+  <!-- VIRTUAL MODEL (model glides in on slide entry) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Digital twin</div>
+          <div class="head">Virtual <span class="hot">model</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <p class="lede">Test coverage on any real community <b>before breaking ground</b> &mdash; and optimize protection per dollar.</p>
+          <ul class="blist tight">
+            <li><span class="bic"><i class="ti ti-building-community"></i></span><span class="btx">Model real wildfire scenarios using actual <b>building footprints, road networks, and terrain.</b></span></li>
+            <li><span class="bic"><i class="ti ti-map-pins"></i></span><span class="btx">Place towers, configure sprinkler types, and test coverage layouts before deploying.</span></li>
+            <li><span class="bic"><i class="ti ti-wind"></i></span><span class="btx">Run fire-spread simulations with adjustable <b>wind, ignition points, and terrain.</b></span></li>
+            <li><span class="bic"><i class="ti ti-shield-dollar"></i></span><span class="btx">Track buildings protected in real time with <b>cost-vs-damage analysis.</b></span></li>
+            <li><span class="bic"><i class="ti ti-versions"></i></span><span class="btx">Save and compare layouts to optimize coverage per dollar.</span></li>
+          </ul>
+        </div>
+        <div class="device vmodel">
+          <div class="monitor"><div class="screen">
+            <iframe class="embed" src="https://tetontopo.github.io/hydrodome-sim/" title="HydroDome Wildfire Defense Simulator" loading="lazy"></iframe>
+          </div></div>
+          <div class="stand-neck"></div><div class="stand-base"></div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ROADMAP (timeline fades in left to right) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div>
+          <div class="kicker">Roadmap</div>
+          <div class="head">From prototype <span class="hot">to revenue</span></div>
+        </div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="phases">
+        <div class="phase"><div class="pic"><i class="ti ti-tools"></i></div><div class="when">Now – Jul 2026</div><div class="what">Engineering &amp; design</div><div class="tag hot">Funded</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-building-factory-2"></i></div><div class="when">Jul – Sep 2026</div><div class="what">Build prototype</div><div class="tag hot">~$100K</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-map-pin"></i></div><div class="when">Fall 2026</div><div class="what">Field pilots — reach TRL 5</div><div class="tag">Community + industrial</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-cash"></i></div><div class="when">2027</div><div class="what">First commercial sales</div><div class="tag hot">Revenue begins</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-rocket"></i></div><div class="when">2027 +</div><div class="what">Scale &amp; autonomy</div><div class="tag">V2/V3, defense market</div></div>
+      </div>
+      <div class="metrics">
+        <div class="metric"><div class="ml"><i class="ti ti-coin"></i>Invested to date</div><div class="mv hot">~$70K</div></div>
+        <div class="metric"><div class="ml"><i class="ti ti-hammer"></i>To finish prototype</div><div class="mv hot">~$100K</div></div>
+        <div class="metric"><div class="ml"><i class="ti ti-tag"></i>Per unit at production</div><div class="mv">$110–120K</div></div>
+        <div class="metric"><div class="ml"><i class="ti ti-calendar"></i>First revenue</div><div class="mv">2027</div></div>
+      </div>
+      <div class="recur"><i class="ti ti-refresh"></i>Revenue model: unit sales plus recurring maintenance, winterization, and software.</div>
+    </div></div>
+  </section>
+
+  <!-- THANK YOU / CLOSING -->
+  <section data-transition="zoom">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Let's talk</div>
+          <div class="head">Thank you <span class="hot">for your attention</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <p class="lede">Wildfire defence &amp; smart water management &mdash; <b>protecting communities and critical infrastructure before the fire arrives.</b></p>
+          <div class="contact">
+            <div class="crow"><span class="cic"><i class="ti ti-phone"></i></span><div><div class="cl">Phone</div><div class="cv">Dakotah &mdash; <span class="hot">307&nbsp;699&nbsp;0418</span><br>Nick &mdash; <span class="hot">250&nbsp;588&nbsp;7544</span></div></div></div>
+            <div class="crow"><span class="cic"><i class="ti ti-world"></i></span><div><div class="cl">Website</div><div class="cv">www.carmanahwildfire.com</div></div></div>
+          </div>
+        </div>
+        <div class="imgbox dome"><img src="assets/firefighter.jpg" alt="Wildfire firefighter on the line" style="transform:scale(1.3);transform-origin:center;"></div>
+      </div>
+    </div></div>
+  </section>
+
+</div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script>
+  Reveal.initialize({width:1440,height:810,margin:0,controls:true,progress:true,hash:true,center:false,transition:'slide',transitionSpeed:'slow',backgroundTransition:'fade'});
+</script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spray logic</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;height:100%;background:transparent;overflow:hidden;}
+  #c{display:block;width:100%;height:100%;}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+(function(){
+  const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  const ORANGE='#c5531f', WATER='#3aa0ff', MUTED='#b3ada3', CREAM='#cfcabf';
+  const distM=[30,110,190,270], radM=47;
+  let W=0,H=0,dpr=1, cx=0, axisY=0, trunkY=0, scale=1, rad=1, squash=0.42, towers=[];
+
+  function layout(){
+    dpr = Math.min(window.devicePixelRatio||1, 2);
+    W = cv.clientWidth || 1280; H = cv.clientHeight || 200;
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    cx = W/2; axisY = H*0.50; trunkY = axisY - Math.min(24, H*0.13);
+    const pad = Math.max(54, W*0.055);
+    scale = (W/2 - pad) / (distM[distM.length-1] + radM);
+    rad = radM*scale;
+    const room = (H - 24) - axisY;            // leave room for bottom label
+    squash = Math.min(0.42, room/rad);
+    towers = [];
+    for (let s=0;s<distM.length;s++){
+      towers.push({step:s, x: cx - distM[s]*scale});
+      towers.push({step:s, x: cx + distM[s]*scale});
+    }
+  }
+  window.addEventListener('resize', layout);
+
+  const STEP=3600, STEPS=distM.length, HOLD=2800, CYCLE=STEPS*STEP+HOLD;
+  const start = performance.now();
+  const easeFill = t => Math.min(1, Math.max(0, t/0.7));
+  function wetOf(tw, step, localT, done){
+    if (done) return 1; if (tw.step < step) return 1;
+    if (tw.step === step) return easeFill(localT); return 0;
+  }
+  function squashed(x, fn){ ctx.save(); ctx.translate(x, axisY); ctx.scale(1, squash); fn(); ctx.restore(); }
+  function rr(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  function dim(x1,x2,y,text){
+    ctx.strokeStyle=MUTED; ctx.lineWidth=1; ctx.setLineDash([]);
+    ctx.beginPath();
+    ctx.moveTo(x1,y); ctx.lineTo(x2,y);
+    ctx.moveTo(x1,y-4); ctx.lineTo(x1,y+4);
+    ctx.moveTo(x2,y-4); ctx.lineTo(x2,y+4);
+    ctx.stroke();
+    ctx.fillStyle=MUTED; ctx.font='600 11px Inter, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillText(text, (x1+x2)/2, y-5);
+  }
+
+  function frame(now){
+    if (!W) layout();
+    const tc=(now-start)%CYCLE, done=tc>=STEPS*STEP;
+    const step=done?STEPS:Math.floor(tc/STEP);
+    const localT=done?1:(tc-step*STEP)/STEP;
+    ctx.clearRect(0,0,W,H);
+
+    const lEnd=cx-distM[STEPS-1]*scale, rEnd=cx+distM[STEPS-1]*scale;
+    ctx.strokeStyle='#5d5d5d'; ctx.lineWidth=4; ctx.lineCap='round';
+    ctx.beginPath(); ctx.moveTo(lEnd,trunkY); ctx.lineTo(rEnd,trunkY); ctx.stroke();
+
+    towers.forEach(tw=>{
+      const w=wetOf(tw,step,localT,done); if(w<=0) return;
+      squashed(tw.x, ()=>{
+        const g=ctx.createRadialGradient(0,0,0,0,0,rad);
+        g.addColorStop(0,`rgba(58,160,255,${0.24*w})`);
+        g.addColorStop(0.7,`rgba(58,160,255,${0.12*w})`);
+        g.addColorStop(1,'rgba(58,160,255,0)');
+        ctx.fillStyle=g; ctx.beginPath(); ctx.arc(0,0,rad,0,Math.PI*2); ctx.fill();
+        ctx.strokeStyle=`rgba(58,160,255,${0.22*w})`; ctx.lineWidth=1.1;
+        ctx.beginPath(); ctx.arc(0,0,rad,0,Math.PI*2); ctx.stroke();
+      });
+    });
+
+    towers.forEach(tw=>{
+      if (done || tw.step!==step) return;
+      const sweep = localT*Math.PI*2;
+      squashed(tw.x, ()=>{
+        ctx.beginPath(); ctx.moveTo(0,0); ctx.arc(0,0,rad,sweep-0.4,sweep+0.4); ctx.closePath();
+        const wg=ctx.createRadialGradient(0,0,0,0,0,rad);
+        wg.addColorStop(0,'rgba(170,214,255,.55)'); wg.addColorStop(1,'rgba(58,160,255,0)');
+        ctx.fillStyle=wg; ctx.fill();
+        const pulse=0.5+0.5*Math.sin(now/340);
+        ctx.strokeStyle=`rgba(170,214,255,${0.45+0.3*pulse})`; ctx.lineWidth=1.6;
+        ctx.beginPath(); ctx.arc(0,0,rad,0,Math.PI*2); ctx.stroke();
+      });
+      for(let d=0; d<7; d++){
+        const a=sweep+(d-3)*0.07, pr=((now/7 + d*70)%rad);
+        const dx=tw.x+Math.cos(a)*pr, dy=axisY+Math.sin(a)*pr*squash;
+        ctx.fillStyle=`rgba(205,232,255,${0.7*(1-pr/rad)})`;
+        ctx.beginPath(); ctx.arc(dx,dy,1.8,0,Math.PI*2); ctx.fill();
+      }
+    });
+
+    towers.forEach(tw=>{
+      const active=!done && tw.step===step, w=wetOf(tw,step,localT,done);
+      ctx.strokeStyle=active?ORANGE:'#5d5d5d'; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(tw.x,trunkY); ctx.lineTo(tw.x,axisY); ctx.stroke();
+      const r=active?7:5;
+      if(active){ctx.fillStyle=ORANGE;ctx.shadowColor=ORANGE;ctx.shadowBlur=16;}
+      else if(w>=1){ctx.fillStyle='#10243a';ctx.shadowBlur=0;}
+      else {ctx.fillStyle='#565656';ctx.shadowBlur=0;}
+      ctx.beginPath(); ctx.arc(tw.x,axisY,r,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+      if(w>=1 && !active){ ctx.strokeStyle=WATER; ctx.lineWidth=1.8; ctx.beginPath(); ctx.arc(tw.x,axisY,r,0,Math.PI*2); ctx.stroke(); }
+    });
+
+    // trailer (no on-canvas title text on the box itself)
+    ctx.fillStyle='#cfcabf'; ctx.strokeStyle='#8a857c'; ctx.lineWidth=1.6;
+    rr(cx-23, trunkY-12, 46, 24, 5); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=ORANGE; ctx.beginPath(); ctx.arc(cx, trunkY, 3.2, 0, Math.PI*2); ctx.fill();
+
+    // ---- labels ----
+    const topY = Math.max(15, H*0.11);
+    const rT1 = cx + distM[0]*scale, rT2 = cx + distM[1]*scale;
+    dim(rT1, rT2, topY, '80 m');                                   // one spacing
+    dim(cx, cx-(distM[3]+radM)*scale, topY, '~317 m');            // total reach, opposite side
+    ctx.fillStyle=CREAM; ctx.font='700 11px Montserrat, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillText('TRAILER (& PUMP)', cx, trunkY-15);
+    // one sprinkler label with leader
+    ctx.strokeStyle=MUTED; ctx.lineWidth=1; ctx.setLineDash([]);
+    ctx.beginPath(); ctx.moveTo(rT1, axisY+7); ctx.lineTo(rT1, H-17); ctx.stroke();
+    ctx.fillStyle=CREAM; ctx.font='700 11px Montserrat, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
+    ctx.fillText('SPRINKLER', rT1, H-5);
+
+    requestAnimationFrame(frame);
+  }
+  layout();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
