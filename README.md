@@ -3,9 +3,33 @@
 A browser-based pitch deck (reveal.js) for **HydroDome**, a project of **Carmanah Wildfire Ltd.**
 This README is the running handoff — point a new editing thread here.
 
-_Last updated: 2026-06-25._
+_Last updated: 2026-06-26._
 
 ---
+
+## June 26 2026 session — what changed (READ FIRST)
+
+The whole HydroDome story moved **permanent installation → mobile (trailer) system**, and this deck + its embedded apps were updated to match. The deck also moved **off Netlify onto GitHub Pages**.
+
+**Live deck:** https://tetontopo.github.io/hydrodome-deck/
+
+Repos (all under the **TetonTopo** GitHub account, all GitHub Pages):
+
+| Repo | State | Live |
+|---|---|---|
+| `hydrodome-deck` | this deck — now on **GitHub Pages**, off Netlify | https://tetontopo.github.io/hydrodome-deck/ |
+| `hydrodome-mobile-command` | **NEW** — mobile SCADA / C2 dashboard (embedded slide 11) | https://tetontopo.github.io/hydrodome-mobile-command/ |
+| `hydrodome-mobile-sim` | **NEW** — mobile deployment + fire sim (embedded slide 15) | https://tetontopo.github.io/hydrodome-mobile-sim/ |
+| `hydrodome-maps` | UPDATED — opens on BC + Kelowna highlight + fire-layer fix | https://tetontopo.github.io/hydrodome-maps/ |
+| `hydrodome-scada` | **ARCHIVED** (permanent) — superseded by mobile-command | — |
+| `hydrodome-sim` | **ARCHIVED** (permanent) — see its `MIGRATION-NOTES.md` | — |
+
+**Mobile design intent** (used across all the above, from the Preliminary Design Google Doc `1WZ8iI2SA-zlESwx-mw96et56yq7PjoiXWuIqVqM5Jt8`; Rev-6 numbers ~200 GPM/gun, 40–70 PSI, 5–8k gal): one trailer, two 4″ trunks (Side A/B) with 3″ drops + per-gun valves, **8 guns placed per-site (not a grid)**, **sequential firing 1 gun/side**, two pumps + failover, per-gun wireless LoRa nodes (battery/comms), closed-loop ~70 PSI nozzle pressure, ~10% site grade.
+
+### Best workflow: author in Cowork, deploy from Claude Code
+- **Author/edit in Cowork** — it has your email + Notion data pipeline. Cowork writes into this OneDrive folder (`CoWork_OD/hydrodome-deck`), which syncs to the machine.
+- **Deploy from Claude Code** — it holds the GitHub push credentials Cowork lacks. Run `./deploy.sh "msg"` (or `./deploy.ps1`) here. **OneDrive sync is the bridge:** Cowork writes files → they sync → Claude Code commits + pushes.
+- The **other repos** (`hydrodome-mobile-sim`, `-mobile-command`, `-maps`) live in `C:\Users\dk\cowork\` (NOT OneDrive), so Cowork can't see them — edit/deploy those from Claude Code. To let Cowork edit them too, clone them into `CoWork_OD/` and deploy from Claude Code.
 
 ## Where it lives / how to present
 - **Primary file:** `carmanah-style.html` — the deck to present and deploy (dark Carmanah aesthetic).
@@ -15,9 +39,10 @@ _Last updated: 2026-06-25._
 - Present: open `carmanah-style.html` in a browser. Arrows/swipe to navigate, **↓ to enter the competitor deep-dives**, `F` fullscreen, `Esc` overview, `?` shortcuts. PDF export: open `carmanah-style.html?print-pdf` in Chrome → print to PDF.
 
 ## Live site
-- **URL:** https://beautiful-gecko-71e92b.netlify.app
-- **Netlify project:** `beautiful-gecko-71e92b` (site id `2e252cfb-3319-4c79-8b2d-6e9c07459665`).
-- NOTE: this is the *deck* site. Do **not** deploy the deck to the `hydrodome` project — that's the separate marketing site (hydrodomesystems.com).
+- **URL (GitHub Pages):** https://tetontopo.github.io/hydrodome-deck/  ← current, share this.
+- **Repo:** `TetonTopo/hydrodome-deck` (Pages: branch `main`, root). **Deploy = commit + push to `main`** (see Deploy).
+- _Off Netlify as of 2026-06-26_ — the old Netlify site `beautiful-gecko-71e92b` is retired and `netlify.toml` was removed.
+- NOTE: this is the *deck* site, separate from the marketing site (hydrodomesystems.com).
 
 ## Tech / design system
 - reveal.js 4.6.1 (cdnjs); slide size **1440×810**, `center:false`, global transition `slide`.
@@ -43,10 +68,10 @@ _Last updated: 2026-06-25._
 17. **Thank You / Closing** — zoom transition; contacts (Dakotah 307 699 0418, Nick 250 588 7544, carmanahwildfire.com).
 
 ## Embedded live apps (iframes)
-These are separate GitHub repos / Pages, embedded into the deck:
-- **SCADA / Command & Control** → `https://tetontopo.github.io/hydrodome-scada/` (repo `TetonTopo/hydrodome-scada`).
-- **Simulator** → `https://tetontopo.github.io/hydrodome-sim/`.
-- **WUI map** → `https://tetontopo.github.io/hydrodome-maps/#5/54.5/-124.5` (the `#5/54.5/-124.5` hash is an attempt to open on BC; only works if the app reads the URL hash — see to-dos).
+Separate GitHub repos / Pages embedded into the deck. **All on the MOBILE system as of 2026-06-26:**
+- **Command & Control (SCADA)** → `https://tetontopo.github.io/hydrodome-mobile-command/` (slide 11). New mobile C2 dashboard: two-pump failover, sequential 1-gun/side firing, per-gun LoRa nodes, closed-loop 70 PSI. Replaces the archived `hydrodome-scada`.
+- **Simulator** → `https://tetontopo.github.io/hydrodome-mobile-sim/?auto=1` (slide 15). New mobile deployment + fire sim: Esri satellite basemap, Penticton dense WUI grid, 634 real buildings, hose-spec tower placement, wind-driven fire contained at the wetted corridor. `?auto=1` makes the embed self-play (ignite → hold line → reset → loop). Replaces the archived `hydrodome-sim`.
+- **WUI map** → `https://tetontopo.github.io/hydrodome-maps/#5/54.5/-124.5` (slide 12). Opens on BC with Kelowna highlighted; historic fire perimeters now render (CWFIS `nbac` layer). The `#5/54.5/-124.5` hash is harmless — the app hard-codes the BC view.
 
 ## Spray-logic animation (`spray-logic.html`)
 Self-contained `<canvas>` diagram, transparent background, embedded as the top banner on slide 6.
@@ -61,17 +86,26 @@ Headshots: `nick.jpg` (re-cropped), `brian.jpg` (re-cropped, centered), `dakotah
 Photos: `community.jpg` (title), `carmanah-team.jpg` (crew banner, object-position lowered), `embercast.jpg`, `spu-traditional.jpg`, `mill.jpg`, `firefighter.jpg`, `wui-map.jpg` (static fallback, now replaced by the live map), `hero-title.jpg`, `carmanah-logo.svg`.
 Originals live in `../Deck Assets/`.
 
-## Deploy (IMPORTANT — read before pushing)
-The Netlify deploy uploads the **deck folder**. Two gotchas, both already handled in the workflow:
-1. **`netlify.toml` redirect needs `force = true`** — otherwise the root `/` serves a stale `index.html`. We also keep `index.html` = a copy of the deck as a belt-and-suspenders so the root always shows the current deck.
-2. **OneDrive sync lag** — the Linux/CLI view of this OneDrive folder can be stale or half-synced right after edits. The reliable path used here: stage a clean copy of the deck + `spray-logic.html` + `assets/` + `netlify.toml`, then run the Netlify deploy from that staging copy (not straight from the synced folder). After deploy, verify the live root with a cache-buster (e.g. `…netlify.app/?cb=123`) and hard-refresh the browser.
+## Deploy (GitHub Pages)
+The site is **GitHub Pages** from `TetonTopo/hydrodome-deck`, branch `main`, root. **Deploying = commit + push to `main`** — Pages rebuilds automatically (~30–60 s).
 
-To deploy: get a deploy command for site `2e252cfb-3319-4c79-8b2d-6e9c07459665` and run `npx -y @netlify/mcp@latest --site-id … --proxy-path "…" --no-wait` from the (staged) folder.
+Use the helper in this folder (it also copies `carmanah-style.html` → `index.html` for you):
+- Git Bash / Cowork shell: `./deploy.sh "your commit message"`
+- PowerShell:              `./deploy.ps1 "your commit message"`
+
+Both run `git add -A && git commit && git push origin main`. After pushing, hard-refresh https://tetontopo.github.io/hydrodome-deck/ (cache-buster `…/?cb=123` helps).
+
+Gotchas (still relevant):
+1. **Keep `index.html` = the deck.** `index.html` is a byte copy of `carmanah-style.html` so the site root serves the current deck. The deploy scripts copy it for you; if you deploy by hand, copy `carmanah-style.html` over `index.html` first.
+2. **OneDrive sync lag** — this folder is OneDrive-synced; right after Cowork edits, the file view can be half-synced. Verify the files look right before deploying.
+3. **Credentials live in Claude Code, not Cowork** — run the deploy from the Claude Code environment (it has the GitHub push token).
 
 ## Open to-dos / next thread
 - **Competitor photos:** drop real images into the 3 placeholders — WASP SPU trailer, FireWolf cannon/mast, RainStream tower (only WASP source photos exist so far).
 - **Micah headshot:** replace with a higher-res photo (current is a small screenshot).
-- **Map starting view:** the WUI map's default zoom/center is hard-coded in the `hydrodome-maps` repo (built in Claude Code, not Cowork). To make it open on BC permanently, edit that repo's `setView([54.5,-124.5], 5.5)` (or `fitBounds`) and push. Prompt is ready in chat history.
+- ~~**Map starting view**~~ ✅ DONE (2026-06-26): `hydrodome-maps` opens on BC `[54.5,-124.5] z5.5` with Kelowna's caption highlighted, font matched to the deck, and the historic fire perimeters fixed (was a nonexistent CWFIS layer `NFDB_MRB`; now uses `nbac`).
+- ~~**SCADA + Simulator embeds**~~ ✅ DONE (2026-06-26): both swapped from the archived permanent apps to the new mobile apps (`hydrodome-mobile-command`, `hydrodome-mobile-sim`).
+- **Sim firing pattern in the mobile sim:** currently 1 gun/side; the 4″ trunk allows 2/side — adjust if the real pattern changes (`hydrodome-mobile-sim` + `hydrodome-mobile-command`).
 - **Carmanah cards:** optionally swap the 3 icon cards for photo cards — pull hero images from carmanahwildfire.com `/services/type-ii-fire-crews`, `/services/wildfire-training`, `/services/vegetation-management-danger-tree-assessing-falling`. Also consider featuring **FireSmart & Wildfire Mitigation** (left off the current three, but very on-theme).
 - **Team order:** top row currently Nick · Brian · Dakotah (as listed); flip to Nick · Dakotah · Brian if "Brian third" was meant literally.
 - **Market math:** TAM/SAM/SOM figures came from the latest PDF; the June-22 plan wanted them rebuilt around trailer units + industrial/First Nations from the unit-economics sheet.
