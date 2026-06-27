@@ -284,6 +284,27 @@
   .vnav-cue .hot{color:var(--orange);font-weight:600;}
   @keyframes bobdown{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
 
+  /* title-slide navigation hint */
+  .navhint{margin-top:24px;display:inline-flex;align-items:center;gap:13px;
+    background:linear-gradient(90deg,rgba(197,83,31,.22),rgba(197,83,31,.04));
+    border:1px solid rgba(197,83,31,.45);border-radius:12px;padding:13px 20px;max-width:560px;}
+  .navhint i{font-size:26px;color:var(--orange);flex:0 0 auto;animation:nudge 1.5s ease-in-out infinite;}
+  .navhint span{font-size:16.5px;color:var(--white);line-height:1.45;}
+  .navhint b{color:#fff;font-weight:700;}
+  @keyframes nudge{0%,100%{transform:translateX(0);}50%{transform:translateX(6px);}}
+
+  /* high-vis navigation arrows — default chevrons were black on a black bg.
+     Now: dark chip + red outline, with a light-grey chevron inside. */
+  .reveal .controls button{
+    width:3.6em;height:3.6em;box-sizing:border-box;padding:0 !important;
+    border:2px solid var(--dome-red) !important;
+    background:#000 !important;
+    border-radius:50% !important;
+  }
+  /* the down button carries extra bottom padding by default — neutralize it so its chip is a true circle in the same spot */
+  .reveal .controls .navigate-down{bottom:0 !important;padding-bottom:0 !important;}
+  .reveal .controls .controls-arrow{color:var(--dome-red) !important;}
+
   /* market metrics stack — taller, bigger, condensed to the right */
   .mkt{display:flex;flex-direction:column;gap:20px;justify-content:center;flex:1;}
   .mcard{background:var(--bg2);border-left:5px solid var(--orange);border-radius:12px;padding:24px 26px;}
@@ -373,6 +394,7 @@
           <div class="tk2">Wildfire defence &amp; smart water management</div>
           <h1 class="bigtitle">HydroDome <span class="hot">Mobile</span></h1>
           <p class="lede">A rapidly deployable system that protects communities and critical infrastructure from wildfire — stood up in hours, autonomous once running.</p>
+          <div class="navhint"><i class="ti ti-arrow-right"></i><span>To move through the deck, press the <b>→ right arrow</b> key (or swipe right on touch).</span></div>
         </div>
         <div class="imgbox dome"><img src="assets/community.jpg" alt="HydroDome mobile deployed in a community"></div>
       </div>
@@ -752,19 +774,12 @@
           <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
       </div>
       <div class="rule"></div>
-      <div class="banner dome wide" style="height:140px;margin-bottom:18px;">
-        <div class="imgph" style="height:100%;border:none;border-radius:0;">
-          <i class="ti ti-photo"></i>
-          <div class="pl">Carmanah crews deploying HydroDome</div>
-          <div class="sub">Banner placeholder &mdash; action photo of the crew setting up the system.</div>
-        </div>
-      </div>
+      <div class="strip" style="margin:0 0 22px;"><i class="ti ti-businessplan"></i><span>Backed by an existing revenue base — these units extend <b>Carmanah's profitable BC Wildfire Service contract work</b> into year-round structure protection, funding growth without relying on grants.</span></div>
       <div class="grid3 auto-seq">
         <div class="wcard"><div class="ic"><i class="ti ti-building-factory-2"></i></div><h3>Revenue beyond grants</h3><p>Sawmills, mines, pipelines, data centres, airports, ski resorts, and remote camps can buy a deployable unit directly.</p></div>
         <div class="wcard"><div class="ic"><i class="ti ti-receipt"></i></div><h3>Flexible ownership</h3><p>Sell, lease, or a "HydroDome Ready" annual contract — the customer owns the asset and deploys it when fire threatens, with no standing crew.</p></div>
         <div class="wcard"><div class="ic"><i class="ti ti-bolt"></i></div><h3>Faster deployments</h3><p>A property owner's two-week decision beats a multi-year municipal cycle, with a clear, direct return on investment.</p></div>
       </div>
-      <div class="strip"><i class="ti ti-businessplan"></i><span>Backed by an existing revenue base — these units extend <b>Carmanah's profitable BC Wildfire Service contract work</b> into year-round structure protection, funding growth without relying on grants.</span></div>
     </div></div>
   </section>
 
@@ -873,7 +888,7 @@
             <div class="crow"><span class="cic"><i class="ti ti-world"></i></span><div><div class="cl">Website</div><div class="cv">www.carmanahwildfire.com</div></div></div>
           </div>
         </div>
-        <div class="imgbox dome"><img src="assets/firefighter.jpg" alt="Wildfire firefighter on the line" style="object-fit:cover;object-position:45% 66%;transform:scale(1.4);transform-origin:45% 66%;"></div>
+        <div class="imgbox dome"><img src="assets/firefighter-night.jpg" alt="Wildfire crew working a fire at night" style="object-fit:cover;object-position:55% 50%;"></div>
       </div>
     </div></div>
   </section>
