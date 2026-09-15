@@ -1,6 +1,6 @@
-# HydroDome Mobile — Web Deck (handoff)
+# Moat Mobile — Web Deck (handoff)
 
-A browser-based pitch deck (reveal.js) for **HydroDome**, a project of **Carmanah Wildfire Ltd.**
+A browser-based pitch deck (reveal.js) for **Moat**, a project of **Carmanah Wildfire Ltd.**
 This README is the running handoff — point a new editing thread here.
 
 _Last updated: 2026-06-26._
@@ -11,14 +11,14 @@ _Last updated: 2026-06-26._
 
 Made from the Cowork editing thread:
 
-- **New slide — "The permanent HydroDome"** (`carmanah-style.html`, inserted between *Virtual model* and *Roadmap*). Condenses the old 21-page permanent-installation deck into one forward-looking slide, framed as a **future iteration**: always-on fixed towers, buried 8,000-gal cistern + propane backup (works grid-down, supplies emergency power), SCADA / municipal-water compatibility, and the envisioned Fort St. James pilot (~20 towers over hospital, shelter, municipal core). Image: `assets/hd-permanent.jpg` (from `HD permanent.png`), in the deck's dome frame.
+- **New slide — "The permanent Moat"** (`carmanah-style.html`, inserted between *Virtual model* and *Roadmap*). Condenses the old 21-page permanent-installation deck into one forward-looking slide, framed as a **future iteration**: always-on fixed towers, buried 8,000-gal cistern + propane backup (works grid-down, supplies emergency power), SCADA / municipal-water compatibility, and the envisioned Fort St. James pilot (~20 towers over hospital, shelter, municipal core). Image: `assets/hd-permanent.jpg` (from `HD permanent.png`), in the deck's dome frame.
 - **Password-gate confidentiality note** — polite "treat this deck as confidential; don't share or forward without explicit permission" line under the unlock button (`#gate .gnote`).
 - **Recovery:** `carmanah-style.html`, `index.html`, and this `README.md` were truncated in the working tree; restored complete versions from the `hydrodome-deck_20290626_1400` desktop backup, then applied the two changes above. Deck is back to **19 navigable slides**.
 - Exported a snapshot **`HydroDome_Deck_2026-06-26.pdf`** (19 slides) to the CoWork_OD folder.
 
 ## June 26 2026 session — what changed (READ FIRST)
 
-The whole HydroDome story moved **permanent installation → mobile (trailer) system**, and this deck + its embedded apps were updated to match. The deck also moved **off Netlify onto GitHub Pages**.
+The whole Moat story moved **permanent installation → mobile (trailer) system**, and this deck + its embedded apps were updated to match. The deck also moved **off Netlify onto GitHub Pages**.
 
 **Live deck:** https://tetontopo.github.io/hydrodome-deck/
 
@@ -85,13 +85,13 @@ Edits from Nick's June 26 call (Granola note "Nicks feedback for the deck"). **T
 - **Logo wordmark:** HYDRO = blue `#2e86d6`, DOME = red `#d2452a`, both same size (vars `--hydro-blue` / `--dome-red`).
 
 ## Slide order (17 slides)
-1. **Title** — HydroDome Mobile (zoom transition).
+1. **Title** — Moat Mobile (zoom transition).
 2. **Team** — 2 rows of 3: top = Nick Hill, Brian Mueller, Dakotah Daily; bottom = Mehran Mehrandezh, Aws Al-Mubarak, **Micah Bayless** (Senior Aerospace Engineer / power delivery). Nick & Brian headshots re-cropped & centered.
 3. **Carmanah Wildfire** — group-photo banner + a plain history line (**160+** employees, founded 2019) + **3 service cards that fade in one at a time**: (a) Type II & III Fire Crews, (b) Wildfire & Crew Training, (c) Falling, Danger Trees & Vegetation.
 4. **EmberCast** (problem) — fade transition; bullets auto-fade in one at a time; **18 drifting embers rendered in front of the image** (`z-index:10`).
 5. **Traditional approaches** — bullets auto-fade in one at a time; a subtle **rainfall overlay drifts in front of the image and text**.
-6. **HydroDome on Wheels** (Our Solution) — **spray-logic animation banner across the top**; bullets (scaled down) + a smaller mill photo card lower-right.
-7–10. **Competitors — vertical "elevator" stack** (all use the `convex` cube-roll). Top = "How HydroDome stacks up" (3 cards fade in). Press ↓ for the three deep-dives: WASP, FireWolf, RainStream (each has an image **placeholder** — see to-dos).
+6. **Moat on Wheels** (Our Solution) — **spray-logic animation banner across the top**; bullets (scaled down) + a smaller mill photo card lower-right.
+7–10. **Competitors — vertical "elevator" stack** (all use the `convex` cube-roll). Top = "How Moat stacks up" (3 cards fade in). Press ↓ for the three deep-dives: WASP, FireWolf, RainStream (each has an image **placeholder** — see to-dos).
 11. **Intelligent Command & Control** — bullets fade in one at a time; live **SCADA** app embedded in a monitor frame.
 12. **Market Opportunity** — bigger live **WUI map** (58% width) + taller TAM/SAM/SOM cards ($4.5B / $1.2B / $22.5–37.5M).
 13. **Partners** — national innovation network (Mitacs, NRC IRAP, Global Affairs, ISED, U Regina, NATO DIANA).
