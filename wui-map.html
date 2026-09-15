@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Canadian WUI Communities Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;padding:0;height:100%;font-family:'Inter',sans-serif;background:#0f0f0f;color:#f3efe9;overflow:hidden;}
+  #map{width:100%;height:100%;}
+  .leaflet-container{background:#0f0f0f !important;}
+  .leaflet-tile{filter:invert(1) hue-rotate(180deg) saturate(0.3) brightness(0.7) !important;}
+  
+  .legend{
+    position:absolute;
+    bottom:20px;left:20px;z-index:1000;
+    background:rgba(15,15,15,0.95);border:1px solid #333;border-radius:8px;
+    padding:16px 20px;max-width:300px;
+  }
+  .legend h4{
+    font-family:'Montserrat';font-weight:700;font-size:13px;
+    color:#c5531f;text-transform:uppercase;letter-spacing:1px;
+    margin:0 0 12px;
+  }
+  .legend-item{
+    display:flex;align-items:center;gap:8px;margin:8px 0;font-size:13px;
+  }
+  .legend-dot{
+    width:12px;height:12px;border-radius:50%;border:2px solid;
+  }
+  .legend-dot.major{background:#d2452a;border-color:#d2452a;}
+  .legend-dot.medium{background:#c5531f;border-color:#c5531f;}
+  .legend-dot.small{background:#b3701f;border-color:#b3701f;}
+  .fire-area{color:#ff6b47;}
+  
+  .stats{
+    position:absolute;
+    top:20px;left:20px;z-index:1000;
+    background:rgba(15,15,15,0.95);border:1px solid #333;border-radius:8px;
+    padding:16px 20px;
+  }
+  .stats h3{
+    font-family:'Montserrat';font-weight:700;font-size:14px;
+    color:#c5531f;text-transform:uppercase;margin:0 0 12px;
+  }
+  .stat-line{font-size:12px;margin:6px 0;color:#a39d94;}
+  .stat-line strong{color:#f3efe9;}
+
+  .leaflet-popup-content-wrapper{
+    background:#1a1a1a;border:1px solid #333;border-radius:8px;
+  }
+  .leaflet-popup-content{
+    color:#f3efe9;font-family:'Inter';margin:12px 16px;min-width:200px;
+  }
+  .leaflet-popup-tip{background:#1a1a1a;border:1px solid #333;}
+  .popup-title{
+    font-family:'Montserrat';font-weight:700;font-size:16px;
+    color:#c5531f;margin:0 0 8px;
+  }
+  .popup-detail{font-size:13px;margin:4px 0;color:#a39d94;}
+  .popup-detail strong{color:#f3efe9;}
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div class="stats">
+  <h3>The Scale of the Problem</h3>
+  <div class="stat-line"><strong>3.5M</strong> Canadian homes in WUI zones</div>
+  <div class="stat-line"><strong>$16.3B</strong> insured losses from wildfire (2016-2023)</div>
+  <div class="stat-line"><strong>6.3%</strong> faster WUI growth vs urban centres (Stats Can)</div>
+  <div class="stat-line"><strong>2023:</strong> Record 18.5M hectares burned in Canada</div>
+</div>
+
+<div class="legend">
+  <h4>Canadian Communities</h4>
+  <div class="legend-item">
+    <div class="legend-dot major"></div>
+    <span>Major wildfire event community</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot medium"></div>
+    <span>Community (sized by population)</span>
+  </div>
+  <div class="legend-item">
+    <div class="legend-dot small"></div>
+    <span>Historic Fire Perimeters (1980-2021)</span>
+  </div>
+  <div class="legend-item">
+    <div class="fire-area">■</div>
+    <span>High fire risk areas</span>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+(function(){
+  const map = L.map('map', {
+    zoomControl: true,
+    attributionControl: false
+  }).setView([54.5, -124.5], 5);
+
+  // Free dark basemap using OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    opacity: 0.9
+  }).addTo(map);
+
+  // Major Canadian WUI communities data
+  const communities = [
+    {name: 'Fort McMurray', lat: 56.7267, lng: -111.3790, pop: 76000, risk: 'Extreme', damage: '$9.9B (2016)', color: '#d2452a', size: 25},
+    {name: 'Kelowna, BC', lat: 49.8880, lng: -119.4960, pop: 150000, risk: 'Extreme', damage: '$720M (2023)', color: '#d2452a', size: 22},
+    {name: 'Calgary', lat: 51.0447, lng: -114.0719, pop: 1336000, risk: 'High', damage: 'Multiple events', color: '#c5531f', size: 20},
+    {name: 'Edmonton', lat: 53.5461, lng: -113.4938, pop: 981000, risk: 'High', damage: 'Regional threat', color: '#c5531f', size: 18},
+    {name: 'Prince George', lat: 54.0994, lng: -122.7540, pop: 75000, risk: 'High', damage: 'Ongoing risk', color: '#b3701f', size: 15},
+    {name: 'Grande Prairie', lat: 55.1707, lng: -118.8024, pop: 65000, risk: 'High', damage: 'Regional', color: '#b3701f', size: 14},
+    {name: 'Red Deer', lat: 52.2681, lng: -113.8112, pop: 105000, risk: 'Moderate', damage: 'Historical', color: '#b3701f', size: 16},
+    {name: 'Lethbridge', lat: 49.7016, lng: -112.8186, pop: 95000, risk: 'Moderate', damage: 'Grassland risk', color: '#b3701f', size: 15},
+    {name: 'Kamloops', lat: 50.6745, lng: -120.3273, pop: 97000, risk: 'High', damage: '$50M+ (recent)', color: '#c5531f', size: 16},
+    {name: 'Prince Albert', lat: 53.2034, lng: -105.7531, pop: 35000, risk: 'High', damage: 'Boreal threat', color: '#b3701f', size: 12},
+    {name: 'Whitehorse', lat: 60.7212, lng: -135.0568, pop: 28000, risk: 'Extreme', damage: 'Northern exposure', color: '#c5531f', size: 12},
+    {name: 'Yellowknife', lat: 62.4540, lng: -114.3718, pop: 20000, risk: 'Extreme', damage: 'Evacuation 2023', color: '#d2452a', size: 15}
+  ];
+
+  // Add community markers
+  communities.forEach(function(community){
+    const circle = L.circleMarker([community.lat, community.lng], {
+      radius: community.size,
+      fillColor: community.color,
+      color: community.color,
+      weight: 2,
+      opacity: 0.8,
+      fillOpacity: 0.6
+    }).addTo(map);
+
+    const popupContent = `
+      <div class="popup-title">${community.name}</div>
+      <div class="popup-detail"><strong>Population:</strong> ${community.pop.toLocaleString()}</div>
+      <div class="popup-detail"><strong>WUI Risk:</strong> ${community.risk}</div>
+      <div class="popup-detail"><strong>Fire History:</strong> ${community.damage}</div>
+      <div class="popup-detail"><strong>Est. Property Value:</strong> $${Math.round(community.pop * 0.4)}M</div>
+    `;
+    
+    circle.bindPopup(popupContent);
+  });
+
+  // Add some fire perimeter simulation (simplified polygons)
+  const fireAreas = [
+    // Fort McMurray area
+    [[56.9, -111.8], [56.9, -110.8], [56.5, -110.8], [56.5, -111.8]],
+    // BC Interior
+    [[50.2, -120.8], [50.2, -119.2], [49.6, -119.2], [49.6, -120.8]],
+    // Northern Alberta
+    [[57.5, -112.0], [57.5, -111.0], [57.0, -111.0], [57.0, -112.0]]
+  ];
+
+  fireAreas.forEach(function(coords){
+    L.polygon(coords, {
+      color: '#ff6b47',
+      fillColor: '#ff6b47',
+      weight: 1,
+      opacity: 0.4,
+      fillOpacity: 0.2
+    }).addTo(map);
+  });
+
+  // Show Kelowna popup by default to match screenshot
+  setTimeout(function(){
+    const kelowna = communities.find(c => c.name === 'Kelowna, BC');
+    if(kelowna){
+      map.setView([kelowna.lat, kelowna.lng], 6);
+    }
+  }, 500);
+
+})();
+</script>
+</body>
+</html>
