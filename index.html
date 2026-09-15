@@ -12,7 +12,7 @@
     --bg:#0f0f0f; --bg2:#1b1b1b; --bg3:#161616;
     --orange:#c5531f; --orange-soft:#fbe9df;
     --white:#f3efe9; --muted:#a39d94; --ink:#1a1a1a; --ink-soft:#5d5953;
-    --hydro-blue:#2e86d6; --dome-red:#d2452a;
+    --hydro-blue:#2e86d6; --defence-red:#d2452a;
   }
   .reveal{font-family:'Inter',sans-serif;}
   .reveal h1,.reveal h2,.reveal h3{font-family:'Montserrat',sans-serif;margin:0;}
@@ -100,14 +100,53 @@
   .carmhist b{color:#fff;font-weight:600;}
   .imgcap{position:relative;}
 
-  /* DOME FRAME — arch top (Frame 01) + red outline (Frame 02). Reusable photo treatment. */
-  .dome{
-    border:3px solid var(--dome-red) !important;
-    border-radius:50% 50% 16px 16px / 46% 46% 16px 16px !important;
-    box-shadow:0 0 0 1px rgba(210,69,42,.18), 0 14px 34px rgba(0,0,0,.45) !important;
+  /* DEFENCE RINGS — concentric red rings frame. Layered perimeters motif. */
+  .defence{
+    position:relative;
+    border-radius:50% !important;
+    border:2px solid #d2452a !important;
+    background:#1a1a1a !important;
   }
-  /* slightly shallower arch for short/wide banners so it reads as a dome, not a sliver */
-  .dome.wide{border-radius:120px 120px 16px 16px / 60px 60px 16px 16px !important;}
+  .defence::before{
+    content:'';
+    position:absolute;
+    top:-12px;left:-12px;right:-12px;bottom:-12px;
+    border:2px solid #d2452a;
+    border-radius:50%;
+    opacity:0.8;
+    pointer-events:none;
+  }
+  .defence::after{
+    content:'';
+    position:absolute;
+    top:-24px;left:-24px;right:-24px;bottom:-24px;
+    border:2px solid #d2452a;
+    border-radius:50%;
+    opacity:0.6;
+    pointer-events:none;
+  }
+  .defence img{
+    border-radius:50%;
+    object-fit:cover;
+  }
+  /* Small defence icon for icons/bullets */
+  .defence-icon{
+    position:relative;
+    display:inline-block;
+    width:24px;
+    height:24px;
+    border:2px solid #d2452a;
+    border-radius:50%;
+    background:#d2452a;
+  }
+  .defence-icon::before{
+    content:'';
+    position:absolute;
+    top:-4px;left:-4px;right:-4px;bottom:-4px;
+    border:1px solid #d2452a;
+    border-radius:50%;
+    opacity:0.6;
+  }
   /* competitor frames: square + neutral border — these are NOT our products */
   .imgbox.square{border-radius:0 !important;border:1px solid #3a3a3a !important;box-shadow:none !important;}
 
@@ -222,7 +261,7 @@
     display:flex;align-items:center;justify-content:center;}
   .refitem .rc{font-size:13.5px;color:#fff;font-weight:600;line-height:1.35;}
   .refitem .rs{font-size:12px;color:var(--muted);line-height:1.35;margin-top:2px;}
-  .refitem a{color:var(--hydro-blue);text-decoration:none;word-break:break-all;}
+  .refitem a{color:#3aa0ff;text-decoration:none;word-break:break-all;}
   .refnote{font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.35;margin-top:3px;}
 
   /* team */
@@ -230,10 +269,11 @@
   .teamgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
   .teamgrid .tcard{padding:22px 18px 20px;}
   .teamgrid .tcard .photo{width:120px;height:120px;margin-bottom:14px;
-    border-radius:50% 50% 14px 14px / 46% 46% 14px 14px;border:3px solid var(--dome-red);}
+    border-radius:50% 50% 14px 14px / 46% 46% 14px 14px;border:3px solid var(--defence-red);}
   .teamgrid .tcard p{font-size:14px;}
   .tcard{background:#fff;border-radius:16px;padding:30px 18px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;}
   .tcard .photo{width:132px;height:132px;border-radius:50%;object-fit:cover;margin-bottom:18px;border:3px solid var(--orange);}
+  .tcard .photo.amir-crop{object-position:25% 35%;}
   .tcard h3{font-family:'Montserrat';font-weight:700;font-size:19px;color:var(--ink);margin:0 0 6px;line-height:1.15;}
   .tcard .role{font-family:'Montserrat';font-size:13.5px;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:11px;}
   .tcard p{font-size:14.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
@@ -296,13 +336,13 @@
      Now: dark chip + red outline, with a light-grey chevron inside. */
   .reveal .controls button{
     width:3.6em;height:3.6em;box-sizing:border-box;padding:0 !important;
-    border:2px solid var(--dome-red) !important;
+    border:2px solid var(--defence-red) !important;
     background:#000 !important;
     border-radius:50% !important;
   }
   /* the down button carries extra bottom padding by default — neutralize it so its chip is a true circle in the same spot */
   .reveal .controls .navigate-down{bottom:0 !important;padding-bottom:0 !important;}
-  .reveal .controls .controls-arrow{color:var(--dome-red) !important;}
+  .reveal .controls .controls-arrow{color:var(--defence-red) !important;}
 
   /* market metrics stack — taller, bigger, condensed to the right */
   .mkt{display:flex;flex-direction:column;gap:20px;justify-content:center;flex:1;}
@@ -394,7 +434,7 @@
           <p class="lede">A rapidly deployable system that protects communities and critical infrastructure from wildfire — stood up in hours, autonomous once running.</p>
           <div class="navhint"><i class="ti ti-arrow-right"></i><span>To move through the deck, press the <b>→ right arrow</b> key (or swipe right on touch).</span></div>
         </div>
-        <div class="imgbox dome"><img src="assets/community.jpg" alt="Moat mobile deployed in a community"></div>
+        <div class="imgbox defence"><img src="assets/community.jpg" alt="Moat mobile deployed in a community"></div>
       </div>
     </div></div>
   </section>
@@ -415,9 +455,8 @@
         <div class="tcard"><img class="photo" src="assets/nick.jpg" alt="Nick Hill"><h3>Nick Hill</h3><div class="role">Founder / CEO</div><p>Founder, Carmanah Wildfire. 15+ years of wildfire field leadership.</p></div>
         <div class="tcard"><img class="photo" src="assets/dakotah.jpg" alt="Dakotah Daily"><h3>Dakotah Daily</h3><div class="role">Consultant</div><p>Wildfire geospatial specialist and experienced project manager.</p></div>
         <div class="tcard"><img class="photo" src="assets/brian.jpg" alt="Brian Mueller"><h3>Brian Mueller</h3><div class="role">Lead Systems Engineer</div><p>Design, welding, and fabrication; UAV and systems expert.</p></div>
+        <div class="tcard"><img class="photo amir-crop" src="assets/amirhossein.png" alt="Amirhossein Moshtaghioun"><h3>Amirhossein Moshtaghioun</h3><div class="role">Head of Electronics &amp; AI</div><p>Embedded systems • Neural net deployment • Real-time sensor fusion • Dashboard architect.</p></div>
         <div class="tcard"><img class="photo" src="assets/mehran.jpg" alt="Dr. Mehran Mehrandezh"><h3>Dr. Mehran Mehrandezh</h3><div class="role">Technical Advisor</div><p>PhD, Professor of Industrial Systems Engineering.</p></div>
-        <div class="tcard"><img class="photo" src="assets/aws.jpg" alt="Aws Al-Mubarak"><h3>Aws Al-Mubarak</h3><div class="role">Advisor</div><p>8 years BC Wildfire — Division Supervisor and NFPA structural firefighter.</p></div>
-        <div class="tcard"><img class="photo" src="assets/micah.jpg" alt="Micah Bayless"><h3>Micah Bayless</h3><div class="role">Technical Advisor</div><p>Senior Aerospace Engineer — power delivery specialist.</p></div>
       </div>
     </div></div>
   </section>
@@ -481,11 +520,11 @@
       </div>
       <div class="rule"></div>
       <div class="split">
-        <div class="imgbox dome"><img src="assets/spu-traditional.jpg" alt="Moat rooftop sprinkler protection unit"></div>
+        <div class="imgbox defence"><img src="assets/spu-traditional.jpg" alt="Moat rooftop sprinkler protection unit"></div>
         <div class="ctext">
           <p class="lede">We've built and deployed wildfire defense systems in the field — and <b>seen what works and what doesn't.</b></p>
           <ul class="blist auto-seq">
-            <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Structure protection pre-wets buildings with large water-moving systems, creating a humidity dome.</span></li>
+            <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Structure protection pre-wets buildings with large water-moving systems, creating layered defence perimeters.</span></li>
             <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">It has saved thousands of homes — but <b>setup time limits its reach</b> when fires move fast.</span></li>
             <li><span class="bic"><i class="ti ti-bolt"></i></span><span class="btx">The answer: a pre-staged, rapidly deployable trailer already on site, protecting the perimeter before the fire arrives.</span></li>
           </ul>
@@ -513,7 +552,7 @@
           <li><span class="bic"><i class="ti ti-wifi"></i></span><span class="btx">Wireless, independently controlled heads activate by weather and conditions — semi-autonomous with remote monitoring.</span></li>
           <li><span class="bic"><i class="ti ti-shield-check"></i></span><span class="btx">A new category: more coverage and less setup than a structure trailer, smaller and cheaper than a single giant cannon.</span></li>
         </ul>
-        <div class="solimg dome"><img src="assets/mill.jpg" alt="Moat mobile protecting an industrial site"></div>
+        <div class="solimg defence"><img src="assets/mill.jpg" alt="Moat mobile protecting an industrial site"></div>
       </div>
     </div></div>
   </section>
@@ -834,7 +873,7 @@
             <li><span class="bic"><i class="ti ti-map-pin"></i></span><span class="btx">Envisioned first community pilot: <b>Fort St.&nbsp;James, BC</b> &mdash; ~20 towers protecting the hospital, emergency shelter, and municipal core.</span></li>
           </ul>
         </div>
-        <div class="imgbox dome"><img src="assets/hd-permanent.jpg" alt="Permanent Moat towers spraying a protective curtain of moisture over a community as wildfire approaches"></div>
+        <div class="imgbox defence"><img src="assets/hd-permanent.jpg" alt="Permanent Moat towers spraying a protective curtain of moisture over a community as wildfire approaches"></div>
       </div>
     </div></div>
   </section>
@@ -886,7 +925,7 @@
             <div class="crow"><span class="cic"><i class="ti ti-world"></i></span><div><div class="cl">Website</div><div class="cv">www.carmanahwildfire.com</div></div></div>
           </div>
         </div>
-        <div class="imgbox dome"><img src="assets/firefighter-night.jpg" alt="Wildfire crew working a fire at night" style="object-fit:cover;object-position:55% 50%;"></div>
+        <div class="imgbox defence"><img src="assets/firefighter-night.jpg" alt="Wildfire crew working a fire at night" style="object-fit:cover;object-position:55% 50%;"></div>
       </div>
     </div></div>
   </section>

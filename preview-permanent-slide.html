@@ -8,7 +8,7 @@
     --bg:#0f0f0f; --bg2:#1b1b1b; --bg3:#161616;
     --orange:#c5531f; --orange-soft:#fbe9df;
     --white:#f3efe9; --muted:#a39d94; --ink:#1a1a1a; --ink-soft:#5d5953;
-    --hydro-blue:#2e86d6; --dome-red:#d2452a;
+    --hydro-blue:#2e86d6; --defence-red:#d2452a;
   }
   .reveal{font-family:'Inter',sans-serif;}
   .reveal h1,.reveal h2,.reveal h3{font-family:'Montserrat',sans-serif;margin:0;}
@@ -96,14 +96,35 @@
   .carmhist b{color:#fff;font-weight:600;}
   .imgcap{position:relative;}
 
-  /* DOME FRAME — arch top (Frame 01) + red outline (Frame 02). Reusable photo treatment. */
-  .dome{
-    border:3px solid var(--dome-red) !important;
-    border-radius:50% 50% 16px 16px / 46% 46% 16px 16px !important;
-    box-shadow:0 0 0 1px rgba(210,69,42,.18), 0 14px 34px rgba(0,0,0,.45) !important;
+  /* DEFENCE RINGS — concentric red rings frame. Layered perimeters motif. */
+  .defence{
+    position:relative;
+    border-radius:50% !important;
+    border:2px solid #d2452a !important;
+    background:#1a1a1a !important;
   }
-  /* slightly shallower arch for short/wide banners so it reads as a dome, not a sliver */
-  .dome.wide{border-radius:120px 120px 16px 16px / 60px 60px 16px 16px !important;}
+  .defence::before{
+    content:'';
+    position:absolute;
+    top:-12px;left:-12px;right:-12px;bottom:-12px;
+    border:2px solid #d2452a;
+    border-radius:50%;
+    opacity:0.8;
+    pointer-events:none;
+  }
+  .defence::after{
+    content:'';
+    position:absolute;
+    top:-24px;left:-24px;right:-24px;bottom:-24px;
+    border:2px solid #d2452a;
+    border-radius:50%;
+    opacity:0.6;
+    pointer-events:none;
+  }
+  .defence img{
+    border-radius:50%;
+    object-fit:cover;
+  }
   /* competitor frames: square + neutral border — these are NOT our products */
   .imgbox.square{border-radius:0 !important;border:1px solid #3a3a3a !important;box-shadow:none !important;}
 
@@ -226,7 +247,7 @@
   .teamgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
   .teamgrid .tcard{padding:22px 18px 20px;}
   .teamgrid .tcard .photo{width:120px;height:120px;margin-bottom:14px;
-    border-radius:50% 50% 14px 14px / 46% 46% 14px 14px;border:3px solid var(--dome-red);}
+    border-radius:50% 50% 14px 14px / 46% 46% 14px 14px;border:3px solid var(--defence-red);}
   .teamgrid .tcard p{font-size:14px;}
   .tcard{background:#fff;border-radius:16px;padding:30px 18px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;}
   .tcard .photo{width:132px;height:132px;border-radius:50%;object-fit:cover;margin-bottom:18px;border:3px solid var(--orange);}
@@ -333,7 +354,7 @@
   #gate .glogo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;}
   #gate .glogo .ring{width:40px;height:40px;border-radius:50% 50% 8px 8px / 46% 46% 8px 8px;border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:21px;}
   #gate .glogo .h{font-family:'Montserrat';font-weight:800;font-size:18px;letter-spacing:1.5px;color:var(--hydro-blue);}
-  #gate .glogo .d{font-family:'Montserrat';font-weight:800;font-size:18px;letter-spacing:1.5px;color:var(--dome-red);}
+  #gate .glogo .d{font-family:'Montserrat';font-weight:800;font-size:18px;letter-spacing:1.5px;color:var(--defence-red);}
   #gate p{color:var(--muted);font-size:14px;margin:0 0 20px;line-height:1.5;}
   #gate input{width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid #333;border-radius:10px;padding:13px 15px;color:#fff;font-size:16px;font-family:'Inter';outline:none;}
   #gate input:focus{border-color:var(--orange);}
@@ -372,7 +393,7 @@
             <li><span class="bic"><i class="ti ti-map-pin"></i></span><span class="btx">Envisioned first community pilot: <b>Fort St.&nbsp;James, BC</b> &mdash; ~20 towers protecting the hospital, emergency shelter, and municipal core.</span></li>
           </ul>
         </div>
-        <div class="imgbox dome"><img src="assets/hd-permanent.jpg" alt="Permanent Moat towers spraying a protective curtain of moisture over a community as wildfire approaches"></div>
+        <div class="imgbox defence"><img src="assets/hd-permanent.jpg" alt="Permanent Moat towers spraying a protective curtain of moisture over a community as wildfire approaches"></div>
       </div>
     </div></div>
   </section>
