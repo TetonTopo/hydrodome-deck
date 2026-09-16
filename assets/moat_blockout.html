@@ -544,24 +544,39 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   const Q = new URLSearchParams(location.search);
   const CINE = Q.get('cinematic') === '1' || Q.get('chrome') === '0';
 
-  // Keyframe = [t_seconds, cam[x,y,z], look[x,y,z], hfov_deg].
+  // Keyframe = [t_seconds, cam[x,y,z], look[x,y,z], hfov_deg]. A flight is either a bare
+  // array of keys, or an object { keys, ease, cyclic, period } - see startFlight.
   const FLIGHTS = {
-    // Slide 11: drone circles the trailer, runs the line over the north house row,
-    // turns around and pulls up and out to the whole community.
-    trailer_orbit: [
-      [0.0,  [ 31, 558,  18], [  1, 558, 1.5], 40],
-      [1.5,  [ 22, 579,  18], [  1, 558, 1.5], 40],
-      [3.0,  [  1, 588,  18], [  1, 558, 1.5], 40],
-      [4.5,  [-20, 579,  18], [  1, 558, 1.5], 40],
-      [6.0,  [-29, 558,  18], [  1, 558, 1.5], 40],
-      [7.5,  [-20, 537,  18], [  1, 558, 1.5], 42],
-      [9.0,  [  1, 528,  18], [  1, 558, 1.5], 46],
-      [10.5, [ 24, 538,  19], [  1, 558, 1.5], 52],
-      [12.5, [ 60, 566,  18], [225, 563, 5  ], 56],
-      [16.5, [245, 566,  19], [400, 563, 5  ], 56],
-      [19.5, [300, 540,  80], [120, 565, 10 ], 58],
-      [23.5, [430, 380, 230], [  0, 560, 0  ], 60]
-    ],
+    // Slide 13: one slow lap around the jets. Centred on the tower at x = 120 rather than
+    // on the trailer, 100 m out, so its 48 m arc fills the frame and the neighbouring
+    // towers at x = 40 and 200 sit just inside the edges. cyclic + ease:false hold a
+    // constant 6 deg/s the whole way round and close the lap without a beat at the join.
+    jet_orbit: {
+      cyclic: true, ease: false, period: 72,
+      // A slow lap around the jets on the east end of the line, centred between the
+      // towers at x = 120 and 200 rather than on the trailer.
+      //
+      // Not a circle round them: the jets throw across the line, so from due north or
+      // south they point straight at the lens and collapse to a ribbon. The path is a
+      // closed teardrop that stays east of the cluster and within 35 deg of the line
+      // axis, where every arc is seen broadside and the alternating north/south pattern
+      // reads. It breathes from 150 m out (three towers in frame) down to 60 m (one arc
+      // fills it) and back, swinging 35 deg either side of the axis on the way, so the
+      // towers turn in parallax without the shot ever going end-on.
+      //
+      // cam = (160, 563.9) + R at psi, with R 105 +/- 45 and psi 35 deg * sin, altitude
+      // tracking R from 20 m at the near key to 38 m at the far one. Keys are 9 s apart.
+      keys: [
+        [ 0.0, [310.0, 563.9, 38.0], [160, 558, 8], 55],
+        [ 9.0, [284.2, 621.2, 35.4], [160, 558, 8], 55],
+        [18.0, [246.0, 624.1, 29.0], [160, 558, 8], 55],
+        [27.0, [226.5, 594.6, 22.6], [160, 558, 8], 55],
+        [36.0, [220.0, 563.9, 20.0], [160, 558, 8], 55],
+        [45.0, [226.5, 533.2, 22.6], [160, 558, 8], 55],
+        [54.0, [246.0, 503.7, 29.0], [160, 558, 8], 55],
+        [63.0, [284.2, 506.6, 35.4], [160, 558, 8], 55]
+      ]
+    },
     // Candidate for slide 1 / slide 6: drop out of the sky onto the line street.
     descent: [
       [0.0,  [-260, 300, 170], [ 0, 560, 0], 60],
@@ -575,6 +590,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
       [10.0, [ 340, 470, 34], [ 250, 560, 6], 56]
     ]
   };
+  const DEFAULT_FLIGHT = 'jet_orbit';
 
   // --- keep the camera out of the buildings ---------------------------------
   // Corridors measured off the block-out geometry itself: houses occupy y in
@@ -604,13 +620,16 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     return 0.5 * ((2 * p1) + (-p0 + p2) * u +
       (2 * p0 - 5 * p1 + 4 * p2 - p3) * u2 + (-p0 + 3 * p1 - 3 * p2 + p3) * u3);
   }
-  // Catmull-Rom across the keys, with smoothstep on each segment's local time so the
-  // camera eases at every key rather than only at the ends. fov lerps on the same u.
-  function sampleFlight(keys, t) {
+  // Catmull-Rom across the keys. By default smoothstep runs on each segment's local time
+  // so the camera eases at every key rather than only at the ends; a flight with
+  // ease:false takes the raw u instead, because easing every key on a slow orbit reads as
+  // a stutter - the camera comes to a stop eight times a lap. fov lerps on the same u.
+  function sampleFlight(keys, t, ease) {
     const n = keys.length;
     let i = 0; while (i < n - 2 && t >= keys[i + 1][0]) i++;
     const a = keys[i], b = keys[i + 1];
-    const u = smoothstep(THREE.MathUtils.clamp((t - a[0]) / Math.max(b[0] - a[0], 1e-6), 0, 1));
+    const raw = THREE.MathUtils.clamp((t - a[0]) / Math.max(b[0] - a[0], 1e-6), 0, 1);
+    const u = ease === false ? raw : smoothstep(raw);
     const k0 = keys[Math.max(i - 1, 0)], k3 = keys[Math.min(i + 2, n - 1)];
     const cam = [], look = [];
     for (let j = 0; j < 3; j++) {
@@ -621,11 +640,11 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     return { cam, look, fov: a[3] + (b[3] - a[3]) * u };
   }
   const SEAM = 1.0;   // seconds of eased blend from the last key back to the first
-  function poseAt(keys, t, loop) {
+  function poseAt(keys, t, loop, ease) {
     const T = keys[keys.length - 1][0];
-    if (!loop || t <= T) return sampleFlight(keys, Math.min(t, T));
+    if (!loop || t <= T) return sampleFlight(keys, Math.min(t, T), ease);
     const u = smoothstep(THREE.MathUtils.clamp((t - T) / SEAM, 0, 1));
-    const A = sampleFlight(keys, T), B = sampleFlight(keys, 0);
+    const A = sampleFlight(keys, T, ease), B = sampleFlight(keys, 0, ease);
     const cam = [], look = [];
     for (let j = 0; j < 3; j++) {
       cam.push(A.cam[j] + (B.cam[j] - A.cam[j]) * u);
@@ -636,28 +655,42 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   }
 
   // --- playback -------------------------------------------------------------
-  const flight = { name: null, keys: null, t: 0, dur: 0, playing: false, loop: true };
+  const flight = { name: null, keys: null, t: 0, dur: 0, playing: false, loop: true, ease: true, cyclic: false };
   function applyPose(p) { state.fov = p.fov; setFromCamLook(p.cam, p.look); applyFov(); updateSun(); dirty = true; }
+  // A cyclic flight lists its lap once and closes on itself at `period`. Pad it with the
+  // wrapped neighbours so Catmull-Rom sees the true tangent either side of the join -
+  // without the guards the clamped ends halve the speed there and the lap visibly hitches.
+  function padCyclic(keys, period) {
+    const first = keys[0], second = keys[1], last = keys[keys.length - 1];
+    return [[last[0] - period, last[1], last[2], last[3]], ...keys,
+            [period, first[1], first[2], first[3]],
+            [period + second[0], second[1], second[2], second[3]]];
+  }
   function startFlight(name) {
-    const keys = FLIGHTS[name] || FLIGHTS.trailer_orbit;
-    flight.name = FLIGHTS[name] ? name : 'trailer_orbit';
-    flight.keys = keys; flight.dur = keys[keys.length - 1][0];
+    const spec = FLIGHTS[name] || FLIGHTS[DEFAULT_FLIGHT];
+    flight.name = FLIGHTS[name] ? name : DEFAULT_FLIGHT;
+    const bare = Array.isArray(spec), keys = bare ? spec : spec.keys;
+    flight.ease = bare ? true : spec.ease !== false;
+    flight.cyclic = !bare && !!spec.cyclic;
+    flight.keys = flight.cyclic ? padCyclic(keys, spec.period) : keys;
+    flight.dur = flight.cyclic ? spec.period : keys[keys.length - 1][0];
     flight.t = 0; flight.playing = true;
-    applyPose(poseAt(keys, 0, flight.loop));
+    applyPose(poseAt(flight.keys, 0, flight.loop, flight.ease));
   }
   function seekFlight(t) {
     if (!flight.keys) return null;
-    flight.t = t; const p = poseAt(flight.keys, t, flight.loop); applyPose(p); return p;
+    flight.t = t; const p = poseAt(flight.keys, t, flight.loop, flight.ease); applyPose(p); return p;
   }
   function stepFlight(dt) {
     if (!flight.keys || !flight.playing) return false;
     flight.t += dt;
-    const total = flight.dur + (flight.loop ? SEAM : 0);
+    // a cyclic lap already ends where it began, so it wraps on the period with no seam
+    const total = flight.dur + (flight.loop && !flight.cyclic ? SEAM : 0);
     if (flight.t >= total) {
       if (flight.loop) flight.t -= total;                       // the eased seam brought us home
       else { flight.t = flight.dur; flight.playing = false; }    // play once, hold the last frame
     }
-    applyPose(poseAt(flight.keys, flight.t, flight.loop));
+    applyPose(poseAt(flight.keys, flight.t, flight.loop, flight.ease));
     return true;
   }
 
@@ -674,7 +707,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     const fps = parseFloat(Q.get('fps'));
     CAP = isFinite(fps) ? (fps > 0 ? Math.min(fps, 120) : 0) : 30;   // default: rAF, capped at 30
     flight.loop = Q.get('loop') !== '0';
-    startFlight(Q.get('flight') || 'trailer_orbit');
+    startFlight(Q.get('flight') || DEFAULT_FLIGHT);
     resize();
   }
 
@@ -686,7 +719,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     else if (d.cmd === 'play') { flight.playing = true; last = performance.now(); }
     else if (d.cmd === 'restart') {
       flight.t = 0; flight.playing = true; last = performance.now();
-      if (flight.keys) applyPose(poseAt(flight.keys, 0, flight.loop));
+      if (flight.keys) applyPose(poseAt(flight.keys, 0, flight.loop, flight.ease));
     }
   });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) last = performance.now(); });
