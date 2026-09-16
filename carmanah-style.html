@@ -39,6 +39,9 @@
   .kicker{letter-spacing:5px;font-size:14px;color:var(--muted);text-transform:uppercase;font-weight:600;font-family:'Montserrat';}
   .head{font-family:'Montserrat';font-weight:800;text-transform:uppercase;font-size:44px;color:#fff;letter-spacing:.5px;margin:8px 0 0;line-height:1.05;}
   .head .hot{color:var(--orange);}
+  /* acronym expansion: too long for the 44px headline, so it sits under it */
+  .head .headexp{display:block;font-family:'Montserrat';font-size:19px;font-weight:700;
+    letter-spacing:1.6px;color:var(--orange);margin-top:9px;line-height:1.2;}
   .rule{width:92px;height:4px;background:var(--orange);border-radius:2px;margin:14px 0 24px;}
   .toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
 
@@ -521,11 +524,14 @@
   </section>
 
   <!-- OUR SOLUTION -->
+  <!-- OUR SOLUTION — elevator: press down for the live block-out approach -->
+  <section>
+
   <section>
     <div class="root"><div class="pad">
       <div class="toprow">
         <div><div class="kicker">Our solution</div>
-          <div class="head">The Moat <span class="hot">on wheels</span></div></div>
+          <div class="head">The <span class="hot">MOAT</span><span class="headexp">Mobile on-site asset-protection trailer</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
           <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
@@ -533,7 +539,7 @@
       <div class="solbanner"><iframe src="spray-logic.html" title="Sequential spray logic" loading="lazy" scrolling="no"></iframe></div>
       <div class="solrow">
         <ul class="blist tight solbul auto-seq">
-          <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Sequentially sprays <b>8 Nelson Big Gun towers along a 500–800 m line, covering 6–8 hectares</b> — two or three towers per side run at a time, so the pumps are sized for the running set, not all eight.</span></li>
+          <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Sequentially sprays <b>10 Nelson Big Gun towers along a 500–800 m line, covering 6–8 hectares</b> — two or three towers per side run at a time, so the pumps are sized for the running set, not all ten.</span></li>
           <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">Fewer, larger sprinklers mean a <b>two-person crew stands up the full line in under an hour.</b></span></li>
           <li><span class="bic"><i class="ti ti-settings"></i></span><span class="btx">Sequential spraying runs on <b>two ~50 kW portable fire pumps instead of a ~300 hp cannon plant</b> — either pump alone can carry the line.</span></li>
           <li><span class="bic"><i class="ti ti-wifi"></i></span><span class="btx">Each tower has its own radio, power, and sensors. Fed from a hydrant, open water, or a remote feed pump through one intake, the line runs itself on live fire weather once the crew leaves, with remote monitoring over satellite.</span></li>
@@ -542,6 +548,25 @@
         <div class="solimg dome"><img src="assets/mill.jpg" alt="The Moat protecting an industrial site"></div>
       </div>
     </div></div>
+  </section>
+
+  <section>
+    <div class="root"><div class="pad filmpad">
+      <div class="toprow">
+        <div><div class="kicker">Our solution &middot; live 3-D block-out</div>
+          <div class="head">The approach to <span class="hot">the line</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <p class="filmlede">Real CAD, real spacing &mdash; dropping in off the ridge onto the deployed line.</p>
+      <div class="filmbox">
+        <iframe src="assets/moat_blockout.html?cinematic=1&amp;flight=descent"
+                title="The Moat &mdash; approach to the line" loading="lazy" data-moat></iframe>
+      </div>
+    </div></div>
+  </section>
+
   </section>
 
   <!-- COMPETITORS — vertical elevator stack (convex cube-roll on all) -->
@@ -697,7 +722,7 @@
           <ul class="blist tight auto-seq">
             <li><span class="bic"><i class="ti ti-cloud-storm"></i></span><span class="btx"><b>Real-time weather monitoring</b> <span class="sub">&mdash; predicts where embers will land.</span></span></li>
             <li><span class="bic"><i class="ti ti-calculator"></i></span><span class="btx"><b>CFFDRS fine-fuel moisture (FFMC) + ember-ignition thresholds</b> <span class="sub">&mdash; meters exactly the water the fuels need, then re-wets only as they dry.</span></span></li>
-            <li><span class="bic"><i class="ti ti-layout-grid"></i></span><span class="btx"><b>Tower-by-tower sequencing</b> <span class="sub">&mdash; covers the whole line on a pump plant sized for the running set, not all eight towers.</span></span></li>
+            <li><span class="bic"><i class="ti ti-layout-grid"></i></span><span class="btx"><b>Tower-by-tower sequencing</b> <span class="sub">&mdash; covers the whole line on a pump plant sized for the running set, not all ten towers.</span></span></li>
             <li><span class="bic"><i class="ti ti-adjustments"></i></span><span class="btx"><b>Smart water management</b> <span class="sub">&mdash; auto-adjusts spray and pump cycling.</span></span></li>
             <li><span class="bic"><i class="ti ti-router"></i></span><span class="btx"><b>LoRa radio to every tower, satellite backhaul</b> <span class="sub">&mdash; no cellular needed, and the line keeps running if comms drop.</span></span></li>
             <li><span class="bic"><i class="ti ti-dashboard"></i></span><span class="btx"><b>Single dashboard</b> <span class="sub">&mdash; live flow, pressure, water, and fire-weather.</span></span></li>
@@ -825,6 +850,25 @@
     </div></div>
   </section>
 
+  <!-- THE LINE, BUILT — live 3-D block-out, autoplaying flyover -->
+  <section>
+    <div class="root"><div class="pad filmpad">
+      <div class="toprow">
+        <div><div class="kicker">The deployed line &middot; live 3-D block-out</div>
+          <div class="head">What it looks like <span class="hot">on the ground</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <p class="filmlede">Real CAD, real spacing: eight towers on the shoulder of one street at 80 m centres,
+        the trailer at the crossing, jets alternating north and south across a 48 m throw.</p>
+      <div class="filmbox">
+        <iframe src="assets/moat_blockout.html?cinematic=1&amp;flight=jet_orbit"
+                title="The Moat &mdash; jets on the deployed line, 3-D block-out" loading="lazy" data-moat></iframe>
+      </div>
+    </div></div>
+  </section>
+
   <!-- FUTURE ITERATION: PERMANENT COMMUNITY INSTALLATION -->
   <section>
     <div class="root"><div class="pad">
@@ -924,13 +968,22 @@
 <script>
   Reveal.initialize({width:1440,height:810,margin:0,controls:true,progress:true,hash:true,center:false,transition:'slide',transitionSpeed:'slow',backgroundTransition:'fade'});
 
-  // The site-analysis film is a loop, so if you step away and come back you would
-  // land in the middle of it. Send it back to the top whenever the slide is shown.
+  // The site-analysis films loop, so if you step away and come back you would land in
+  // the middle of one. Send the incoming slide's film back to the top, and pause the
+  // 3-D block-out flight on the slide we just left so it is not burning frames offscreen.
+  function eachFilm(sec, fn){
+    if(!sec) return;
+    Array.prototype.forEach.call(sec.querySelectorAll('.filmbox iframe'), fn);
+  }
+  function moatCmd(f, cmd){
+    try { f.contentWindow.postMessage({ type:'moat', cmd:cmd }, '*'); } catch(e){}
+  }
   function restartFilm(ev){
-    var sec = ev && ev.currentSlide;
-    var f = sec && sec.querySelector('.filmbox iframe');
-    if(!f) return;
-    try { f.contentWindow.postMessage({ moat: 'restart' }, '*'); } catch(e){}
+    eachFilm(ev && ev.previousSlide, function(f){ if(f.hasAttribute('data-moat')) moatCmd(f,'pause'); });
+    eachFilm(ev && ev.currentSlide, function(f){
+      if(f.hasAttribute('data-moat')) moatCmd(f,'restart');
+      else { try { f.contentWindow.postMessage({ moat:'restart' }, '*'); } catch(e){} }
+    });
   }
   Reveal.on('slidechanged', restartFilm);
   Reveal.on('ready', restartFilm);

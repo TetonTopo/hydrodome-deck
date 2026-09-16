@@ -16,7 +16,7 @@
 (function(){
   const cv = document.getElementById('c'), ctx = cv.getContext('2d');
   const ORANGE='#c5531f', WATER='#3aa0ff', MUTED='#b3ada3', CREAM='#cfcabf';
-  const distM=[40,120,200,280], radM=48;
+  const distM=[40,120,200,280,360], radM=48;   // 5 guns per side, 80 m centres
   let W=0,H=0,dpr=1, cx=0, axisY=0, trunkY=0, scale=1, rad=1, squash=0.42, towers=[];
 
   function layout(){
@@ -33,7 +33,7 @@
     towers = [];
     for (let s=0;s<distM.length;s++){
       // sliding 2-per-side window that grows outward from the middle:
-      // round 0 fires s0+s1 (inner four), round 1 fires s1+s2, round 2 fires s2+s3 — always 4 guns at once.
+      // round 0 fires s0+s1 (inner four), round 1 fires s1+s2, and so on outward — always 4 guns at once.
       const first=Math.max(0,s-1), last=Math.min(STEPS-1,s);
       towers.push({first:first,last:last, x: cx - distM[s]*scale});
       towers.push({first:first,last:last, x: cx + distM[s]*scale});
@@ -41,7 +41,8 @@
   }
   window.addEventListener('resize', layout);
 
-  const STEP=3200, STEPS=3, HOLD=2600, CYCLE=STEPS*STEP+HOLD;
+  // one round per sliding 2-per-side window, so STEPS follows the gun count
+  const STEP=3200, STEPS=distM.length-1, HOLD=2600, CYCLE=STEPS*STEP+HOLD;
   const start = performance.now();
   const easeFill = t => Math.min(1, Math.max(0, t/0.7));
   function stateOf(tw, round, localT, done){
@@ -129,7 +130,8 @@
     const topY = Math.max(15, H*0.11);
     const rT1 = cx + distM[0]*scale, rT2 = cx + distM[1]*scale;
     dim(rT1, rT2, topY, '80 m');                                   // one spacing
-    dim(cx, cx-(distM[3]+radM)*scale, topY, '~330 m per side');   // total reach, opposite side
+    const reach = distM[distM.length-1]+radM;
+    dim(cx, cx-reach*scale, topY, '~'+Math.round(reach/10)*10+' m per side');   // total reach, opposite side
     ctx.fillStyle=CREAM; ctx.font='700 11px Montserrat, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
     ctx.fillText('TRAILER (2 PUMPS)', cx, trunkY-15);
     // one sprinkler label with leader
