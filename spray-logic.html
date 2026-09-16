@@ -16,7 +16,7 @@
 (function(){
   const cv = document.getElementById('c'), ctx = cv.getContext('2d');
   const ORANGE='#c5531f', WATER='#3aa0ff', MUTED='#b3ada3', CREAM='#cfcabf';
-  const distM=[30,110,190,270], radM=50;
+  const distM=[40,120,200,280], radM=48;
   let W=0,H=0,dpr=1, cx=0, axisY=0, trunkY=0, scale=1, rad=1, squash=0.42, towers=[];
 
   function layout(){
@@ -129,9 +129,9 @@
     const topY = Math.max(15, H*0.11);
     const rT1 = cx + distM[0]*scale, rT2 = cx + distM[1]*scale;
     dim(rT1, rT2, topY, '80 m');                                   // one spacing
-    dim(cx, cx-(distM[3]+radM)*scale, topY, '~320 m');            // total reach, opposite side
+    dim(cx, cx-(distM[3]+radM)*scale, topY, '~330 m per side');   // total reach, opposite side
     ctx.fillStyle=CREAM; ctx.font='700 11px Montserrat, sans-serif'; ctx.textAlign='center'; ctx.textBaseline='bottom';
-    ctx.fillText('TRAILER (& PUMP)', cx, trunkY-15);
+    ctx.fillText('TRAILER (2 PUMPS)', cx, trunkY-15);
     // one sprinkler label with leader
     ctx.strokeStyle=MUTED; ctx.lineWidth=1; ctx.setLineDash([]);
     ctx.beginPath(); ctx.moveTo(rT1, axisY+7); ctx.lineTo(rT1, H-17); ctx.stroke();

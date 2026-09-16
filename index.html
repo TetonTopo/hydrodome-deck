@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HydroDome — Carmanah Style</title>
+<title>The Moat — Carmanah Wildfire</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
@@ -23,12 +23,15 @@
   .reveal-viewport,.reveal,.reveal .slides,.reveal .backgrounds{background:#0f0f0f !important;}
   .root{position:absolute;inset:0;background:var(--bg);color:var(--white);overflow:hidden;}
 
-  /* logo — Tabler flame in ring + HYDRO/DOME wordmark */
+  /* logo — Tabler flame in a ring + THE/MOAT wordmark (the permanent-HydroDome slide keeps the arch mark + HYDRO/DOME) */
   .logo{display:flex;align-items:center;gap:12px;}
-  .logo .ring{width:46px;height:46px;border-radius:50% 50% 8px 8px / 46% 46% 8px 8px;border:2px solid var(--orange);
+  .logo .ring{width:46px;height:46px;border-radius:50%;border:2px solid var(--orange);box-shadow:0 0 0 4px var(--bg),0 0 0 5px rgba(197,83,31,.45);
+    display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:24px;}
+  .logo.hd .ring{border-radius:50% 50% 8px 8px / 46% 46% 8px 8px;box-shadow:none;
     display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:24px;}
   .logo .word{font-family:'Montserrat';line-height:.92;}
   .logo .word .h{font-weight:800;font-size:20px;letter-spacing:1.5px;color:var(--hydro-blue);}
+  .logo .word .t{font-weight:700;font-size:12px;letter-spacing:3px;color:var(--muted);}
   .logo .word .d{font-weight:800;font-size:20px;letter-spacing:1.5px;color:var(--dome-red);}
 
   .pad{padding:40px 76px;display:flex;flex-direction:column;justify-content:center;height:100%;box-sizing:border-box;}
@@ -41,7 +44,7 @@
 
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
   .wcard{background:#fff;border-radius:16px;padding:24px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-  .wcard .ic{width:58px;height:58px;border-radius:50% 50% 9px 9px / 46% 46% 9px 9px;background:var(--orange-soft);color:var(--orange);
+  .wcard .ic{width:58px;height:58px;border-radius:50%;box-shadow:0 0 0 4px #fff,0 0 0 5px rgba(197,83,31,.4);background:var(--orange-soft);color:var(--orange);
     display:flex;align-items:center;justify-content:center;font-size:29px;margin-bottom:15px;}
   .wcard h3{font-family:'Montserrat';font-weight:700;font-size:20px;color:var(--ink);margin:0 0 9px;line-height:1.2;}
   .wcard p{font-size:15.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
@@ -101,14 +104,24 @@
   .carmhist b{color:#fff;font-weight:600;}
   .imgcap{position:relative;}
 
-  /* DOME FRAME — arch top (Frame 01) + red outline (Frame 02). Reusable photo treatment. */
+  /* RING FRAME — circular photo with concentric red rings (replaces the dome arch). Reusable photo treatment. */
   .dome{
+    border-radius:50% !important;
     border:3px solid var(--dome-red) !important;
-    border-radius:50% 50% 16px 16px / 46% 46% 16px 16px !important;
-    box-shadow:0 0 0 1px rgba(210,69,42,.18), 0 14px 34px rgba(0,0,0,.45) !important;
+    box-shadow:
+      0 0 0 9px var(--bg),
+      0 0 0 11px rgba(210,69,42,.55),
+      0 0 0 22px var(--bg),
+      0 0 0 23px rgba(210,69,42,.28),
+      0 14px 34px rgba(0,0,0,.45) !important;
   }
-  /* slightly shallower arch for short/wide banners so it reads as a dome, not a sliver */
-  .dome.wide{border-radius:120px 120px 16px 16px / 60px 60px 16px 16px !important;}
+  /* a circle needs a square box: fix the size, centre it, leave room for the outer rings */
+  .split .imgbox.dome{flex:0 0 auto;align-self:center;width:400px;height:400px;margin:0 30px;}
+  .solimg.dome{flex:0 0 auto;align-self:center;width:300px;height:300px;margin:0 28px;}
+  /* HydroDome (permanent towers) keeps the original dome arch */
+  .split .imgbox.dome.arch{flex:0 0 45%;align-self:stretch;width:auto;height:auto;margin:0;
+    border-radius:50% 50% 16px 16px / 46% 46% 16px 16px !important;
+    box-shadow:0 0 0 1px rgba(210,69,42,.18), 0 14px 34px rgba(0,0,0,.45) !important;}
   /* competitor frames: square + neutral border — these are NOT our products */
   .imgbox.square{border-radius:0 !important;border:1px solid #3a3a3a !important;box-shadow:none !important;}
 
@@ -218,7 +231,7 @@
   .refscroll{flex:1;min-height:0;overflow:auto;margin-top:4px;padding-right:12px;}
   .refgrid{columns:2;column-gap:34px;}
   .refitem{break-inside:avoid;margin:0 0 15px;padding-left:30px;position:relative;}
-  .refitem .rn{position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50% 50% 5px 5px / 46% 46% 5px 5px;
+  .refitem .rn{position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;box-shadow:0 0 0 2px var(--bg),0 0 0 3px rgba(197,83,31,.4);
     background:rgba(197,83,31,.18);color:var(--orange);font-family:'Montserrat';font-weight:700;font-size:12px;
     display:flex;align-items:center;justify-content:center;}
   .refitem .rc{font-size:13.5px;color:#fff;font-weight:600;line-height:1.35;}
@@ -230,8 +243,9 @@
   .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
   .teamgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
   .teamgrid .tcard{padding:22px 18px 20px;}
-  .teamgrid .tcard .photo{width:120px;height:120px;margin-bottom:14px;
-    border-radius:50% 50% 14px 14px / 46% 46% 14px 14px;border:3px solid var(--dome-red);}
+  .teamgrid .tcard .photo{width:112px;height:112px;margin:6px 0 18px;
+    border-radius:50%;border:3px solid var(--dome-red);
+    box-shadow:0 0 0 4px #fff, 0 0 0 5px rgba(210,69,42,.5), 0 0 0 10px #fff, 0 0 0 11px rgba(210,69,42,.25);}
   .teamgrid .tcard p{font-size:14px;}
   .tcard{background:#fff;border-radius:16px;padding:30px 18px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;}
   .tcard .photo{width:132px;height:132px;border-radius:50%;object-fit:cover;margin-bottom:18px;border:3px solid var(--orange);}
@@ -357,7 +371,7 @@
   #gate.hidden{display:none;}
   #gate .gcard{background:var(--bg2);border:1px solid #2c2c2c;border-radius:16px;padding:38px 42px;width:min(380px,86vw);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6);}
   #gate .glogo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;}
-  #gate .glogo .ring{width:40px;height:40px;border-radius:50% 50% 8px 8px / 46% 46% 8px 8px;border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:21px;}
+  #gate .glogo .ring{width:40px;height:40px;border-radius:50%;box-shadow:0 0 0 3px var(--bg2),0 0 0 4px rgba(197,83,31,.45);border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:21px;}
   #gate .glogo .h{font-family:'Montserrat';font-weight:800;font-size:18px;letter-spacing:1.5px;color:var(--hydro-blue);}
   #gate .glogo .d{font-family:'Montserrat';font-weight:800;font-size:18px;letter-spacing:1.5px;color:var(--dome-red);}
   #gate p{color:var(--muted);font-size:14px;margin:0 0 20px;line-height:1.5;}
@@ -371,7 +385,7 @@
 <body>
 <div id="gate">
   <form class="gcard" id="gateForm">
-    <div class="glogo"><div class="ring"><i class="ti ti-flame"></i></div><div><span class="h">HYDRO</span><span class="d">DOME</span></div></div>
+    <div class="glogo"><div class="ring"><i class="ti ti-flame"></i></div><div><span class="d">THE MOAT</span></div></div>
     <p>This deck is private.<br>Enter the password to continue.</p>
     <input id="gatePw" type="password" placeholder="Password" autocomplete="current-password" autofocus>
     <button type="submit">Unlock</button>
@@ -386,17 +400,17 @@
     <div class="root"><div class="pad">
       <div class="toprow">
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
         <div style="display:flex;align-items:center;gap:14px;"><img class="carm" src="assets/carmanah-logo.svg" alt="Carmanah Wildfire"><div class="kicker">A project of Carmanah Wildfire</div></div>
       </div>
       <div class="split" style="margin-top:18px;">
         <div class="ctext">
-          <div class="tk2">Wildfire defence &amp; smart water management</div>
-          <h1 class="bigtitle">HydroDome <span class="hot">Mobile</span></h1>
-          <p class="lede">A rapidly deployable system that protects communities and critical infrastructure from wildfire — stood up in hours, autonomous once running.</p>
+          <div class="tk2">Wildfire defence lines &amp; smart water management</div>
+          <h1 class="bigtitle">The <span class="hot">Moat</span></h1>
+          <p class="lede">A rapidly deployable line of towers that puts a defence line between wildfire and the community — stood up in hours, autonomous once running.</p>
           <div class="navhint"><i class="ti ti-arrow-right"></i><span>To move through the deck, press the <b>→ right arrow</b> key (or swipe right on touch).</span></div>
         </div>
-        <div class="imgbox dome"><img src="assets/community.jpg" alt="HydroDome mobile deployed in a community"></div>
+        <div class="imgbox dome"><img src="assets/community.jpg" alt="The Moat deployed along a community street"></div>
       </div>
     </div></div>
   </section>
@@ -407,10 +421,10 @@
       <div class="toprow">
         <div>
           <div class="kicker">Our team</div>
-          <div class="head">HydroDome leadership <span class="hot">&amp; technical team</span></div>
+          <div class="head">Moat leadership <span class="hot">&amp; technical team</span></div>
         </div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="teamgrid">
@@ -418,8 +432,8 @@
         <div class="tcard"><img class="photo" src="assets/dakotah.jpg" alt="Dakotah Daily"><h3>Dakotah Daily</h3><div class="role">Consultant</div><p>Wildfire geospatial specialist and experienced project manager.</p></div>
         <div class="tcard"><img class="photo" src="assets/brian.jpg" alt="Brian Mueller"><h3>Brian Mueller</h3><div class="role">Lead Systems Engineer</div><p>Design, welding, and fabrication; UAV and systems expert.</p></div>
         <div class="tcard"><img class="photo" src="assets/mehran.jpg" alt="Dr. Mehran Mehrandezh"><h3>Dr. Mehran Mehrandezh</h3><div class="role">Technical Advisor</div><p>PhD, Professor of Industrial Systems Engineering.</p></div>
-        <div class="tcard"><img class="photo" src="assets/aws.jpg" alt="Aws Al-Mubarak"><h3>Aws Al-Mubarak</h3><div class="role">Advisor</div><p>8 years BC Wildfire — Division Supervisor and NFPA structural firefighter.</p></div>
-        <div class="tcard"><img class="photo" src="assets/micah.jpg" alt="Micah Bayless"><h3>Micah Bayless</h3><div class="role">Technical Advisor</div><p>Senior Aerospace Engineer — power delivery specialist.</p></div>
+        <div class="tcard"><img class="photo" src="assets/amir.jpg" alt="Amirhossein Moshtaghioun"><h3>Amirhossein Moshtaghioun</h3><div class="role">Head of Electronics &amp; AI</div><p>Embedded systems, neural net deployment, and real-time sensor fusion.</p></div>
+        <div class="tcard"><img class="photo" src="assets/yassine.jpg" alt="Yassine Bouhamed"><h3>Yassine Bouhamed</h3><div class="role">CFD &amp; Process Engineer</div><p>Computational fluid dynamics modelling of spray coverage and system economics.</p></div>
       </div>
     </div></div>
   </section>
@@ -431,7 +445,7 @@
         <div><div class="kicker">Who we are</div>
           <div class="head">Carmanah <span class="hot">Wildfire</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="banner" style="height:232px;"><img src="assets/carmanah-team.jpg" alt="Carmanah Wildfire crew"></div>
@@ -453,7 +467,7 @@
         <div><div class="kicker">The problem</div>
           <div class="head">Ember<span class="hot">Cast</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">
@@ -479,17 +493,17 @@
         <div><div class="kicker">What works, what doesn't</div>
           <div class="head">Traditional <span class="hot">approaches</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">
-        <div class="imgbox dome"><img src="assets/spu-traditional.jpg" alt="HydroDome rooftop sprinkler protection unit"></div>
+        <div class="imgbox dome"><img src="assets/spu-traditional.jpg" alt="Traditional rooftop sprinkler protection unit"></div>
         <div class="ctext">
           <p class="lede">We've built and deployed wildfire defense systems in the field — and <b>seen what works and what doesn't.</b></p>
           <ul class="blist auto-seq">
             <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Structure protection pre-wets buildings with large water-moving systems, creating a humidity dome.</span></li>
             <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">It has saved thousands of homes — but <b>setup time limits its reach</b> when fires move fast.</span></li>
-            <li><span class="bic"><i class="ti ti-bolt"></i></span><span class="btx">The answer: a pre-staged, rapidly deployable trailer already on site, protecting the perimeter before the fire arrives.</span></li>
+            <li><span class="bic"><i class="ti ti-bolt"></i></span><span class="btx">The answer: a pre-staged, rapidly deployable trailer already on site, holding the line before the fire arrives.</span></li>
           </ul>
         </div>
       </div>
@@ -501,21 +515,21 @@
     <div class="root"><div class="pad">
       <div class="toprow">
         <div><div class="kicker">Our solution</div>
-          <div class="head">HydroDome <span class="hot">on Wheels</span></div></div>
+          <div class="head">The Moat <span class="hot">on wheels</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="solbanner"><iframe src="spray-logic.html" title="Sequential spray logic" loading="lazy" scrolling="no"></iframe></div>
       <div class="solrow">
         <ul class="blist tight solbul auto-seq">
-          <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Sequentially sprays <b>8 Nelson Big Gun sprinklers across ~8 hectares</b> — firing four at a time, using a pump sized for four guns, not eight.</span></li>
-          <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">Fewer, larger sprinklers mean a <b>1–2 person, 1–2 hour setup.</b></span></li>
-          <li><span class="bic"><i class="ti ti-settings"></i></span><span class="btx">Sequential spraying runs on a <b>~100 hp pump instead of 300 hp.</b></span></li>
-          <li><span class="bic"><i class="ti ti-wifi"></i></span><span class="btx">Wireless, independently controlled heads activate by weather and conditions — semi-autonomous with remote monitoring.</span></li>
+          <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Sequentially sprays <b>8 Nelson Big Gun towers along a 500–800 m line, covering 6–8 hectares</b> — two or three towers per side run at a time, so the pumps are sized for the running set, not all eight.</span></li>
+          <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">Fewer, larger sprinklers mean a <b>two-person crew stands up the full line in under an hour.</b></span></li>
+          <li><span class="bic"><i class="ti ti-settings"></i></span><span class="btx">Sequential spraying runs on <b>two ~50 kW portable fire pumps instead of a ~300 hp cannon plant</b> — either pump alone can carry the line.</span></li>
+          <li><span class="bic"><i class="ti ti-wifi"></i></span><span class="btx">Each tower has its own radio, power, and sensors. Fed from a hydrant, open water, or a remote feed pump through one intake, the line runs itself on live fire weather once the crew leaves, with remote monitoring over satellite.</span></li>
           <li><span class="bic"><i class="ti ti-shield-check"></i></span><span class="btx">A new category: more coverage and less setup than a structure trailer, smaller and cheaper than a single giant cannon.</span></li>
         </ul>
-        <div class="solimg dome"><img src="assets/mill.jpg" alt="HydroDome mobile protecting an industrial site"></div>
+        <div class="solimg dome"><img src="assets/mill.jpg" alt="The Moat protecting an industrial site"></div>
       </div>
     </div></div>
   </section>
@@ -527,16 +541,16 @@
     <div class="root"><div class="pad">
       <div class="toprow">
         <div><div class="kicker">Competitive landscape</div>
-          <div class="head">How HydroDome <span class="hot">stacks up</span></div></div>
+          <div class="head">How the Moat <span class="hot">stacks up</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="vsgrid auto-seq">
         <div class="vscard">
           <div class="vh"><span class="vic"><i class="ti ti-truck"></i></span><h3>vs WASP &mdash; SPU Trailers</h3></div>
           <ul>
-            <li><i class="ti ti-clock"></i><span><b>1&ndash;2 person, ~1&ndash;2 hr</b> deploy vs. a 5-person crew at ~1 hr per structure &mdash; a <b>~15-hour job</b> across 25&ndash;30 structures.</span></li>
+            <li><i class="ti ti-clock"></i><span><b>2-person, under 1 hr</b> deploy vs. a 5-person crew at ~1 hr per structure &mdash; a <b>~15-hour job</b> across 25&ndash;30 structures.</span></li>
             <li><i class="ti ti-droplet"></i><span>Wets the <b>entire zone</b> (~8 ha), not just structures &mdash; roughly <b>double WASP's wetted footprint</b> and denying ember cast in the gaps WASP leaves dry.</span></li>
             <li><i class="ti ti-components"></i><span>A handful of large heads instead of <b>100+ small components</b> to set up and maintain.</span></li>
           </ul>
@@ -553,7 +567,7 @@
           <div class="vh"><span class="vic"><i class="ti ti-tower"></i></span><h3>vs RainStream&trade; &mdash; Telescopic Towers</h3></div>
           <ul>
             <li><i class="ti ti-engine"></i><span>Same wind-carried principle, but a <b>much smaller pump</b> by firing sequentially instead of one giant cannon.</span></li>
-            <li><i class="ti ti-tag"></i><span>Lower cost (~$700K CAD RainStream vs. HydroDome's <b>~$300K target</b>) for comparable or greater coverage.</span></li>
+            <li><i class="ti ti-tag"></i><span>Lower cost (~$700K CAD RainStream vs. the Moat's <b>~$300K target</b>) for comparable or greater coverage.</span></li>
           </ul>
         </div>
       </div>
@@ -568,7 +582,7 @@
         <div><div class="kicker">Competitor deep-dive &middot; 1 of 3</div>
           <div class="head">WASP <span class="hot">trailers</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">
@@ -599,7 +613,7 @@
         <div><div class="kicker">Competitor deep-dive &middot; 2 of 3</div>
           <div class="head">FireWolf <span class="hot">(Edmonton)</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">
@@ -610,9 +624,9 @@
             </ul>
             <div class="specrow"><span class="spec"><i class="ti ti-user"></i>1 operator</span><span class="spec"><i class="ti ti-clock"></i>10&ndash;15 min setup</span><span class="spec"><i class="ti ti-ruler-2"></i>~65 m throw / ~1.3 ha</span><span class="spec"><i class="ti ti-tag"></i>~$500K CAD</span></div>
           </div>
-          <div class="infobox short"><h4><i class="ti ti-arrows-shuffle"></i>Why HydroDome is different</h4>
+          <div class="infobox short"><h4><i class="ti ti-arrows-shuffle"></i>Why the Moat is different</h4>
             <ul>
-              <li><i class="ti ti-flame"></i><span>FireWolf fights an active fire at <b>one point</b>; HydroDome pre-wets an <b>entire zone</b> before the fire arrives.</span></li>
+              <li><i class="ti ti-flame"></i><span>FireWolf fights an active fire at <b>one point</b>; the Moat pre-wets an <b>entire protected zone</b> before the fire arrives.</span></li>
               <li><i class="ti ti-chart-area"></i><span>8 sprinklers across the trailer's coverage vs. one cannon &mdash; roughly <b>6&times; the area</b> &mdash; and at lower cost than FireWolf's robotic platform.</span></li>
             </ul>
           </div>
@@ -629,7 +643,7 @@
         <div><div class="kicker">Competitor deep-dive &middot; 3 of 3</div>
           <div class="head">Wildfire Innovations <span class="hot">&mdash; RainStream&trade;</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">
@@ -664,7 +678,7 @@
         <div><div class="kicker">The technology</div>
           <div class="head">Intelligent command <span class="hot">&amp; control</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">
@@ -672,16 +686,16 @@
           <p class="lede">Predict where embers land &mdash; <b>apply exactly enough water, nowhere wasted.</b></p>
           <ul class="blist tight auto-seq">
             <li><span class="bic"><i class="ti ti-cloud-storm"></i></span><span class="btx"><b>Real-time weather monitoring</b> <span class="sub">&mdash; predicts where embers will land.</span></span></li>
-            <li><span class="bic"><i class="ti ti-calculator"></i></span><span class="btx"><b>Redbook fuel-moisture codes + ignition modeling</b> <span class="sub">&mdash; calculates the right amount of water, no waste.</span></span></li>
-            <li><span class="bic"><i class="ti ti-layout-grid"></i></span><span class="btx"><b>Zone-by-zone sequencing</b> <span class="sub">&mdash; covers the whole site on a single pump.</span></span></li>
+            <li><span class="bic"><i class="ti ti-calculator"></i></span><span class="btx"><b>CFFDRS fine-fuel moisture (FFMC) + ember-ignition thresholds</b> <span class="sub">&mdash; meters exactly the water the fuels need, then re-wets only as they dry.</span></span></li>
+            <li><span class="bic"><i class="ti ti-layout-grid"></i></span><span class="btx"><b>Tower-by-tower sequencing</b> <span class="sub">&mdash; covers the whole line on a pump plant sized for the running set, not all eight towers.</span></span></li>
             <li><span class="bic"><i class="ti ti-adjustments"></i></span><span class="btx"><b>Smart water management</b> <span class="sub">&mdash; auto-adjusts spray and pump cycling.</span></span></li>
-            <li><span class="bic"><i class="ti ti-router"></i></span><span class="btx"><b>LoRa mesh backup comms</b> <span class="sub">&mdash; no cellular or internet needed.</span></span></li>
+            <li><span class="bic"><i class="ti ti-router"></i></span><span class="btx"><b>LoRa radio to every tower, satellite backhaul</b> <span class="sub">&mdash; no cellular needed, and the line keeps running if comms drop.</span></span></li>
             <li><span class="bic"><i class="ti ti-dashboard"></i></span><span class="btx"><b>Single dashboard</b> <span class="sub">&mdash; live flow, pressure, water, and fire-weather.</span></span></li>
           </ul>
         </div>
         <div class="device">
           <div class="monitor"><div class="screen">
-            <iframe class="embed" src="https://tetontopo.github.io/hydrodome-mobile-command/" title="HydroDome Mobile — Command &amp; Control" loading="lazy"></iframe>
+            <iframe class="embed" src="https://tetontopo.github.io/hydrodome-mobile-command/" title="The Moat — Command &amp; Control" loading="lazy"></iframe>
           </div></div>
           <div class="stand-neck"></div><div class="stand-base"></div>
         </div>
@@ -698,7 +712,7 @@
         <div><div class="kicker">The opportunity</div>
           <div class="head">Market <span class="hot">opportunity</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split" style="flex:0 0 588px;">
@@ -719,7 +733,7 @@
         <div><div class="kicker">Market opportunity &middot; sources</div>
           <div class="head">References <span class="hot">&amp; calculations</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="refscroll"><div class="refgrid">
@@ -749,14 +763,14 @@
           <div class="head">Backed by a national <span class="hot">innovation network</span></div>
         </div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="grid3" style="grid-template-columns:repeat(2,1fr);gap:26px;">
-        <div class="wcard" style="padding:30px 32px;"><div class="ic"><i class="ti ti-school"></i></div><h3>Mitacs &times; University of Regina</h3><p>Our R&amp;D engine: Mitacs funds and embeds a PhD engineering team at the University of Regina that is <b>building and testing the HydroDome prototype.</b></p></div>
+        <div class="wcard" style="padding:30px 32px;"><div class="ic"><i class="ti ti-school"></i></div><h3>Mitacs &times; University of Regina</h3><p>Our R&amp;D engine: Mitacs funds and embeds a PhD engineering team at the University of Regina that is <b>building and testing the Moat prototype.</b></p></div>
         <div class="wcard" style="padding:30px 32px;"><div class="ic"><i class="ti ti-flask"></i></div><h3>NRC IRAP</h3><p>Canada's flagship industrial R&amp;D program &mdash; <b>funding plus a dedicated Industrial Technology Advisor</b> guiding us from prototype to commercial product.</p></div>
-        <div class="wcard" style="padding:30px 32px;"><div class="ic"><i class="ti ti-world"></i></div><h3>Global Affairs Canada</h3><p><b>CanExport Innovation grant (approved)</b> &mdash; funding international R&amp;D partnerships and export-market expansion for HydroDome.</p></div>
-        <div class="wcard" style="padding:30px 32px;"><div class="ic"><i class="ti ti-rocket"></i></div><h3>ISED &mdash; Accelerated Growth Service</h3><p>A federal advisor who <b>coordinates government programs and connections</b> to help scale HydroDome as a high-growth Canadian company.</p></div>
+        <div class="wcard" style="padding:30px 32px;"><div class="ic"><i class="ti ti-world"></i></div><h3>Global Affairs Canada</h3><p><b>CanExport Innovation grant (approved)</b> &mdash; funding international R&amp;D partnerships and export-market expansion for the Moat.</p></div>
+        <div class="wcard" style="padding:30px 32px;"><div class="ic"><i class="ti ti-rocket"></i></div><h3>ISED &mdash; Accelerated Growth Service</h3><p>A federal advisor who <b>coordinates government programs and connections</b> to help scale the Moat as a high-growth Canadian company.</p></div>
       </div>
       <div class="note">Developed within and fiscally supported by <span class="hot">Carmanah Wildfire Ltd.</span></div>
     </div></div>
@@ -771,13 +785,13 @@
           <div class="head">Commercial <span class="hot">revenue pathways</span></div>
         </div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="strip" style="margin:0 0 22px;"><i class="ti ti-businessplan"></i><span>Backed by an existing revenue base — these units extend <b>Carmanah's profitable BC Wildfire Service contract work</b> into year-round structure protection, funding growth without relying on grants.</span></div>
       <div class="grid3 auto-seq">
         <div class="wcard"><div class="ic"><i class="ti ti-building-factory-2"></i></div><h3>Revenue beyond grants</h3><p>Sawmills, mines, pipelines, data centres, airports, ski resorts, and remote camps can buy a deployable unit directly.</p></div>
-        <div class="wcard"><div class="ic"><i class="ti ti-receipt"></i></div><h3>Flexible ownership</h3><p>Sell, lease, or a "HydroDome Ready" annual contract — the customer owns the asset and deploys it when fire threatens, with no standing crew.</p></div>
+        <div class="wcard"><div class="ic"><i class="ti ti-receipt"></i></div><h3>Flexible ownership</h3><p>Sell, lease, or a "Moat Ready" annual contract — the customer owns the asset and deploys it when fire threatens, with no standing crew.</p></div>
         <div class="wcard"><div class="ic"><i class="ti ti-bolt"></i></div><h3>Faster deployments</h3><p>A property owner's two-week decision beats a multi-year municipal cycle, with a clear, direct return on investment.</p></div>
       </div>
     </div></div>
@@ -790,7 +804,7 @@
         <div><div class="kicker">Digital twin</div>
           <div class="head">Virtual <span class="hot">model</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">
@@ -806,7 +820,7 @@
         </div>
         <div class="device vmodel">
           <div class="monitor"><div class="screen">
-            <iframe class="embed" src="https://tetontopo.github.io/hydrodome-mobile-sim/?auto=1" title="HydroDome Mobile Deployment &amp; Fire Simulator" loading="lazy"></iframe>
+            <iframe class="embed" src="https://tetontopo.github.io/hydrodome-mobile-sim/?auto=1" title="Moat Deployment &amp; Fire Simulator" loading="lazy"></iframe>
           </div></div>
           <div class="stand-neck"></div><div class="stand-base"></div>
         </div>
@@ -822,13 +836,13 @@
           <div class="kicker">Where we're headed &middot; future iteration</div>
           <div class="head">The permanent <span class="hot">HydroDome</span></div>
         </div>
-        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+        <div class="logo hd"><div class="ring"><i class="ti ti-flame"></i></div>
           <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">
         <div class="ctext">
-          <p class="lede">The mobile unit comes first &mdash; but our longer-term goal is a <b>permanent, always-on version</b> built into the community itself: a network of fixed towers that blanket a whole town in protective moisture the moment wildfire approaches.</p>
+          <p class="lede">The mobile Moat comes first &mdash; but our longer-term goal is <b>HydroDome, a permanent, always-on version</b> built into the community itself: a network of fixed towers that blanket a whole town in protective moisture the moment wildfire approaches.</p>
           <ul class="blist tight auto-seq">
             <li><span class="bic"><i class="ti ti-bolt"></i></span><span class="btx"><b>Always ready, one-button activation</b> &mdash; no crews, no setup. Each tower sprays a curtain of moisture that stops wind-blown embers from igniting roofs and gutters.</span></li>
             <li><span class="bic"><i class="ti ti-battery-charging"></i></span><span class="btx"><b>Works when the grid is down</b> &mdash; buried 8,000-gal cisterns fed by the municipal main, with buried propane backup that also delivers <b>emergency power</b> to the community.</span></li>
@@ -836,7 +850,7 @@
             <li><span class="bic"><i class="ti ti-map-pin"></i></span><span class="btx">Envisioned first community pilot: <b>Fort St.&nbsp;James, BC</b> &mdash; ~20 towers protecting the hospital, emergency shelter, and municipal core.</span></li>
           </ul>
         </div>
-        <div class="imgbox dome"><img src="assets/hd-permanent.jpg" alt="Permanent HydroDome towers spraying a protective curtain of moisture over a community as wildfire approaches"></div>
+        <div class="imgbox dome arch"><img src="assets/hd-permanent.jpg" alt="Permanent HydroDome towers spraying a protective curtain of moisture over a community as wildfire approaches"></div>
       </div>
     </div></div>
   </section>
@@ -850,21 +864,21 @@
           <div class="head">From prototype <span class="hot">to revenue</span></div>
         </div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="phases">
-        <div class="phase"><div class="pic"><i class="ti ti-tools"></i></div><div class="when">Now – Jul 2026</div><div class="what">Engineering &amp; design</div><div class="tag hot">Funded</div></div>
-        <div class="phase"><div class="pic"><i class="ti ti-building-factory-2"></i></div><div class="when">Jul – Sep 2026</div><div class="what">Build prototype</div><div class="tag hot">~$100K</div></div>
-        <div class="phase"><div class="pic"><i class="ti ti-map-pin"></i></div><div class="when">Fall 2026</div><div class="what">Field pilots — reach TRL 5</div><div class="tag">Community + industrial</div></div>
-        <div class="phase"><div class="pic"><i class="ti ti-cash"></i></div><div class="when">2027</div><div class="what">First commercial sales</div><div class="tag hot">Revenue begins</div></div>
-        <div class="phase"><div class="pic"><i class="ti ti-rocket"></i></div><div class="when">2027 +</div><div class="what">Scale &amp; autonomy</div><div class="tag">V2/V3, defense market</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-tools"></i></div><div class="when">Now – Nov 2026</div><div class="what">Engineering &amp; design</div><div class="tag hot">Funded</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-building-factory-2"></i></div><div class="when">Dec 2026 – Mar 2027</div><div class="what">Build prototype</div><div class="tag hot">~$100K</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-map-pin"></i></div><div class="when">2027 fire season</div><div class="what">Field pilots — reach TRL 5</div><div class="tag">Community + industrial</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-cash"></i></div><div class="when">2028</div><div class="what">First commercial sales</div><div class="tag hot">Revenue begins</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-rocket"></i></div><div class="when">2028 +</div><div class="what">Scale &amp; autonomy</div><div class="tag">V2/V3, defense market</div></div>
       </div>
       <div class="metrics">
         <div class="metric"><div class="ml"><i class="ti ti-coin"></i>Invested to date</div><div class="mv hot">~$70K</div></div>
         <div class="metric"><div class="ml"><i class="ti ti-hammer"></i>To finish prototype</div><div class="mv hot">~$100K</div></div>
         <div class="metric"><div class="ml"><i class="ti ti-tag"></i>Per-unit price</div><div class="mv">~$300K</div></div>
-        <div class="metric"><div class="ml"><i class="ti ti-calendar"></i>First revenue</div><div class="mv">2027</div></div>
+        <div class="metric"><div class="ml"><i class="ti ti-calendar"></i>First revenue</div><div class="mv">2028</div></div>
       </div>
       <div class="recur"><i class="ti ti-refresh"></i>Revenue model: unit sales plus recurring maintenance, winterization, and software.</div>
     </div></div>
@@ -877,7 +891,7 @@
         <div><div class="kicker">Let's talk</div>
           <div class="head">Thank you <span class="hot">for your attention</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
-          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
       <div class="split">

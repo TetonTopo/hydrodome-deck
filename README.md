@@ -1,6 +1,6 @@
-# HydroDome Mobile — Web Deck (handoff)
+# The Moat (formerly HydroDome) — Web Deck (handoff)
 
-A browser-based pitch deck (reveal.js) for **HydroDome**, a project of **Carmanah Wildfire Ltd.**
+A browser-based pitch deck (reveal.js) for **The Moat (formerly HydroDome)**, a project of **Carmanah Wildfire Ltd.**
 This README is the running handoff — point a new editing thread here.
 
 _Last updated: 2026-06-26._
