@@ -92,7 +92,23 @@
   body.cinematic #loader{display:none !important}
   body.cinematic #app{display:block}
   body.cinematic #view{width:100%;height:100%}
-  body.cinematic canvas{pointer-events:none}
+  body.cinematic:not(.interactive) canvas{pointer-events:none}
+  /* interactive embed (?interact=0 turns it off): the canvas takes the mouse, and a
+     pill in the corner hands the camera back to the flight. */
+  body.cinematic.interactive canvas{pointer-events:auto;cursor:grab;touch-action:none}
+  body.cinematic.interactive canvas:active{cursor:grabbing}
+  #moatui{display:none}
+  /* bottom left: reveal.js parks its own nav arrows in the bottom right corner */
+  body.cinematic.interactive #moatui{display:block;position:absolute;left:14px;bottom:13px;
+    z-index:16;text-align:left;pointer-events:none;
+    font:600 12px/1.35 ui-sans-serif,system-ui,"Segoe UI",sans-serif;letter-spacing:.02em}
+  body.cinematic.interactive #moatui button{pointer-events:auto;font:inherit;border-radius:999px;
+    padding:7px 14px;background:rgba(12,15,20,.82);color:var(--accent);
+    border:1px solid rgba(224,145,58,.55);backdrop-filter:blur(3px)}
+  body.cinematic.interactive #moatui button:hover{background:rgba(224,145,58,.16);color:#fff}
+  #moathint{margin-top:7px;color:rgba(232,238,246,.66);transition:opacity .7s ease;
+    text-shadow:0 1px 4px rgba(0,0,0,.75)}
+  #moathint.gone{opacity:0}
   #foot_unused{position:absolute;bottom:0;left:0;width:320px;background:var(--panel);
     border-top:1px solid var(--line);padding:8px 14px;display:flex;gap:6px}
   #foot button{flex:1}
@@ -112,6 +128,10 @@
       <button id="mWire">Wire</button>
     </div>
     <div id="bars"></div>
+    <div id="moatui">
+      <button id="moatresume" type="button" hidden>&#8635; Resume flight</button>
+      <div id="moathint">drag to look &middot; scroll to zoom &middot; double-click to focus</div>
+    </div>
     <div id="shotname"></div>
     <div id="loader"><div class="drop">Loading block-out&hellip;</div><p>If this never clears, the scene data did not load (open the console).</p></div>
   </div>
@@ -313,6 +333,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   el.addEventListener('pointerup', () => drag = null);
   el.addEventListener('pointermove', e => {
     if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+    if (Math.abs(dx) > 1 || Math.abs(dy) > 1) takeOver();   // a bare click will not stop the film
     if (drag.b === 0 && !drag.shift) {          // orbit
       orb.theta -= dx * 0.005; orb.phi = THREE.MathUtils.clamp(orb.phi + dy * 0.005, -1.55, 1.55);
     } else if (drag.b === 2 || (drag.b === 0 && drag.shift)) {  // pan in the view plane
@@ -326,8 +347,9 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     }
     applyOrbit(); dirty = true;
   });
-  el.addEventListener('wheel', e => { e.preventDefault(); orb.dist *= Math.exp(e.deltaY * 0.0012); orb.dist = THREE.MathUtils.clamp(orb.dist, 0.3, 3000); applyOrbit(); dirty = true; }, { passive: false });
+  el.addEventListener('wheel', e => { e.preventDefault(); takeOver(); orb.dist *= Math.exp(e.deltaY * 0.0012); orb.dist = THREE.MathUtils.clamp(orb.dist, 0.3, 3000); applyOrbit(); dirty = true; }, { passive: false });
   el.addEventListener('dblclick', e => {   // dolly target to the clicked point
+    takeOver();
     const r = el.getBoundingClientRect(); const nd = new THREE.Vector2((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height * 2 - 1));
     const rc = new THREE.Raycaster(); rc.setFromCamera(nd, camera); const hits = rc.intersectObjects(root.children, true).filter(h => !(h.object instanceof THREE.Sprite) && !(h.object instanceof THREE.Line));
     if (hits.length) { const p = hits[0].point; const cp = camera.position.clone(); setFromCamLook([cp.x, cp.y, cp.z], [p.x, p.y, p.z]); dirty = true; }
@@ -504,6 +526,7 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   }
   window.addEventListener('resize', resize);
   window.addEventListener('keydown', e => {
+    if (CINE) return;                  // the embed has no chrome for these to act on
     if (e.target.tagName === 'INPUT') return; const k = e.key.toLowerCase();
     if (k === 'p') setMode(state.mode === 'shot' ? 'free' : 'shot');
     if (k === 'g') { state.overlay = !state.overlay; applyState(); }
@@ -543,6 +566,9 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   // camera path, so the block-out can sit in the deck as a live asset.
   const Q = new URLSearchParams(location.search);
   const CINE = Q.get('cinematic') === '1' || Q.get('chrome') === '0';
+  // A deck embed is interactive by default: the flight is the resting state, not the
+  // only one. ?interact=0 seals it back up into a film you cannot touch.
+  const INTERACT = CINE && Q.get('interact') !== '0';
 
   // Keyframe = [t_seconds, cam[x,y,z], look[x,y,z], hfov_deg]. A flight is either a bare
   // array of keys, or an object { keys, ease, cyclic, period } - see startFlight.
@@ -654,6 +680,41 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     return { cam, look, fov: A.fov + (B.fov - A.fov) * u };
   }
 
+  // --- user takeover --------------------------------------------------------
+  // The orbit, pan and zoom controls wired up at the top of this file are the same ones
+  // the embed uses; nothing needs handing over, because applyPose keeps orb in step with
+  // the flight, so wherever the film is when you grab it is where you start from.
+  // Resuming lerps that frozen pose into the live flight pose over RETURN seconds -
+  // the flight keeps running underneath, so it eases in instead of cutting.
+  const RETURN = 1.4;
+  const NAVKEYS = ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+                   'PageUp', 'PageDown', 'Home', 'End', 'Escape', ' '];
+  const ui = {};
+  let USER = false, offscreen = false, ret = 0, retFrom = null, capWas = null, hintT = null;
+  function hint(on) {
+    if (!ui.hint) return;
+    clearTimeout(hintT);
+    ui.hint.classList.toggle('gone', !on);
+    if (on) hintT = setTimeout(() => ui.hint.classList.add('gone'), 12000);
+  }
+  function takeOver() {
+    if (!INTERACT || USER) return;
+    USER = true; ret = 0; flight.playing = false;
+    if (capWas === null) { capWas = CAP; CAP = 0; }   // uncapped while a hand is on it
+    hint(false);
+    if (ui.resume) ui.resume.hidden = false;
+    dirty = true;
+  }
+  function resumeFlight() {
+    if (!USER) return;
+    const c = camera.position, tg = orb.target;
+    retFrom = { cam: [c.x, c.y, c.z], look: [tg.x, tg.y, tg.z], fov: state.fov };
+    ret = RETURN; USER = false; flight.playing = true; last = performance.now();
+    if (capWas !== null) { CAP = capWas; capWas = null; }
+    if (ui.resume) ui.resume.hidden = true;
+    dirty = true;
+  }
+
   // --- playback -------------------------------------------------------------
   const flight = { name: null, keys: null, t: 0, dur: 0, playing: false, loop: true, ease: true, cyclic: false };
   function applyPose(p) { state.fov = p.fov; setFromCamLook(p.cam, p.look); applyFov(); updateSun(); dirty = true; }
@@ -690,7 +751,17 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
       if (flight.loop) flight.t -= total;                       // the eased seam brought us home
       else { flight.t = flight.dur; flight.playing = false; }    // play once, hold the last frame
     }
-    applyPose(poseAt(flight.keys, flight.t, flight.loop, flight.ease));
+    let p = poseAt(flight.keys, flight.t, flight.loop, flight.ease);
+    if (ret > 0) {
+      ret = Math.max(ret - dt, 0);
+      const u = smoothstep(1 - ret / RETURN), cam = [], look = [];
+      for (let j = 0; j < 3; j++) {
+        cam.push(retFrom.cam[j] + (p.cam[j] - retFrom.cam[j]) * u);
+        look.push(retFrom.look[j] + (p.look[j] - retFrom.look[j]) * u);
+      }
+      p = { cam, look, fov: retFrom.fov + (p.fov - retFrom.fov) * u };
+    }
+    applyPose(p);
     return true;
   }
 
@@ -708,6 +779,19 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     CAP = isFinite(fps) ? (fps > 0 ? Math.min(fps, 120) : 0) : 30;   // default: rAF, capped at 30
     flight.loop = Q.get('loop') !== '0';
     startFlight(Q.get('flight') || DEFAULT_FLIGHT);
+    if (INTERACT) {
+      document.body.classList.add('interactive');
+      ui.resume = $('moatresume'); ui.hint = $('moathint');
+      if (ui.resume) { ui.resume.hidden = true; ui.resume.onclick = resumeFlight; }
+      hint(true);
+      // Arrow keys belong to the deck. Once the canvas has been clicked the iframe holds
+      // focus and they would die in here, so hand the navigation keys back to the parent.
+      window.addEventListener('keydown', e => {
+        if (NAVKEYS.indexOf(e.key) < 0) return;
+        e.preventDefault();
+        try { parent.postMessage({ type: 'moat', cmd: 'key', key: e.key }, '*'); } catch (err) {}
+      });
+    }
     resize();
   }
 
@@ -715,9 +799,14 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
   window.addEventListener('message', e => {
     const d = e.data;
     if (!d || d.type !== 'moat') return;
-    if (d.cmd === 'pause') flight.playing = false;
-    else if (d.cmd === 'play') { flight.playing = true; last = performance.now(); }
+    if (d.cmd === 'pause') { offscreen = true; flight.playing = false; }
+    else if (d.cmd === 'play') { offscreen = false; if (!USER) { flight.playing = true; last = performance.now(); } }
     else if (d.cmd === 'restart') {
+      // re-entering the slide drops whatever the last viewer did and starts the lap over
+      offscreen = false; USER = false; ret = 0;
+      if (capWas !== null) { CAP = capWas; capWas = null; }
+      if (ui.resume) ui.resume.hidden = true;
+      hint(true);
       flight.t = 0; flight.playing = true; last = performance.now();
       if (flight.keys) applyPose(poseAt(flight.keys, 0, flight.loop, flight.ease));
     }
@@ -726,6 +815,8 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
 
   window.MOAT = { savePng, gotoCam, state, cams, camera, renderer, scene, setMode, applyState, renderLine,
     flights: FLIGHTS, flight, startFlight, seekFlight, poseAt, minZAt, cinematic: CINE,
+    interactive: INTERACT, takeOver, resumeFlight,
+    get user() { return USER; }, get offscreen() { return offscreen; },
     get cap() { return CAP; }, seam: SEAM };
 
   // ------------------------------------------------------------ run
@@ -745,12 +836,18 @@ function(t,e){"object"==typeof exports&&"undefined"!=typeof module?e(exports):"f
     requestAnimationFrame(frame);
     // Stop drawing when the iframe is hidden or the parent paused us;
     // preserveDrawingBuffer keeps the last frame on screen while we idle.
-    if (document.hidden) { last = now; return; }
-    if (CINE && !flight.playing) { last = now; return; }
+    if (document.hidden || offscreen) { last = now; return; }
+    if (CINE && !flight.playing && !USER) { last = now; return; }
     if (CAP && (now - last) < 1000 / CAP - 0.5) return;
     const dt = Math.min((now - last) / 1000, 0.1); last = now;
-    if (CINE) stepFlight(dt); else if (fly(dt)) dirty = true;
-    dirty = true;                       // a running flight redraws every frame
+    if (CINE && USER) {
+      if (fly(dt)) dirty = true;        // hand on the canvas: only redraw what moved
+      if (!dirty) return;
+      dirty = false;
+    } else {
+      if (CINE) stepFlight(dt); else if (fly(dt)) dirty = true;
+      dirty = true;                     // a running flight redraws every frame
+    }
     updateSun();
     if (!CINE) hud();
     renderer.render(scene, camera);
