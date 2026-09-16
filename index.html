@@ -825,6 +825,25 @@
     </div></div>
   </section>
 
+  <!-- THE LINE, BUILT — live 3-D block-out, autoplaying flyover -->
+  <section>
+    <div class="root"><div class="pad filmpad">
+      <div class="toprow">
+        <div><div class="kicker">The deployed line &middot; live 3-D block-out</div>
+          <div class="head">What it looks like <span class="hot">on the ground</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <p class="filmlede">Real CAD, real spacing: eight towers on the shoulder of one street at 80 m centres,
+        the trailer at the crossing, jets alternating north and south across a 48 m throw.</p>
+      <div class="filmbox">
+        <iframe src="assets/moat_blockout.html?cinematic=1&amp;flight=trailer_orbit"
+                title="The Moat &mdash; deployed line, 3-D block-out" loading="lazy" data-moat></iframe>
+      </div>
+    </div></div>
+  </section>
+
   <!-- FUTURE ITERATION: PERMANENT COMMUNITY INSTALLATION -->
   <section>
     <div class="root"><div class="pad">
@@ -924,13 +943,22 @@
 <script>
   Reveal.initialize({width:1440,height:810,margin:0,controls:true,progress:true,hash:true,center:false,transition:'slide',transitionSpeed:'slow',backgroundTransition:'fade'});
 
-  // The site-analysis film is a loop, so if you step away and come back you would
-  // land in the middle of it. Send it back to the top whenever the slide is shown.
+  // The site-analysis films loop, so if you step away and come back you would land in
+  // the middle of one. Send the incoming slide's film back to the top, and pause the
+  // 3-D block-out flight on the slide we just left so it is not burning frames offscreen.
+  function eachFilm(sec, fn){
+    if(!sec) return;
+    Array.prototype.forEach.call(sec.querySelectorAll('.filmbox iframe'), fn);
+  }
+  function moatCmd(f, cmd){
+    try { f.contentWindow.postMessage({ type:'moat', cmd:cmd }, '*'); } catch(e){}
+  }
   function restartFilm(ev){
-    var sec = ev && ev.currentSlide;
-    var f = sec && sec.querySelector('.filmbox iframe');
-    if(!f) return;
-    try { f.contentWindow.postMessage({ moat: 'restart' }, '*'); } catch(e){}
+    eachFilm(ev && ev.previousSlide, function(f){ if(f.hasAttribute('data-moat')) moatCmd(f,'pause'); });
+    eachFilm(ev && ev.currentSlide, function(f){
+      if(f.hasAttribute('data-moat')) moatCmd(f,'restart');
+      else { try { f.contentWindow.postMessage({ moat:'restart' }, '*'); } catch(e){} }
+    });
   }
   Reveal.on('slidechanged', restartFilm);
   Reveal.on('ready', restartFilm);
