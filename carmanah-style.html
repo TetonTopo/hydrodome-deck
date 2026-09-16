@@ -817,8 +817,7 @@
           <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
-      <p class="filmlede">Any real community, before we break ground: open data in, a defensible line out &mdash;
-        every tower <b>on a road</b>, every arc <b>trimmed to what it protects</b>.</p>
+      <p class="filmlede">Open data in, a defensible line out &mdash; on any community, before we break ground.</p>
       <div class="filmbox">
         <iframe src="https://tetontopo.github.io/hydrodome-mobile-sim/?chrome=0"
                 title="The Moat &mdash; site analysis" loading="lazy"></iframe>
@@ -924,6 +923,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
 <script>
   Reveal.initialize({width:1440,height:810,margin:0,controls:true,progress:true,hash:true,center:false,transition:'slide',transitionSpeed:'slow',backgroundTransition:'fade'});
+
+  // The site-analysis film is a loop, so if you step away and come back you would
+  // land in the middle of it. Send it back to the top whenever the slide is shown.
+  function restartFilm(ev){
+    var sec = ev && ev.currentSlide;
+    var f = sec && sec.querySelector('.filmbox iframe');
+    if(!f) return;
+    try { f.contentWindow.postMessage({ moat: 'restart' }, '*'); } catch(e){}
+  }
+  Reveal.on('slidechanged', restartFilm);
+  Reveal.on('ready', restartFilm);
 </script>
 </body>
 </html>

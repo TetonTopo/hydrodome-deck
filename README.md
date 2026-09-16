@@ -96,14 +96,14 @@ Edits from Nick's June 26 call (Granola note "Nicks feedback for the deck"). **T
 12. **Market Opportunity** — bigger live **WUI map** (58% width) + taller TAM/SAM/SOM cards ($4.5B / $1.2B / $22.5–37.5M).
 13. **Partners** — national innovation network (Mitacs, NRC IRAP, Global Affairs, ISED, U Regina, NATO DIANA).
 14. **Commercial revenue pathways** — **3 cards fade in one at a time**.
-15. **Site analysis** — one line of copy; the placement film fills the slide (93% of its width) and plays on a loop. Nothing to click.
+15. **Site analysis** — a title and one line of copy; the placement film fills the slide and plays on a loop. Restarts from the top whenever you come back to the slide. Nothing to click.
 16. **Roadmap (Prototype → Revenue)** — the 5 timeline phases **fade in left-to-right** on entry (slowed to the shared deck pace).
 17. **Thank You / Closing** — zoom transition; contacts (Dakotah 307 699 0418, Nick 250 588 7544, carmanahwildfire.com).
 
 ## Embedded live apps (iframes)
 Separate GitHub repos / Pages embedded into the deck. **All on the MOBILE system as of 2026-06-26:**
 - **Command & Control (SCADA)** → `https://tetontopo.github.io/hydrodome-mobile-command/` (slide 11). New mobile C2 dashboard: two-pump failover, sequential 1-gun/side firing, per-gun LoRa nodes, closed-loop 70 PSI. Replaces the archived `hydrodome-scada`.
-- **Site analysis** → `https://tetontopo.github.io/hydrodome-mobile-sim/?chrome=0` (on the Site analysis slide). Passive ~88 s loop over the Maple Bay block-out: open data, classification, threat from the west, five towers placed on Considine Avenue, coverage, ranking, arc windows, the wet line. `chrome=0` hides its own lockup so the slide title carries it. WUI grid, 634 real buildings, hose-spec tower placement, wind-driven fire contained at the wetted corridor. `?auto=1` makes the embed self-play (ignite → hold line → reset → loop). Replaces the archived `hydrodome-sim`.
+- **Site analysis** → `https://tetontopo.github.io/hydrodome-mobile-sim/?chrome=0` (on the Site analysis slide). Passive ~88 s loop: open data, block-out classification, threat from the west, five towers placed on a real street, coverage, ranking, the 180-degree sweep each gun actually runs, the wet line. `chrome=0` hides its own lockup so the slide title carries it; the deck posts `{moat:"restart"}` on `slidechanged` so the loop starts over on re-entry.
 - **WUI map** → `https://tetontopo.github.io/hydrodome-maps/#5/54.5/-124.5` (slide 12). Opens on BC with Kelowna highlighted; historic fire perimeters now render (CWFIS `nbac` layer). The `#5/54.5/-124.5` hash is harmless — the app hard-codes the BC view.
 
 ## Spray-logic animation (`spray-logic.html`)
