@@ -379,6 +379,34 @@
   .solimg{flex:0 0 33%;height:300px;border-radius:14px;overflow:hidden;border:1px solid #2c2c2c;align-self:center;}
   .solimg img{width:100%;height:100%;object-fit:cover;display:block;}
 
+  /* HOW IT WORKS (3 slides) — water path, sequencing, control & the trailer */
+  .hiwdiagram{flex:0 0 auto;width:100%;box-sizing:border-box;background:var(--bg3);
+    border:1px solid #2a2a2a;border-radius:14px;padding:14px 20px;}
+  .hiwdiagram svg{display:block;width:100%;height:auto;}
+  .hiwlist{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:1fr 1fr;
+    grid-auto-flow:column;gap:15px 40px;}
+  .hiwlist.rows3{grid-template-rows:repeat(3,auto);}
+  .hiwlist.rows2{grid-template-rows:repeat(2,auto);}
+  .hiwlist li{display:flex;gap:13px;align-items:flex-start;}
+  .hiwlist li .bic{flex:0 0 auto;width:42px;height:42px;border-radius:11px;background:var(--bg2);
+    color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:21px;}
+  .hiwlist li .btx{font-size:15.5px;color:var(--white);line-height:1.45;}
+  .hiwlist li .btx b{color:#fff;font-weight:600;}
+
+  /* sequencing: the same line of towers, three frames, a different group lit in each */
+  .seqrow{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .seqframe{background:var(--bg3);border:1px solid #2a2a2a;border-radius:14px;padding:12px 12px 9px;}
+  .seqframe svg{display:block;width:100%;height:auto;}
+  .seqframe .fcap{font-family:'Montserrat';font-weight:600;font-size:11.5px;letter-spacing:2.4px;
+    text-transform:uppercase;color:var(--muted);text-align:center;margin-top:8px;}
+
+  /* control & the trailer: two copy cards on the left, the rear-view drawing on the right */
+  .trailerviz{flex:0 0 40%;align-self:stretch;display:flex;flex-direction:column;}
+  .trailerviz .vizbox{flex:1;min-height:0;background:var(--bg3);border:1px solid #2a2a2a;
+    border-radius:14px;padding:10px;display:flex;align-items:center;justify-content:center;}
+  .trailerviz .vizbox svg{display:block;width:100%;height:100%;}
+  .vsgrid.vs2{grid-template-columns:1fr 1fr;align-content:center;}
+
   /* password gate (simple client-side; deters casual viewers) */
   #gate{position:fixed;inset:0;z-index:9999;background:#0f0f0f;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;}
   #gate.hidden{display:none;}
@@ -423,7 +451,7 @@
           <p class="lede">A rapidly deployable line of towers that puts a defence line between wildfire and the community — stood up in hours, autonomous once running.</p>
           <div class="navhint"><i class="ti ti-arrow-right"></i><span>To move through the deck, press the <b>→ right arrow</b> key (or swipe right on touch).</span></div>
         </div>
-        <div class="imgbox dome"><img src="assets/community.jpg" alt="The Moat deployed along a community street"></div>
+        <div class="imgbox dome"><img src="assets/community.jpg" alt="The Moat deployed along a community street: the trailer on a hydrant and a line of towers throwing arcing jets over the rooftops" style="object-position:12% 50%;"></div>
       </div>
     </div></div>
   </section>
@@ -539,13 +567,13 @@
       <div class="solbanner"><iframe src="spray-logic.html" title="Sequential spray logic" loading="lazy" scrolling="no"></iframe></div>
       <div class="solrow">
         <ul class="blist tight solbul auto-seq">
-          <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Sequentially sprays <b>10 Nelson Big Gun towers along a 500–800 m line, covering 6–8 hectares</b> — two or three towers per side run at a time, so the pumps are sized for the running set, not all ten.</span></li>
+          <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">Sequentially sprays <b>8 Nelson Big Gun towers along a 500–800 m line<!-- TODO: confirm with Brian — canon is 560 m tower to tower -->, covering 6–8 hectares</b> — two or three towers per side run at a time, so the pumps are sized for the running set, not all eight.</span></li>
           <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">Fewer, larger sprinklers mean a <b>two-person crew stands up the full line in under an hour.</b></span></li>
           <li><span class="bic"><i class="ti ti-settings"></i></span><span class="btx">Sequential spraying runs on <b>two ~50 kW portable fire pumps instead of a ~300 hp cannon plant</b> — either pump alone can carry the line.</span></li>
           <li><span class="bic"><i class="ti ti-wifi"></i></span><span class="btx">Each tower has its own radio, power, and sensors. Fed from a hydrant, open water, or a remote feed pump through one intake, the line runs itself on live fire weather once the crew leaves, with remote monitoring over satellite.</span></li>
           <li><span class="bic"><i class="ti ti-shield-check"></i></span><span class="btx">A new category: more coverage and less setup than a structure trailer, smaller and cheaper than a single giant cannon.</span></li>
         </ul>
-        <div class="solimg dome"><img src="assets/mill.jpg" alt="The Moat protecting an industrial site"></div>
+        <div class="solimg dome"><img src="assets/mill.jpg" alt="The Moat protecting an industrial site: towers throwing arcing jets over a log yard" style="object-position:50% 50%;"></div>
       </div>
     </div></div>
   </section>
@@ -564,6 +592,257 @@
         <iframe src="assets/moat_blockout.html?cinematic=1&amp;flight=descent"
                 title="The Moat &mdash; approach to the line" loading="lazy" data-moat></iframe>
       </div>
+    </div></div>
+  </section>
+
+  </section>
+
+  <!-- HOW IT WORKS — vertical elevator stack (convex cube-roll on all) -->
+  <section>
+
+  <!-- HOW IT WORKS 1 — THE WATER PATH -->
+  <section data-transition="convex">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">How it works &middot; the water path</div>
+          <div class="head">Two pumps, one manifold, <span class="hot">many towers</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+
+      <!-- water source -> two pumps -> common manifold -> trunk line -> branches -> towers -->
+      <div class="hiwdiagram">
+        <svg viewBox="0 0 1288 262" role="img" aria-label="Water source feeds two UP4 pumps into a common manifold, which feeds the trunk line, which branches out to the sprinkler towers; each tower has a valve and a pressure regulator."
+             font-family="Inter, sans-serif">
+          <!-- water source -->
+          <rect x="6" y="44" width="152" height="64" rx="12" fill="#1b1b1b" stroke="#333"/>
+          <text x="82" y="81" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">Water source</text>
+          <!-- source splits to both pumps -->
+          <path d="M158 76 H180 M180 48 V104 M180 48 H204 M180 104 H204" stroke="#2e86d6" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- the two pumps -->
+          <rect x="204" y="24" width="150" height="48" rx="10" fill="#1b1b1b" stroke="#333"/>
+          <text x="279" y="54" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">UP4 pump</text>
+          <rect x="204" y="80" width="150" height="48" rx="10" fill="#1b1b1b" stroke="#333"/>
+          <text x="279" y="110" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">UP4 pump</text>
+          <!-- both discharge into one manifold -->
+          <path d="M354 48 H400 M354 104 H400" stroke="#2e86d6" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <rect x="400" y="24" width="130" height="104" rx="10" fill="#1b1b1b" stroke="#333"/>
+          <text x="465" y="69" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">Common</text>
+          <text x="465" y="90" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">manifold</text>
+          <!-- trunk line out of the manifold outlet -->
+          <path d="M530 76 H1274" stroke="#2e86d6" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <text x="542" y="58" fill="#a39d94" font-size="13">Trunk line</text>
+          <text x="660" y="100" fill="#a39d94" font-size="13">Branch lines</text>
+          <!-- ground under the towers -->
+          <path d="M600 226 H1274" stroke="#3a3a3a" stroke-width="2"/>
+          <text x="878" y="248" text-anchor="middle" fill="#a39d94" font-size="13">Sprinkler towers</text>
+          <g stroke-linecap="round">
+            <!-- tower 1 -->
+            <path d="M644 76 V108 M644 127 V140 M644 161 V176" stroke="#2e86d6" stroke-width="4" fill="none"/>
+            <path d="M633 109 L633 127 L644 118 Z M655 109 L655 127 L644 118 Z" fill="#c5531f"/>
+            <circle cx="644" cy="151" r="10" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+            <path d="M639 151 H649" stroke="#c5531f" stroke-width="2"/>
+            <path d="M644 178 L622 226 M644 178 L666 226 M644 178 L648 226" stroke="#6a6a6a" stroke-width="3"/>
+            <path d="M644 178 L662 168" stroke="#f3efe9" stroke-width="4"/>
+            <circle cx="644" cy="178" r="5" fill="#c5531f"/>
+            <!-- tower 2 -->
+            <path d="M800 76 V108 M800 127 V140 M800 161 V176" stroke="#2e86d6" stroke-width="4" fill="none"/>
+            <path d="M789 109 L789 127 L800 118 Z M811 109 L811 127 L800 118 Z" fill="#c5531f"/>
+            <circle cx="800" cy="151" r="10" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+            <path d="M795 151 H805" stroke="#c5531f" stroke-width="2"/>
+            <path d="M800 178 L778 226 M800 178 L822 226 M800 178 L804 226" stroke="#6a6a6a" stroke-width="3"/>
+            <path d="M800 178 L818 168" stroke="#f3efe9" stroke-width="4"/>
+            <circle cx="800" cy="178" r="5" fill="#c5531f"/>
+            <!-- tower 3 -->
+            <path d="M956 76 V108 M956 127 V140 M956 161 V176" stroke="#2e86d6" stroke-width="4" fill="none"/>
+            <path d="M945 109 L945 127 L956 118 Z M967 109 L967 127 L956 118 Z" fill="#c5531f"/>
+            <circle cx="956" cy="151" r="10" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+            <path d="M951 151 H961" stroke="#c5531f" stroke-width="2"/>
+            <path d="M956 178 L934 226 M956 178 L978 226 M956 178 L960 226" stroke="#6a6a6a" stroke-width="3"/>
+            <path d="M956 178 L974 168" stroke="#f3efe9" stroke-width="4"/>
+            <circle cx="956" cy="178" r="5" fill="#c5531f"/>
+            <!-- tower 4 -->
+            <path d="M1112 76 V108 M1112 127 V140 M1112 161 V176" stroke="#2e86d6" stroke-width="4" fill="none"/>
+            <path d="M1101 109 L1101 127 L1112 118 Z M1123 109 L1123 127 L1112 118 Z" fill="#c5531f"/>
+            <circle cx="1112" cy="151" r="10" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+            <path d="M1107 151 H1117" stroke="#c5531f" stroke-width="2"/>
+            <path d="M1112 178 L1090 226 M1112 178 L1134 226 M1112 178 L1116 226" stroke="#6a6a6a" stroke-width="3"/>
+            <path d="M1112 178 L1130 168" stroke="#f3efe9" stroke-width="4"/>
+            <circle cx="1112" cy="178" r="5" fill="#c5531f"/>
+          </g>
+          <!-- legend -->
+          <path d="M32 189 L32 203 L40 196 Z M48 189 L48 203 L40 196 Z" fill="#c5531f"/>
+          <text x="58" y="201" fill="#a39d94" font-size="13">Valve</text>
+          <circle cx="140" cy="196" r="9" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+          <path d="M135 196 H145" stroke="#c5531f" stroke-width="2"/>
+          <text x="156" y="201" fill="#a39d94" font-size="13">Pressure regulator</text>
+        </svg>
+      </div>
+
+      <ul class="hiwlist rows3 auto-seq">
+        <li><span class="bic"><i class="ti ti-engine"></i></span><span class="btx">Two UP4 pumps <b>share a common manifold</b>, so they can run together or independently.</span></li>
+        <li><span class="bic"><i class="ti ti-shield-check"></i></span><span class="btx">Running together meets the pressure and flow the system needs; running independently <b>gives redundancy.</b></span></li>
+        <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">The manifold outlet feeds <b>the main trunk line.</b></span></li>
+        <li><span class="bic"><i class="ti ti-git-branch"></i></span><span class="btx">The trunk line has <b>branches that feed the sprinkler towers.</b></span></li>
+        <li><span class="bic"><i class="ti ti-gauge"></i></span><span class="btx">Each tower has a <b>pressure regulator</b>, so pressure is evenly distributed across the system.</span></li>
+      </ul>
+      <div class="vnav-cue"><i class="ti ti-chevrons-down"></i><div><b>How does it hold a big line on a small pump?</b> Press <b>&darr;</b> (or swipe down) for <span class="hot">sequencing</span>, then <span class="hot">control &amp; the trailer</span>. Press <b>&uarr;</b> to come back to the water path.</div></div>
+    </div></div>
+  </section>
+
+  <!-- HOW IT WORKS 2 — SEQUENCING -->
+  <section data-transition="convex">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">How it works &middot; sequencing</div>
+          <div class="head">Big sprinklers, small pump,<br><span class="hot">not much water</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+
+      <!-- the same line of towers, three moments, a different group live in each -->
+      <div class="seqrow auto-seq">
+        <div class="seqframe">
+          <svg viewBox="0 0 400 176" role="img" aria-label="Plan view of the line: the trailer at the centre, towers along the street, a different group of towers throwing in each frame." font-family="Inter, sans-serif"><rect x="12" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="12" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="150" width="20" height="14" rx="2" fill="#282828"/><path d="M8 88 H392" stroke="#3a3a3a" stroke-width="10"/><path d="M8 96 H392" stroke="#2e86d6" stroke-width="2.5" opacity=".55"/><path d="M160 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="160" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M80 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="80" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M280 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="280" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M360 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="360" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><circle cx="40" cy="88" r="5" fill="#5c5c5c"/><circle cx="80" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="80" cy="88" r="5" fill="#c5531f"/><circle cx="120" cy="88" r="5" fill="#5c5c5c"/><circle cx="160" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="160" cy="88" r="5" fill="#c5531f"/><circle cx="240" cy="88" r="5" fill="#5c5c5c"/><circle cx="280" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="280" cy="88" r="5" fill="#c5531f"/><circle cx="320" cy="88" r="5" fill="#5c5c5c"/><circle cx="360" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="360" cy="88" r="5" fill="#c5531f"/><rect x="185" y="79" width="30" height="18" rx="3" fill="#232323" stroke="#5a5a5a" stroke-width="1.5"/></svg>
+          <div class="fcap">One group live</div>
+        </div>
+        <div class="seqframe">
+          <svg viewBox="0 0 400 176" role="img" aria-label="Plan view of the line: the trailer at the centre, towers along the street, a different group of towers throwing in each frame." font-family="Inter, sans-serif"><rect x="12" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="12" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="150" width="20" height="14" rx="2" fill="#282828"/><path d="M8 88 H392" stroke="#3a3a3a" stroke-width="10"/><path d="M8 96 H392" stroke="#2e86d6" stroke-width="2.5" opacity=".55"/><path d="M120 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="120" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M40 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="40" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M240 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="240" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M320 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="320" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><circle cx="40" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="40" cy="88" r="5" fill="#c5531f"/><circle cx="80" cy="88" r="5" fill="#5c5c5c"/><circle cx="120" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="120" cy="88" r="5" fill="#c5531f"/><circle cx="160" cy="88" r="5" fill="#5c5c5c"/><circle cx="240" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="240" cy="88" r="5" fill="#c5531f"/><circle cx="280" cy="88" r="5" fill="#5c5c5c"/><circle cx="320" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="320" cy="88" r="5" fill="#c5531f"/><circle cx="360" cy="88" r="5" fill="#5c5c5c"/><rect x="185" y="79" width="30" height="18" rx="3" fill="#232323" stroke="#5a5a5a" stroke-width="1.5"/></svg>
+          <div class="fcap">The next group</div>
+        </div>
+        <div class="seqframe">
+          <svg viewBox="0 0 400 176" role="img" aria-label="Plan view of the line: the trailer at the centre, towers along the street, a different group of towers throwing in each frame." font-family="Inter, sans-serif"><rect x="12" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="12" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="150" width="20" height="14" rx="2" fill="#282828"/><path d="M8 88 H392" stroke="#3a3a3a" stroke-width="10"/><path d="M8 96 H392" stroke="#2e86d6" stroke-width="2.5" opacity=".55"/><path d="M40 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="40" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M160 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="160" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M240 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="240" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M360 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="360" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><circle cx="40" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="40" cy="88" r="5" fill="#c5531f"/><circle cx="80" cy="88" r="5" fill="#5c5c5c"/><circle cx="120" cy="88" r="5" fill="#5c5c5c"/><circle cx="160" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="160" cy="88" r="5" fill="#c5531f"/><circle cx="240" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="240" cy="88" r="5" fill="#c5531f"/><circle cx="280" cy="88" r="5" fill="#5c5c5c"/><circle cx="320" cy="88" r="5" fill="#5c5c5c"/><circle cx="360" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="360" cy="88" r="5" fill="#c5531f"/><rect x="185" y="79" width="30" height="18" rx="3" fill="#232323" stroke="#5a5a5a" stroke-width="1.5"/></svg>
+          <div class="fcap">And on down the line</div>
+        </div>
+      </div>
+
+      <ul class="hiwlist rows2 auto-seq">
+        <li><span class="bic"><i class="ti ti-toggle-right"></i></span><span class="btx"><b>Every tower has a valve</b>, so towers can be turned on and off in sequence.</span></li>
+        <li><span class="bic"><i class="ti ti-rotate-clockwise"></i></span><span class="btx">Running towers in sequence makes the most of <b>the power available from the pumps</b> and the water available from whatever source we&rsquo;re drawing from.</span></li>
+        <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">That is what lets us run <b>really big sprinklers, and a lot of them, over a large area</b> &mdash; on a relatively small pump and not much water.</span></li>
+        <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">This is the same strategy irrigation has used for a long time. <b>It is proven, not new.</b></span></li>
+      </ul>
+
+      <div class="strip"><i class="ti ti-plant-2"></i><div>Same idea as an <b>irrigation field</b>: a few heads at a time, rotating.</div></div>
+      <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the water path &middot; &darr; for control &amp; the trailer</div>
+    </div></div>
+  </section>
+
+  <!-- HOW IT WORKS 3 — CONTROL & THE TRAILER -->
+  <section data-transition="convex">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">How it works &middot; control &amp; the trailer</div>
+          <div class="head">Controlled by <span class="hot">radio</span><span class="headexp">Packed like a structure protection unit</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="vsgrid vs2 auto-seq" style="flex:1;">
+          <div class="vscard">
+            <div class="vh"><span class="vic"><i class="ti ti-router"></i></span><h3>Control</h3></div>
+            <ul>
+              <li><i class="ti ti-antenna-bars-5"></i><span>Every nozzle is controlled wirelessly from a <b>LoRa radio in the trailer.</b></span></li>
+              <li><i class="ti ti-engine"></i><span>The pumps can also be controlled wirelessly.</span></li>
+              <li><i class="ti ti-arrows-exchange"></i><span>The link is <b>two way</b> &mdash; the towers report back, for example whether a tripod tower is running properly.</span></li>
+            </ul>
+          </div>
+          <div class="vscard">
+            <div class="vh"><span class="vic"><i class="ti ti-truck"></i></span><h3>The trailer</h3></div>
+            <ul>
+              <li><i class="ti ti-door"></i><span>A <b>back door</b> gives access to the two pumps and the manifold. Hoses hook up to the pumps there.</span></li>
+              <li><i class="ti ti-layout-grid"></i><span>Also at the back: <b>slots for all the sprinkler towers</b> and the hard suction hose.</span></li>
+              <li><i class="ti ti-package-export"></i><span>A UP4 pump can be pulled out and <b>carried closer to the water source.</b> Pumps are bad at sucking and good at pushing, so getting the pump close to the water matters.</span></li>
+              <li><i class="ti ti-tool"></i><span>Inside, it&rsquo;s laid out like a normal structure protection unit: hose on the wall, fittings and jewellery stored alongside.</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="trailerviz">
+          <div class="vizbox">
+            <!-- placeholder line art; drop a still in over it when one is ready:
+            <img src="assets/trailer-rear.jpg" alt="Rear view of the Moat trailer: back door open on the two pumps and the manifold, with tower slots and hard suction hose"> -->
+            <svg viewBox="0 0 520 680" role="img" aria-label="Rear view of the trailer: back door open on the two pumps and the common manifold, with slots for the sprinkler towers and the hard suction hose; a LoRa radio links the trailer to every tower, and a pump can be carried down to the water."
+                 font-family="Inter, sans-serif">
+              <!-- LoRa link: trailer radio, two-way, out to every tower -->
+              <g stroke-linecap="round">
+                <path d="M120 42 V72" stroke="#c5531f" stroke-width="3"/>
+                <circle cx="120" cy="38" r="4.5" fill="#c5531f"/>
+                <path d="M108 33 A16 16 0 0 0 108 61" stroke="#c5531f" stroke-width="2" fill="none"/>
+                <path d="M132 33 A16 16 0 0 1 132 61" stroke="#c5531f" stroke-width="2" fill="none"/>
+                <path d="M99 24 A25 25 0 0 0 99 70" stroke="#c5531f" stroke-width="2" fill="none" opacity=".5"/>
+                <path d="M141 24 A25 25 0 0 1 141 70" stroke="#c5531f" stroke-width="2" fill="none" opacity=".5"/>
+                <path d="M170 54 H372" stroke="#c5531f" stroke-width="1.6" stroke-dasharray="6 6"/>
+                <path d="M170 54 L180 49 M170 54 L180 59" stroke="#c5531f" stroke-width="1.6" fill="none"/>
+                <path d="M372 54 L362 49 M372 54 L362 59" stroke="#c5531f" stroke-width="1.6" fill="none"/>
+                <path d="M400 44 L389 78 M400 44 L411 78 M400 44 L401 78" stroke="#6a6a6a" stroke-width="2"/>
+                <path d="M400 44 L412 38" stroke="#f3efe9" stroke-width="2.5"/>
+                <circle cx="400" cy="44" r="4.5" fill="#c5531f"/>
+              </g>
+              <text x="271" y="42" text-anchor="middle" fill="#c5531f" font-size="12" font-weight="600" letter-spacing="1.4">LORA &mdash; BOTH WAYS</text>
+              <text x="400" y="96" text-anchor="middle" fill="#a39d94" font-size="12">every tower</text>
+
+              <!-- ground -->
+              <path d="M66 442 H454" stroke="#3a3a3a" stroke-width="2"/>
+              <!-- rear doors, swung open -->
+              <path d="M140 140 L86 168 L86 362 L140 390 Z" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="1.5"/>
+              <path d="M380 140 L434 168 L434 362 L380 390 Z" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="1.5"/>
+              <!-- the box, seen from the back -->
+              <rect x="140" y="140" width="240" height="250" rx="9" fill="#161616" stroke="#4a4a4a" stroke-width="2"/>
+              <!-- two pumps on a common manifold -->
+              <rect x="160" y="164" width="96" height="66" rx="6" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <text x="208" y="204" text-anchor="middle" fill="#f3efe9" font-size="14" font-weight="600">UP4</text>
+              <rect x="264" y="164" width="96" height="66" rx="6" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <text x="312" y="204" text-anchor="middle" fill="#f3efe9" font-size="14" font-weight="600">UP4</text>
+              <rect x="160" y="242" width="200" height="20" rx="6" fill="#2e86d6" opacity=".55"/>
+              <!-- slots for the sprinkler towers -->
+              <g fill="#1b1b1b" stroke="#6a6a6a" stroke-width="1.5">
+                <circle cx="178" cy="296" r="11"/><circle cx="218" cy="296" r="11"/>
+                <circle cx="258" cy="296" r="11"/><circle cx="298" cy="296" r="11"/>
+                <circle cx="338" cy="296" r="11"/>
+              </g>
+              <!-- hard suction hose -->
+              <g fill="#1b1b1b" stroke="#8a8a8a" stroke-width="1.5">
+                <circle cx="190" cy="348" r="16"/><circle cx="236" cy="348" r="16"/>
+              </g>
+              <circle cx="195" cy="422" r="18" fill="#111" stroke="#4a4a4a" stroke-width="3"/>
+              <circle cx="325" cy="422" r="18" fill="#111" stroke="#4a4a4a" stroke-width="3"/>
+
+              <!-- callouts -->
+              <g stroke="#5a5a5a" stroke-width="1" fill="none">
+                <path d="M86 186 L62 170"/>
+                <path d="M360 196 L438 176"/>
+                <path d="M349 296 L438 288"/>
+                <path d="M174 348 L72 362"/>
+              </g>
+              <g fill="#a39d94" font-size="12">
+                <text x="58" y="167" text-anchor="end">Back door</text>
+                <text x="442" y="173">Pumps &amp;</text>
+                <text x="442" y="188">manifold</text>
+                <text x="442" y="285">Tower</text>
+                <text x="442" y="300">slots</text>
+                <text x="68" y="359" text-anchor="end">Hard suction</text>
+                <text x="68" y="374" text-anchor="end">hose</text>
+              </g>
+
+              <!-- inset: a pump lifts out and goes down to the water -->
+              <path d="M196 446 C 172 464, 154 472, 132 480" stroke="#c5531f" stroke-width="1.6" stroke-dasharray="5 5" fill="none"/>
+              <path d="M132 480 L143 479 M132 480 L138 470" stroke="#c5531f" stroke-width="1.6" fill="none"/>
+              <rect x="66" y="480" width="388" height="140" rx="12" fill="#161616" stroke="#2a2a2a"/>
+              <rect x="92" y="514" width="60" height="42" rx="5" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <path d="M108 514 V506 H136 V514" stroke="#c5531f" stroke-width="1.5" fill="none"/>
+              <path d="M152 540 C 210 526, 262 562, 316 548" stroke="#d8b24a" stroke-width="2.5" fill="none"/>
+              <path d="M316 542 q13 -8 26 0 t26 0 t26 0 t26 0" stroke="#2e86d6" stroke-width="2" fill="none"/>
+              <path d="M316 556 q13 -8 26 0 t26 0 t26 0 t26 0" stroke="#2e86d6" stroke-width="2" fill="none" opacity=".5"/>
+              <text x="92" y="596" fill="#a39d94" font-size="12">A pump lifts out and goes down to the water</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the water path &middot; &rarr; to continue the deck</div>
     </div></div>
   </section>
 
@@ -722,7 +1001,7 @@
           <ul class="blist tight auto-seq">
             <li><span class="bic"><i class="ti ti-cloud-storm"></i></span><span class="btx"><b>Real-time weather monitoring</b> <span class="sub">&mdash; predicts where embers will land.</span></span></li>
             <li><span class="bic"><i class="ti ti-calculator"></i></span><span class="btx"><b>CFFDRS fine-fuel moisture (FFMC) + ember-ignition thresholds</b> <span class="sub">&mdash; meters exactly the water the fuels need, then re-wets only as they dry.</span></span></li>
-            <li><span class="bic"><i class="ti ti-layout-grid"></i></span><span class="btx"><b>Tower-by-tower sequencing</b> <span class="sub">&mdash; covers the whole line on a pump plant sized for the running set, not all ten towers.</span></span></li>
+            <li><span class="bic"><i class="ti ti-layout-grid"></i></span><span class="btx"><b>Tower-by-tower sequencing</b> <span class="sub">&mdash; covers the whole line on a pump plant sized for the running set, not all eight towers.</span></span></li>
             <li><span class="bic"><i class="ti ti-adjustments"></i></span><span class="btx"><b>Smart water management</b> <span class="sub">&mdash; auto-adjusts spray and pump cycling.</span></span></li>
             <li><span class="bic"><i class="ti ti-router"></i></span><span class="btx"><b>LoRa radio to every tower, satellite backhaul</b> <span class="sub">&mdash; no cellular needed, and the line keeps running if comms drop.</span></span></li>
             <li><span class="bic"><i class="ti ti-dashboard"></i></span><span class="btx"><b>Single dashboard</b> <span class="sub">&mdash; live flow, pressure, water, and fire-weather.</span></span></li>
@@ -887,7 +1166,7 @@
           <ul class="blist tight auto-seq">
             <li><span class="bic"><i class="ti ti-bolt"></i></span><span class="btx"><b>Always ready, one-button activation</b> &mdash; no crews, no setup. Each tower sprays a curtain of moisture that stops wind-blown embers from igniting roofs and gutters.</span></li>
             <li><span class="bic"><i class="ti ti-battery-charging"></i></span><span class="btx"><b>Works when the grid is down</b> &mdash; buried 8,000-gal cisterns fed by the municipal main, with buried propane backup that also delivers <b>emergency power</b> to the community.</span></li>
-            <li><span class="bic"><i class="ti ti-plug-connected"></i></span><span class="btx">Built on <b>SCADA</b> and compatible with existing municipal water systems &mdash; complements fire departments without adding operational burden.</span></li>
+            <li><span class="bic"><i class="ti ti-plug-connected"></i></span><span class="btx">Built on <b>the same trailer control system, scaled to a permanent installation</b>, and compatible with existing municipal water systems &mdash; complements fire departments without adding operational burden.</span></li>
             <li><span class="bic"><i class="ti ti-map-pin"></i></span><span class="btx">Envisioned first community pilot: <b>Fort St.&nbsp;James, BC</b> &mdash; ~20 towers protecting the hospital, emergency shelter, and municipal core.</span></li>
           </ul>
         </div>

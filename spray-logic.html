@@ -16,7 +16,7 @@
 (function(){
   const cv = document.getElementById('c'), ctx = cv.getContext('2d');
   const ORANGE='#c5531f', WATER='#3aa0ff', MUTED='#b3ada3', CREAM='#cfcabf';
-  const distM=[40,120,200,280,360], radM=48;   // 5 guns per side, 80 m centres
+  const distM=[40,120,200,280], radM=48;   // 4 guns per side, 80 m centres (8 towers)
   let W=0,H=0,dpr=1, cx=0, axisY=0, trunkY=0, scale=1, rad=1, squash=0.42, towers=[];
 
   function layout(){
