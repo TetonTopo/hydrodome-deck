@@ -103,7 +103,7 @@ Edits from Nick's June 26 call (Granola note "Nicks feedback for the deck"). **T
 ## Embedded live apps (iframes)
 Separate GitHub repos / Pages embedded into the deck. **All on the MOBILE system as of 2026-06-26:**
 - **Command & Control (SCADA)** → `https://tetontopo.github.io/hydrodome-mobile-command/` (slide 11). New mobile C2 dashboard: two-pump failover, sequential 1-gun/side firing, per-gun LoRa nodes, closed-loop 70 PSI. Replaces the archived `hydrodome-scada`.
-- **Site analysis** → `https://tetontopo.github.io/hydrodome-mobile-sim/?chrome=0` (on the Site analysis slide). Passive ~88 s loop: open data, block-out classification, threat from the west, five towers placed on a real street, coverage, ranking, the 180-degree sweep each gun actually runs, the wet line. `chrome=0` hides its own lockup so the slide title carries it; the deck posts `{moat:"restart"}` on `slidechanged` so the loop starts over on re-entry.
+- **Site analysis** → `https://tetontopo.github.io/hydrodome-mobile-sim/?chrome=0` (on the Site analysis slide). Passive ~88 s loop: open data, block-out classification, threat from the west, five towers placed on a real street, coverage, ranking, the sweep each gun runs, solved per tower against the ground it can reach, the wet line. `chrome=0` hides its own lockup so the slide title carries it; the deck posts `{moat:"restart"}` on `slidechanged` so the loop starts over on re-entry.
 - **WUI map** → `https://tetontopo.github.io/hydrodome-maps/#5/54.5/-124.5` (slide 12). Opens on BC with Kelowna highlighted; historic fire perimeters now render (CWFIS `nbac` layer). The `#5/54.5/-124.5` hash is harmless — the app hard-codes the BC view.
 
 ## Spray-logic animation (`spray-logic.html`)
