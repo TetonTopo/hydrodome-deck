@@ -12,6 +12,8 @@ _Last updated: 2026-06-26._
 | Investor deck | `carmanah-style.html` (copied to `index.html` on deploy) | investors, funders | https://tetontopo.github.io/hydrodome-deck/ |
 | Field deck | `field.html` | crews, fire departments, site owners | https://tetontopo.github.io/hydrodome-deck/field.html |
 
+Local preview: `npx serve .` from this folder. `serve.json` turns off clean URLs so `?cinematic=1` style query strings on the iframes survive locally the way they do on Pages.
+
 Both sit behind the same password gate (`smartersprinklers`, same hash). The deploy scripts copy `carmanah-style.html` over `index.html` and leave `field.html` alone, so edit each deck in its own file. The field deck has no money or market content; operational values that engineering has not confirmed yet are shown as a grey "confirm" tag (see `client-deck-spec.md` for the canon list and the open items). Speaker notes are in `<aside class="notes">` on every slide; press `S` for the speaker view.
 
 ---
