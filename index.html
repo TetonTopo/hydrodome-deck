@@ -400,12 +400,21 @@
   .seqframe .fcap{font-family:'Montserrat';font-weight:600;font-size:11.5px;letter-spacing:2.4px;
     text-transform:uppercase;color:var(--muted);text-align:center;margin-top:8px;}
 
-  /* control & the trailer: two copy cards on the left, the rear-view drawing on the right */
-  .trailerviz{flex:0 0 40%;align-self:stretch;display:flex;flex-direction:column;}
-  .trailerviz .vizbox{flex:1;min-height:0;background:var(--bg3);border:1px solid #2a2a2a;
-    border-radius:14px;padding:10px;display:flex;align-items:center;justify-content:center;}
-  .trailerviz .vizbox svg{display:block;width:100%;height:100%;}
-  .vsgrid.vs2{grid-template-columns:1fr 1fr;align-content:center;}
+  /* packed up vs. set up: the same trailer in two states, pictures first, light text under */
+  .pairrow{flex:0 0 auto;display:grid;grid-template-columns:1fr 44px 1fr;gap:14px;align-items:stretch;}
+  .pairpanel{background:var(--bg2);border-radius:14px;border-top:4px solid var(--orange);padding:14px 18px 16px;}
+  .pairpanel .pic{background:var(--bg3);border:1px solid #2a2a2a;border-radius:10px;padding:6px;}
+  .pairpanel .pic svg{display:block;width:100%;height:auto;}
+  .pairpanel h3{font-family:'Montserrat';font-weight:700;font-size:17px;color:#fff;margin:13px 0 9px;
+    display:flex;align-items:center;gap:9px;}
+  .pairpanel h3 i{color:var(--orange);font-size:20px;}
+  .pairpanel h3 .hot{color:var(--orange);}
+  .pairpanel ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;}
+  .pairpanel li{display:flex;gap:9px;font-size:14px;color:var(--white);line-height:1.42;}
+  .pairpanel li i{color:var(--orange);font-size:15px;margin-top:2px;flex:0 0 auto;}
+  .pairarrow{display:flex;align-items:center;justify-content:center;}
+  .pairarrow span{width:44px;height:44px;border-radius:50%;background:rgba(197,83,31,.16);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:24px;}
 
   /* password gate (simple client-side; deters casual viewers) */
   #gate{position:fixed;inset:0;z-index:9999;background:#0f0f0f;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;}
@@ -687,7 +696,7 @@
         <li><span class="bic"><i class="ti ti-git-branch"></i></span><span class="btx">The trunk line has <b>branches that feed the sprinkler towers.</b></span></li>
         <li><span class="bic"><i class="ti ti-gauge"></i></span><span class="btx">Each tower has a <b>pressure regulator</b>, so pressure is evenly distributed across the system.</span></li>
       </ul>
-      <div class="vnav-cue"><i class="ti ti-chevrons-down"></i><div><b>How does it hold a big line on a small pump?</b> Press <b>&darr;</b> (or swipe down) for <span class="hot">sequencing</span>, then <span class="hot">control &amp; the trailer</span>. Press <b>&uarr;</b> to come back to the water path.</div></div>
+      <div class="vnav-cue"><i class="ti ti-chevrons-down"></i><div><b>How does it hold a big line on a small pump?</b> Press <b>&darr;</b> (or swipe down) for <span class="hot">sequencing</span>, then <span class="hot">packed up vs. set up</span>. Press <b>&uarr;</b> to come back to the water path.</div></div>
     </div></div>
   </section>
 
@@ -726,120 +735,158 @@
       </ul>
 
       <div class="strip"><i class="ti ti-plant-2"></i><div>Same idea as an <b>irrigation field</b>: a few heads at a time, rotating.</div></div>
-      <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the water path &middot; &darr; for control &amp; the trailer</div>
+      <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the water path &middot; &darr; for packed up vs. set up</div>
     </div></div>
   </section>
 
-  <!-- HOW IT WORKS 3 — CONTROL & THE TRAILER -->
+  <!-- HOW IT WORKS 3 — PACKED UP VS. SET UP -->
   <section data-transition="convex">
     <div class="root"><div class="pad">
       <div class="toprow">
-        <div><div class="kicker">How it works &middot; control &amp; the trailer</div>
-          <div class="head">Controlled by <span class="hot">radio</span><span class="headexp">Packed like a structure protection unit</span></div></div>
+        <div><div class="kicker">How it works &middot; packed up vs. set up</div>
+          <div class="head">Packs like an SPU, <span class="hot">runs wireless</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
           <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
       <div class="rule"></div>
-      <div class="split">
-        <div class="vsgrid vs2 auto-seq" style="flex:1;">
-          <div class="vscard">
-            <div class="vh"><span class="vic"><i class="ti ti-router"></i></span><h3>Control</h3></div>
-            <ul>
-              <li><i class="ti ti-antenna-bars-5"></i><span>Every nozzle is controlled wirelessly from a <b>LoRa radio in the trailer.</b></span></li>
-              <li><i class="ti ti-engine"></i><span>The pumps can also be controlled wirelessly.</span></li>
-              <li><i class="ti ti-arrows-exchange"></i><span>The link is <b>two way</b> &mdash; the towers report back, for example whether a tripod tower is running properly.</span></li>
-            </ul>
-          </div>
-          <div class="vscard">
-            <div class="vh"><span class="vic"><i class="ti ti-truck"></i></span><h3>The trailer</h3></div>
-            <ul>
-              <li><i class="ti ti-door"></i><span>A <b>back door</b> gives access to the two pumps and the manifold. Hoses hook up to the pumps there.</span></li>
-              <li><i class="ti ti-layout-grid"></i><span>Also at the back: <b>slots for all the sprinkler towers</b> and the hard suction hose.</span></li>
-              <li><i class="ti ti-package-export"></i><span>A UP4 pump can be pulled out and <b>carried closer to the water source.</b> Pumps are bad at sucking and good at pushing, so getting the pump close to the water matters.</span></li>
-              <li><i class="ti ti-tool"></i><span>Inside, it&rsquo;s laid out like a normal structure protection unit: hose on the wall, fittings and jewellery stored alongside.</span></li>
-            </ul>
-          </div>
-        </div>
 
-        <div class="trailerviz">
-          <div class="vizbox">
-            <!-- placeholder line art; drop a still in over it when one is ready:
-            <img src="assets/trailer-rear.jpg" alt="Rear view of the Moat trailer: back door open on the two pumps and the manifold, with tower slots and hard suction hose"> -->
-            <svg viewBox="0 0 520 680" role="img" aria-label="Rear view of the trailer: back door open on the two pumps and the common manifold, with slots for the sprinkler towers and the hard suction hose; a LoRa radio links the trailer to every tower, and a pump can be carried down to the water."
+      <!-- the same trailer in two states; the pictures carry it, the text stays light -->
+      <div class="pairrow auto-seq">
+        <div class="pairpanel">
+          <div class="pic">
+            <!-- line art stands in until the CAD render can go public (after the provisional is filed):
+            <img src="assets/trailer-packed.jpg" alt="The Moat trailer packed up: hose on the wall, fittings stowed, tower slots and hard suction hose at the back, two UP4 pumps and the manifold behind the back door"> -->
+            <svg viewBox="0 0 600 272" role="img" aria-label="Rear view of the packed trailer, back door open: hose up on the wall, fittings and jewellery stored alongside, slots for the sprinkler towers and the hard suction hose, and the two UP4 pumps on the manifold."
                  font-family="Inter, sans-serif">
-              <!-- LoRa link: trailer radio, two-way, out to every tower -->
-              <g stroke-linecap="round">
-                <path d="M120 42 V72" stroke="#c5531f" stroke-width="3"/>
-                <circle cx="120" cy="38" r="4.5" fill="#c5531f"/>
-                <path d="M108 33 A16 16 0 0 0 108 61" stroke="#c5531f" stroke-width="2" fill="none"/>
-                <path d="M132 33 A16 16 0 0 1 132 61" stroke="#c5531f" stroke-width="2" fill="none"/>
-                <path d="M99 24 A25 25 0 0 0 99 70" stroke="#c5531f" stroke-width="2" fill="none" opacity=".5"/>
-                <path d="M141 24 A25 25 0 0 1 141 70" stroke="#c5531f" stroke-width="2" fill="none" opacity=".5"/>
-                <path d="M170 54 H372" stroke="#c5531f" stroke-width="1.6" stroke-dasharray="6 6"/>
-                <path d="M170 54 L180 49 M170 54 L180 59" stroke="#c5531f" stroke-width="1.6" fill="none"/>
-                <path d="M372 54 L362 49 M372 54 L362 59" stroke="#c5531f" stroke-width="1.6" fill="none"/>
-                <path d="M400 44 L389 78 M400 44 L411 78 M400 44 L401 78" stroke="#6a6a6a" stroke-width="2"/>
-                <path d="M400 44 L412 38" stroke="#f3efe9" stroke-width="2.5"/>
-                <circle cx="400" cy="44" r="4.5" fill="#c5531f"/>
-              </g>
-              <text x="271" y="42" text-anchor="middle" fill="#c5531f" font-size="12" font-weight="600" letter-spacing="1.4">LORA &mdash; BOTH WAYS</text>
-              <text x="400" y="96" text-anchor="middle" fill="#a39d94" font-size="12">every tower</text>
-
-              <!-- ground -->
-              <path d="M66 442 H454" stroke="#3a3a3a" stroke-width="2"/>
+              <path d="M110 262 H490" stroke="#3a3a3a" stroke-width="2"/>
               <!-- rear doors, swung open -->
-              <path d="M140 140 L86 168 L86 362 L140 390 Z" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="1.5"/>
-              <path d="M380 140 L434 168 L434 362 L380 390 Z" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="1.5"/>
-              <!-- the box, seen from the back -->
-              <rect x="140" y="140" width="240" height="250" rx="9" fill="#161616" stroke="#4a4a4a" stroke-width="2"/>
-              <!-- two pumps on a common manifold -->
-              <rect x="160" y="164" width="96" height="66" rx="6" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
-              <text x="208" y="204" text-anchor="middle" fill="#f3efe9" font-size="14" font-weight="600">UP4</text>
-              <rect x="264" y="164" width="96" height="66" rx="6" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
-              <text x="312" y="204" text-anchor="middle" fill="#f3efe9" font-size="14" font-weight="600">UP4</text>
-              <rect x="160" y="242" width="200" height="20" rx="6" fill="#2e86d6" opacity=".55"/>
+              <path d="M180 26 L128 48 L128 214 L180 236 Z" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="1.5"/>
+              <path d="M420 26 L472 48 L472 214 L420 236 Z" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="1.5"/>
+              <rect x="180" y="26" width="240" height="210" rx="9" fill="#161616" stroke="#4a4a4a" stroke-width="2"/>
+              <!-- hose up on the wall -->
+              <circle cx="212" cy="68" r="20" fill="none" stroke="#d8b24a" stroke-width="5"/>
+              <circle cx="212" cy="68" r="9" fill="none" stroke="#d8b24a" stroke-width="3"/>
+              <circle cx="212" cy="118" r="20" fill="none" stroke="#b84a3a" stroke-width="5"/>
+              <circle cx="212" cy="118" r="9" fill="none" stroke="#b84a3a" stroke-width="3"/>
               <!-- slots for the sprinkler towers -->
               <g fill="#1b1b1b" stroke="#6a6a6a" stroke-width="1.5">
-                <circle cx="178" cy="296" r="11"/><circle cx="218" cy="296" r="11"/>
-                <circle cx="258" cy="296" r="11"/><circle cx="298" cy="296" r="11"/>
-                <circle cx="338" cy="296" r="11"/>
+                <circle cx="264" cy="50" r="8"/><circle cx="288" cy="50" r="8"/><circle cx="312" cy="50" r="8"/><circle cx="336" cy="50" r="8"/>
+                <circle cx="264" cy="74" r="8"/><circle cx="288" cy="74" r="8"/><circle cx="312" cy="74" r="8"/><circle cx="336" cy="74" r="8"/>
               </g>
               <!-- hard suction hose -->
               <g fill="#1b1b1b" stroke="#8a8a8a" stroke-width="1.5">
-                <circle cx="190" cy="348" r="16"/><circle cx="236" cy="348" r="16"/>
+                <circle cx="280" cy="110" r="13"/><circle cx="320" cy="110" r="13"/>
               </g>
-              <circle cx="195" cy="422" r="18" fill="#111" stroke="#4a4a4a" stroke-width="3"/>
-              <circle cx="325" cy="422" r="18" fill="#111" stroke="#4a4a4a" stroke-width="3"/>
-
+              <!-- fittings and jewellery -->
+              <g fill="#232323" stroke="#8a8a8a" stroke-width="1.2">
+                <rect x="368" y="46" width="36" height="11" rx="3"/><rect x="368" y="64" width="36" height="11" rx="3"/>
+                <rect x="368" y="82" width="36" height="11" rx="3"/><rect x="368" y="100" width="36" height="11" rx="3"/>
+              </g>
+              <!-- two pumps on the manifold, behind the back door -->
+              <rect x="196" y="150" width="100" height="52" rx="6" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <text x="246" y="181" text-anchor="middle" fill="#f3efe9" font-size="14" font-weight="600">UP4</text>
+              <rect x="304" y="150" width="100" height="52" rx="6" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <text x="354" y="181" text-anchor="middle" fill="#f3efe9" font-size="14" font-weight="600">UP4</text>
+              <rect x="196" y="208" width="208" height="14" rx="5" fill="#2e86d6" opacity=".55"/>
+              <circle cx="230" cy="248" r="14" fill="#111" stroke="#4a4a4a" stroke-width="3"/>
+              <circle cx="370" cy="248" r="14" fill="#111" stroke="#4a4a4a" stroke-width="3"/>
               <!-- callouts -->
               <g stroke="#5a5a5a" stroke-width="1" fill="none">
-                <path d="M86 186 L62 170"/>
-                <path d="M360 196 L438 176"/>
-                <path d="M349 296 L438 288"/>
-                <path d="M174 348 L72 362"/>
+                <path d="M192 68 L122 56"/>
+                <path d="M196 176 L122 186"/>
+                <path d="M344 50 L478 34"/>
+                <path d="M404 88 L478 88"/>
+                <path d="M333 112 L478 142"/>
               </g>
-              <g fill="#a39d94" font-size="12">
-                <text x="58" y="167" text-anchor="end">Back door</text>
-                <text x="442" y="173">Pumps &amp;</text>
-                <text x="442" y="188">manifold</text>
-                <text x="442" y="285">Tower</text>
-                <text x="442" y="300">slots</text>
-                <text x="68" y="359" text-anchor="end">Hard suction</text>
-                <text x="68" y="374" text-anchor="end">hose</text>
+              <g fill="#a39d94" font-size="13">
+                <text x="118" y="52" text-anchor="end">Hose on</text>
+                <text x="118" y="68" text-anchor="end">the wall</text>
+                <text x="118" y="182" text-anchor="end">Two UP4 pumps</text>
+                <text x="118" y="198" text-anchor="end">+ manifold</text>
+                <text x="482" y="38">Tower slots</text>
+                <text x="482" y="84">Fittings &amp;</text>
+                <text x="482" y="100">jewellery</text>
+                <text x="482" y="140">Hard suction</text>
+                <text x="482" y="156">hose</text>
               </g>
-
-              <!-- inset: a pump lifts out and goes down to the water -->
-              <path d="M196 446 C 172 464, 154 472, 132 480" stroke="#c5531f" stroke-width="1.6" stroke-dasharray="5 5" fill="none"/>
-              <path d="M132 480 L143 479 M132 480 L138 470" stroke="#c5531f" stroke-width="1.6" fill="none"/>
-              <rect x="66" y="480" width="388" height="140" rx="12" fill="#161616" stroke="#2a2a2a"/>
-              <rect x="92" y="514" width="60" height="42" rx="5" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
-              <path d="M108 514 V506 H136 V514" stroke="#c5531f" stroke-width="1.5" fill="none"/>
-              <path d="M152 540 C 210 526, 262 562, 316 548" stroke="#d8b24a" stroke-width="2.5" fill="none"/>
-              <path d="M316 542 q13 -8 26 0 t26 0 t26 0 t26 0" stroke="#2e86d6" stroke-width="2" fill="none"/>
-              <path d="M316 556 q13 -8 26 0 t26 0 t26 0 t26 0" stroke="#2e86d6" stroke-width="2" fill="none" opacity=".5"/>
-              <text x="92" y="596" fill="#a39d94" font-size="12">A pump lifts out and goes down to the water</text>
             </svg>
           </div>
+          <h3><i class="ti ti-truck"></i>Packed up: <span class="hot">a traditional SPU</span></h3>
+          <ul>
+            <li><i class="ti ti-tool"></i><span>Inside, hose is up on the wall and the fittings and jewellery are stored alongside, like a normal SPU.</span></li>
+            <li><i class="ti ti-layout-grid"></i><span>At the back, there are slots for all the sprinkler towers and the hard suction hose.</span></li>
+            <li><i class="ti ti-door"></i><span>A back door gives access to the two UP4 pumps and the manifold, where the hoses hook up.</span></li>
+          </ul>
+        </div>
+
+        <div class="pairarrow"><span><i class="ti ti-arrow-right"></i></span></div>
+
+        <div class="pairpanel">
+          <div class="pic">
+            <!-- line art stands in until the CAD render can go public (after the provisional is filed):
+            <img src="assets/trailer-deployed.jpg" alt="The same gear out of the trailer and set up, antennas on top: towers on the line, a pump carried down to the water, all controlled over LoRa from the trailer"> -->
+            <svg viewBox="0 0 600 272" role="img" aria-label="The same gear set up: the trailer with its LoRa radio, a pump carried down to the water, and tripod towers along the line, every one with an antenna on top and a radio link back to the trailer."
+                 font-family="Inter, sans-serif">
+              <!-- water, and the ground -->
+              <ellipse cx="62" cy="226" rx="56" ry="15" fill="#2e86d6" opacity=".22"/>
+              <path d="M22 222 q10 -6 20 0 t20 0 t20 0 t20 0" stroke="#2e86d6" stroke-width="2" fill="none"/>
+              <path d="M30 232 q10 -6 20 0 t20 0 t20 0" stroke="#2e86d6" stroke-width="2" fill="none" opacity=".5"/>
+              <path d="M112 214 H590" stroke="#3a3a3a" stroke-width="2"/>
+              <!-- hose: pump at the water into the trailer, trailer out along the line -->
+              <path d="M104 208 C 90 214, 80 218, 70 222" stroke="#d8b24a" stroke-width="3" fill="none"/>
+              <path d="M140 206 H168" stroke="#2e86d6" stroke-width="3"/>
+              <path d="M286 210 H566" stroke="#2e86d6" stroke-width="3" opacity=".75"/>
+
+              <!-- radio links: trailer to every pump and tower, both ways -->
+              <g stroke="#c5531f" stroke-width="1.4" stroke-dasharray="5 5" fill="none" opacity=".75">
+                <path d="M244 104 L128 150"/>
+                <path d="M244 104 Q 298 58 352 94"/>
+                <path d="M244 104 Q 344 30 442 94"/>
+                <path d="M244 104 Q 396 4 548 94"/>
+              </g>
+
+              <!-- the trailer, doors shut, radio on the roof -->
+              <rect x="168" y="150" width="118" height="54" rx="6" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="2"/>
+              <path d="M168 196 H156" stroke="#4a4a4a" stroke-width="3"/>
+              <circle cx="202" cy="206" r="9" fill="#111" stroke="#4a4a4a" stroke-width="2.5"/>
+              <circle cx="226" cy="206" r="9" fill="#111" stroke="#4a4a4a" stroke-width="2.5"/>
+              <path d="M244 150 V108" stroke="#c5531f" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="244" cy="104" r="5" fill="#c5531f"/>
+              <path d="M232 96 A15 15 0 0 0 232 116" stroke="#c5531f" stroke-width="2" fill="none"/>
+              <path d="M256 96 A15 15 0 0 1 256 116" stroke="#c5531f" stroke-width="2" fill="none"/>
+
+              <!-- a pump, carried out to the water, antenna up -->
+              <rect x="104" y="188" width="36" height="24" rx="4" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <path d="M128 188 V154" stroke="#c5531f" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="128" cy="150" r="4" fill="#c5531f"/>
+
+              <!-- towers on the line, antennas up; one throwing -->
+              <path d="M444 124 Q 486 58 530 86" stroke="#8fc4f2" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".85"/>
+              <g stroke-linecap="round">
+                <path d="M352 126 L332 212 M352 126 L372 212 M352 126 L355 212" stroke="#6a6a6a" stroke-width="2.5"/>
+                <path d="M352 126 L366 118" stroke="#f3efe9" stroke-width="3"/>
+                <path d="M352 126 V98" stroke="#c5531f" stroke-width="2"/><circle cx="352" cy="94" r="4" fill="#c5531f"/>
+                <path d="M442 126 L422 212 M442 126 L462 212 M442 126 L445 212" stroke="#6a6a6a" stroke-width="2.5"/>
+                <path d="M442 126 L456 118" stroke="#f3efe9" stroke-width="3"/>
+                <path d="M442 126 V98" stroke="#c5531f" stroke-width="2"/><circle cx="442" cy="94" r="4" fill="#c5531f"/>
+                <path d="M548 126 L528 212 M548 126 L568 212 M548 126 L551 212" stroke="#6a6a6a" stroke-width="2.5"/>
+                <path d="M548 126 L562 118" stroke="#f3efe9" stroke-width="3"/>
+                <path d="M548 126 V98" stroke="#c5531f" stroke-width="2"/><circle cx="548" cy="94" r="4" fill="#c5531f"/>
+              </g>
+
+              <g fill="#a39d94" font-size="13" text-anchor="middle">
+                <text x="62" y="258">Pump at the water</text>
+                <text x="227" y="240">Radio in the trailer</text>
+                <text x="450" y="240">Towers report back</text>
+              </g>
+            </svg>
+          </div>
+          <h3><i class="ti ti-antenna-bars-5"></i>Set up: <span class="hot">all wireless</span></h3>
+          <ul>
+            <li><i class="ti ti-router"></i><span>All the nozzles are controlled wirelessly from the LoRa radio in the trailer.</span></li>
+            <li><i class="ti ti-engine"></i><span>The pumps are controlled wirelessly too, so a UP4 can be pulled out and carried closer to the water source when needed. Pumps are bad at sucking but good at pushing, so getting the pump close to the water matters.</span></li>
+            <li><i class="ti ti-arrows-exchange"></i><span>The link is two way: the towers report back, for example whether a tripod tower is working properly.</span></li>
+          </ul>
         </div>
       </div>
       <div class="upcue"><i class="ti ti-chevron-up"></i>Press &uarr; to return to the water path &middot; &rarr; to continue the deck</div>
