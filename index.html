@@ -39,6 +39,9 @@
   .kicker{letter-spacing:5px;font-size:14px;color:var(--muted);text-transform:uppercase;font-weight:600;font-family:'Montserrat';}
   .head{font-family:'Montserrat';font-weight:800;text-transform:uppercase;font-size:44px;color:#fff;letter-spacing:.5px;margin:8px 0 0;line-height:1.05;}
   .head .hot{color:var(--orange);}
+  /* acronym expansion: too long for the 44px headline, so it sits under it */
+  .head .headexp{display:block;font-family:'Montserrat';font-size:19px;font-weight:700;
+    letter-spacing:1.6px;color:var(--orange);margin-top:9px;line-height:1.2;}
   .rule{width:92px;height:4px;background:var(--orange);border-radius:2px;margin:14px 0 24px;}
   .toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
 
@@ -525,7 +528,7 @@
     <div class="root"><div class="pad">
       <div class="toprow">
         <div><div class="kicker">Our solution</div>
-          <div class="head">The Moat <span class="hot">on wheels</span></div></div>
+          <div class="head">The <span class="hot">MOAT</span><span class="headexp">Mobile on-site asset-protection trailer</span></div></div>
         <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
           <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
       </div>
