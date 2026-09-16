@@ -987,6 +987,27 @@
   }
   Reveal.on('slidechanged', restartFilm);
   Reveal.on('ready', restartFilm);
+
+  // The block-out is grabbable, so once you click it the iframe holds the keyboard and
+  // the arrow keys would stop moving the deck. The viewer posts the navigation keys back
+  // up; only accept them from one of our own block-out frames.
+  window.addEventListener('message', function(e){
+    var d = e.data;
+    if(!d || d.type !== 'moat' || d.cmd !== 'key') return;
+    var mine = Array.prototype.some.call(document.querySelectorAll('iframe[data-moat]'),
+      function(f){ return f.contentWindow === e.source; });
+    if(!mine) return;
+    var k = d.key;
+    if(k === 'ArrowLeft') Reveal.left();
+    else if(k === 'ArrowRight') Reveal.right();
+    else if(k === 'ArrowUp') Reveal.up();
+    else if(k === 'ArrowDown') Reveal.down();
+    else if(k === 'PageUp') Reveal.prev();
+    else if(k === 'PageDown' || k === ' ') Reveal.next();
+    else if(k === 'Home') Reveal.slide(0, 0);
+    else if(k === 'End') Reveal.slide(Number.MAX_VALUE, 0);
+    else if(k === 'Escape') Reveal.toggleOverview();
+  });
 </script>
 </body>
 </html>
