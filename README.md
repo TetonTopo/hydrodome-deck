@@ -5,6 +5,15 @@ This README is the running handoff — point a new editing thread here.
 
 _Last updated: 2026-06-26._
 
+## Two decks, one repo (added 2026-09-16)
+
+| Deck | File | Audience | Live |
+|---|---|---|---|
+| Investor deck | `carmanah-style.html` (copied to `index.html` on deploy) | investors, funders | https://tetontopo.github.io/hydrodome-deck/ |
+| Field deck | `field.html` | crews, fire departments, site owners | https://tetontopo.github.io/hydrodome-deck/field.html |
+
+Both sit behind the same password gate (`smartersprinklers`, same hash). The deploy scripts copy `carmanah-style.html` over `index.html` and leave `field.html` alone, so edit each deck in its own file. The field deck has no money or market content; operational values that engineering has not confirmed yet are shown as a grey "confirm" tag (see `client-deck-spec.md` for the canon list and the open items). Speaker notes are in `<aside class="notes">` on every slide; press `S` for the speaker view.
+
 ---
 
 ## Amendment — June 26 (Session 4) — permanent-vision slide + confidentiality note

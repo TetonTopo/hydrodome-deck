@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Moat, field deck. Carmanah Wildfire</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0f0f0f; --bg2:#1b1b1b; --bg3:#161616;
+    --orange:#c5531f; --orange-soft:#fbe9df;
+    --white:#f3efe9; --muted:#a39d94; --ink:#1a1a1a; --ink-soft:#5d5953;
+    --hydro-blue:#2e86d6; --dome-red:#d2452a;
+  }
+  .reveal{font-family:'Inter',sans-serif;}
+  .reveal h1,.reveal h2,.reveal h3{font-family:'Montserrat',sans-serif;margin:0;}
+  .reveal .slides{text-align:left;}
+  .reveal .slides section{padding:0;height:100%;}
+  html,body{background:#0f0f0f;}
+  /* keep the stage dark through every transition so there's no white flash/strobe */
+  .reveal-viewport,.reveal,.reveal .slides,.reveal .backgrounds{background:#0f0f0f !important;}
+  .root{position:absolute;inset:0;background:var(--bg);color:var(--white);overflow:hidden;}
+
+  /* logo, Tabler flame in a ring + THE/MOAT wordmark (the permanent-HydroDome slide keeps the arch mark + HYDRO/DOME) */
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo .ring{width:46px;height:46px;border-radius:50%;border:2px solid var(--orange);box-shadow:0 0 0 4px var(--bg),0 0 0 5px rgba(197,83,31,.45);
+    display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:24px;}
+  .logo.hd .ring{border-radius:50% 50% 8px 8px / 46% 46% 8px 8px;box-shadow:none;
+    display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:24px;}
+  .logo .word{font-family:'Montserrat';line-height:.92;}
+  .logo .word .h{font-weight:800;font-size:20px;letter-spacing:1.5px;color:var(--hydro-blue);}
+  .logo .word .t{font-weight:700;font-size:12px;letter-spacing:3px;color:var(--muted);}
+  .logo .word .d{font-weight:800;font-size:20px;letter-spacing:1.5px;color:var(--dome-red);}
+
+  .pad{padding:40px 76px;display:flex;flex-direction:column;justify-content:center;height:100%;box-sizing:border-box;}
+  .carm{width:54px;height:54px;border-radius:50%;display:block;}
+  .kicker{letter-spacing:5px;font-size:14px;color:var(--muted);text-transform:uppercase;font-weight:600;font-family:'Montserrat';}
+  .head{font-family:'Montserrat';font-weight:800;text-transform:uppercase;font-size:44px;color:#fff;letter-spacing:.5px;margin:8px 0 0;line-height:1.05;}
+  .head .hot{color:var(--orange);}
+  /* acronym expansion: too long for the 44px headline, so it sits under it */
+  .head .headexp{display:block;font-family:'Montserrat';font-size:19px;font-weight:700;
+    letter-spacing:1.6px;color:var(--orange);margin-top:9px;line-height:1.2;}
+  .rule{width:92px;height:4px;background:var(--orange);border-radius:2px;margin:14px 0 24px;}
+  .toprow{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .wcard{background:#fff;border-radius:16px;padding:24px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .wcard .ic{width:58px;height:58px;border-radius:50%;box-shadow:0 0 0 4px #fff,0 0 0 5px rgba(197,83,31,.4);background:var(--orange-soft);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:29px;margin-bottom:15px;}
+  .wcard h3{font-family:'Montserrat';font-weight:700;font-size:20px;color:var(--ink);margin:0 0 9px;line-height:1.2;}
+  .wcard p{font-size:15.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
+  .note{margin-top:18px;font-size:15px;color:var(--muted);}
+  .note .hot{color:var(--orange);font-weight:500;}
+
+  .strip{margin-top:26px;background:var(--bg2);border-left:4px solid var(--orange);border-radius:8px;
+    padding:22px 26px;font-size:18.5px;color:var(--white);line-height:1.5;display:flex;gap:14px;align-items:center;}
+  .strip i{color:var(--orange);font-size:26px;flex:0 0 auto;}
+  .strip b{color:var(--orange);font-weight:600;}
+
+  /* roadmap */
+  .phases{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+  .phase{background:var(--bg2);border-top:4px solid var(--orange);border-radius:12px;padding:22px 18px;}
+  .phase .pic{width:46px;height:46px;border-radius:11px;background:rgba(197,83,31,.16);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:14px;}
+  .phase .when{font-size:15px;color:var(--muted);margin-bottom:8px;}
+  .phase .what{font-size:21px;font-weight:600;color:#fff;line-height:1.18;margin-bottom:11px;font-family:'Montserrat';}
+  .phase .tag{font-size:15.5px;color:var(--muted);}
+  .phase .tag.hot{color:var(--orange);font-weight:500;}
+  .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px;}
+  .metric{background:var(--bg3);border-radius:12px;padding:22px 22px;}
+  .metric .ml{font-size:15px;color:var(--muted);display:flex;align-items:center;gap:7px;}
+  .metric .ml i{color:var(--orange);font-size:18px;}
+  .metric .mv{font-size:38px;font-weight:700;color:#fff;font-family:'Montserrat';margin-top:6px;}
+  .metric .mv.hot{color:var(--orange);}
+  .recur{margin-top:24px;font-size:16.5px;color:var(--muted);display:flex;align-items:center;gap:9px;}
+  .recur i{color:var(--orange);font-size:20px;}
+  /* roadmap timeline: staggered left-to-right fade-in on slide entry */
+  .reveal section.present .phase{animation:phaseIn 1.0s ease both;}
+  .reveal section.present .phase:nth-child(1){animation-delay:.35s;}
+  .reveal section.present .phase:nth-child(2){animation-delay:1.25s;}
+  .reveal section.present .phase:nth-child(3){animation-delay:2.15s;}
+  .reveal section.present .phase:nth-child(4){animation-delay:3.05s;}
+  .reveal section.present .phase:nth-child(5){animation-delay:3.95s;}
+  @keyframes phaseIn{from{opacity:0;transform:translateX(-26px);}to{opacity:1;transform:none;}}
+
+  .split{display:flex;gap:42px;flex:1;align-items:stretch;min-height:0;}
+  .split .ctext{flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .split .imgbox{position:relative;flex:0 0 45%;border-radius:16px;overflow:hidden;border:1px solid #2c2c2c;background:#000;}
+  .split .imgbox img{width:100%;height:100%;object-fit:cover;display:block;}
+  .split .imgbox.contain{flex:0 0 38%;background:#0c0c0c;}
+  .split .imgbox.contain img{object-fit:contain;}
+  .lede{font-size:21px;color:var(--white);line-height:1.55;margin:0 0 26px;max-width:580px;}
+  .lede b{color:var(--orange);font-weight:600;}
+  .blist{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:20px;}
+  .blist li{display:flex;gap:16px;align-items:flex-start;}
+  .blist li .bic{flex:0 0 auto;width:50px;height:50px;border-radius:12px;background:var(--bg2);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:26px;margin-top:1px;}
+  .blist li .btx{font-size:19px;color:var(--white);line-height:1.55;}
+  .blist li .btx b{color:#fff;font-weight:600;}
+  .blist li .btx .sub{color:var(--muted);}
+  .blist.tight{gap:16px;}
+  .blist.tight li .btx{font-size:17.5px;}
+  .banner{width:100%;height:300px;border-radius:16px;overflow:hidden;border:1px solid #2c2c2c;flex:0 0 auto;}
+  .banner img{width:100%;height:100%;object-fit:cover;object-position:center 82%;display:block;}
+  .carmhist{font-size:18px;color:var(--white);line-height:1.5;text-align:center;max-width:none;margin:14px auto 16px;}
+  .carmhist b{color:#fff;font-weight:600;}
+  .imgcap{position:relative;}
+
+  /* RING FRAME, circular photo with concentric red rings (replaces the dome arch). Reusable photo treatment. */
+  .dome{
+    border-radius:50% !important;
+    border:3px solid var(--dome-red) !important;
+    box-shadow:
+      0 0 0 9px var(--bg),
+      0 0 0 11px rgba(210,69,42,.55),
+      0 0 0 22px var(--bg),
+      0 0 0 23px rgba(210,69,42,.28),
+      0 14px 34px rgba(0,0,0,.45) !important;
+  }
+  /* a circle needs a square box: fix the size, centre it, leave room for the outer rings */
+  .split .imgbox.dome{flex:0 0 auto;align-self:center;width:400px;height:400px;margin:0 30px;}
+  .solimg.dome{flex:0 0 auto;align-self:center;width:300px;height:300px;margin:0 28px;}
+  /* HydroDome (permanent towers) keeps the original dome arch */
+  .split .imgbox.dome.arch{flex:0 0 45%;align-self:stretch;width:auto;height:auto;margin:0;
+    border-radius:50% 50% 16px 16px / 46% 46% 16px 16px !important;
+    box-shadow:0 0 0 1px rgba(210,69,42,.18), 0 14px 34px rgba(0,0,0,.45) !important;}
+  /* competitor frames: square + neutral border, these are NOT our products */
+  .imgbox.square{border-radius:0 !important;border:1px solid #3a3a3a !important;box-shadow:none !important;}
+
+  /* AUTO-SEQUENCE, cards/bullets fade up one-by-one automatically on slide entry (no clicks) */
+  @keyframes riseIn{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
+  .reveal section.present .auto-seq>*{animation:riseIn 1.0s ease both;}
+  .reveal section.present .auto-seq>*:nth-child(1){animation-delay:.35s;}
+  .reveal section.present .auto-seq>*:nth-child(2){animation-delay:1.25s;}
+  .reveal section.present .auto-seq>*:nth-child(3){animation-delay:2.15s;}
+  .reveal section.present .auto-seq>*:nth-child(4){animation-delay:3.05s;}
+  .reveal section.present .auto-seq>*:nth-child(5){animation-delay:3.95s;}
+  .reveal section.present .auto-seq>*:nth-child(6){animation-delay:4.85s;}
+  /* extra-slow variant (Carmanah services) */
+  .reveal section.present .auto-seq.vslow>*{animation-duration:1.4s;}
+  .reveal section.present .auto-seq.vslow>*:nth-child(1){animation-delay:.5s;}
+  .reveal section.present .auto-seq.vslow>*:nth-child(2){animation-delay:2.3s;}
+  .reveal section.present .auto-seq.vslow>*:nth-child(3){animation-delay:4.1s;}
+
+  /* EmberCast, subtle drifting red embers, looping while the slide is shown */
+  .embers{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:10;}
+  .ember{position:absolute;bottom:4%;border-radius:50%;opacity:0;
+    background:radial-gradient(circle,#ff8a4c 0%,#d2452a 65%,rgba(210,69,42,0) 100%);
+    box-shadow:0 0 6px 1px rgba(210,69,42,.55);}
+  .e1{left:13%;width:5px;height:5px;} .e2{left:28%;width:4px;height:4px;}
+  .e3{left:47%;width:6px;height:6px;} .e4{left:62%;width:4px;height:4px;}
+  .e5{left:78%;width:5px;height:5px;} .e6{left:90%;width:3px;height:3px;}
+  .e7{left:6%;width:4px;height:4px;} .e8{left:20%;width:3px;height:3px;}
+  .e9{left:35%;width:5px;height:5px;} .e10{left:42%;width:3px;height:3px;}
+  .e11{left:54%;width:4px;height:4px;} .e12{left:68%;width:6px;height:6px;}
+  .e13{left:73%;width:3px;height:3px;} .e14{left:84%;width:5px;height:5px;}
+  .e15{left:95%;width:4px;height:4px;} .e16{left:17%;width:5px;height:5px;}
+  .e17{left:58%;width:3px;height:3px;} .e18{left:38%;width:4px;height:4px;}
+  .e19{left:10%;width:6px;height:6px;} .e20{left:24%;width:4px;height:4px;}
+  .e21{left:31%;width:5px;height:5px;} .e22{left:45%;width:7px;height:7px;}
+  .e23{left:51%;width:4px;height:4px;} .e24{left:66%;width:6px;height:6px;}
+  .e25{left:71%;width:5px;height:5px;} .e26{left:88%;width:4px;height:4px;}
+  .e27{left:3%;width:5px;height:5px;}  .e28{left:16%;width:6px;height:6px;}
+  .e29{left:39%;width:4px;height:4px;} .e30{left:48%;width:6px;height:6px;}
+  .e31{left:60%;width:5px;height:5px;} .e32{left:64%;width:7px;height:7px;}
+  .e33{left:81%;width:4px;height:4px;} .e34{left:92%;width:6px;height:6px;}
+  .e35{left:26%;width:5px;height:5px;} .e36{left:55%;width:4px;height:4px;}
+  .reveal section.present .e1{animation:driftA 10s linear 0s infinite;}
+  .reveal section.present .e2{animation:driftB 13s linear 2.2s infinite;}
+  .reveal section.present .e3{animation:driftA 12s linear 1.1s infinite;}
+  .reveal section.present .e4{animation:driftB 15s linear 3.6s infinite;}
+  .reveal section.present .e5{animation:driftA 14s linear .6s infinite;}
+  .reveal section.present .e6{animation:driftB 11s linear 2.7s infinite;}
+  .reveal section.present .e7{animation:driftB 12s linear .9s infinite;}
+  .reveal section.present .e8{animation:driftA 9s linear 3.1s infinite;}
+  .reveal section.present .e9{animation:driftB 14s linear 1.7s infinite;}
+  .reveal section.present .e10{animation:driftA 12s linear 4.2s infinite;}
+  .reveal section.present .e11{animation:driftB 10s linear 2.0s infinite;}
+  .reveal section.present .e12{animation:driftA 16s linear .3s infinite;}
+  .reveal section.present .e13{animation:driftB 13s linear 3.4s infinite;}
+  .reveal section.present .e14{animation:driftA 11s linear 1.3s infinite;}
+  .reveal section.present .e15{animation:driftB 15s linear 2.6s infinite;}
+  .reveal section.present .e16{animation:driftA 13s linear 4.0s infinite;}
+  .reveal section.present .e17{animation:driftB 9s linear 1.0s infinite;}
+  .reveal section.present .e18{animation:driftA 10s linear 2.4s infinite;}
+  .reveal section.present .e19{animation:driftB 12s linear 1.5s infinite;}
+  .reveal section.present .e20{animation:driftA 14s linear 3.3s infinite;}
+  .reveal section.present .e21{animation:driftB 11s linear .7s infinite;}
+  .reveal section.present .e22{animation:driftA 16s linear 2.1s infinite;}
+  .reveal section.present .e23{animation:driftB 13s linear 4.1s infinite;}
+  .reveal section.present .e24{animation:driftA 10s linear 1.2s infinite;}
+  .reveal section.present .e25{animation:driftB 15s linear 2.9s infinite;}
+  .reveal section.present .e26{animation:driftA 12s linear .4s infinite;}
+  .reveal section.present .e27{animation:driftB 9s linear 3.7s infinite;}
+  .reveal section.present .e28{animation:driftA 13s linear 1.9s infinite;}
+  .reveal section.present .e29{animation:driftB 14s linear .9s infinite;}
+  .reveal section.present .e30{animation:driftA 11s linear 3.0s infinite;}
+  .reveal section.present .e31{animation:driftB 10s linear 2.3s infinite;}
+  .reveal section.present .e32{animation:driftA 15s linear .6s infinite;}
+  .reveal section.present .e33{animation:driftB 12s linear 4.4s infinite;}
+  .reveal section.present .e34{animation:driftA 13s linear 1.6s infinite;}
+  .reveal section.present .e35{animation:driftB 11s linear 3.5s infinite;}
+  .reveal section.present .e36{animation:driftA 14s linear 2.0s infinite;}
+  @keyframes driftA{
+    0%{opacity:0;transform:translate(0,30px) scale(.8);}
+    8%{opacity:.85;}
+    35%{transform:translate(40px,-150px) scale(1);}
+    60%{transform:translate(-20px,-280px) scale(.95);opacity:.7;}
+    85%{opacity:.35;}
+    100%{opacity:0;transform:translate(70px,-430px) scale(.6);}
+  }
+  @keyframes driftB{
+    0%{opacity:0;transform:translate(0,30px) scale(.7);}
+    10%{opacity:.8;}
+    40%{transform:translate(-45px,-170px) scale(1);}
+    70%{transform:translate(30px,-300px) scale(.9);opacity:.6;}
+    100%{opacity:0;transform:translate(-30px,-450px) scale(.5);}
+  }
+
+  /* Traditional approaches, subtle rainfall, drawn in front of the image & text */
+  .rain{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:10;}
+  .rain .drop{position:absolute;top:0;width:2.6px;border-radius:1.5px;opacity:0;
+    background:linear-gradient(to bottom,rgba(174,206,255,0),rgba(174,206,255,.9));}
+  .reveal section.present .rain .drop{animation-name:rainfall;animation-timing-function:linear;animation-iteration-count:infinite;}
+  @keyframes rainfall{
+    0%{opacity:0;transform:translateY(-80px);}
+    12%{opacity:.85;}
+    88%{opacity:.85;}
+    100%{opacity:0;transform:translateY(860px);}
+  }
+
+  /* Market references (elevator slide) */
+  .refscroll{flex:1;min-height:0;overflow:auto;margin-top:4px;padding-right:12px;}
+  .refgrid{columns:2;column-gap:34px;}
+  .refitem{break-inside:avoid;margin:0 0 15px;padding-left:30px;position:relative;}
+  .refitem .rn{position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;box-shadow:0 0 0 2px var(--bg),0 0 0 3px rgba(197,83,31,.4);
+    background:rgba(197,83,31,.18);color:var(--orange);font-family:'Montserrat';font-weight:700;font-size:12px;
+    display:flex;align-items:center;justify-content:center;}
+  .refitem .rc{font-size:13.5px;color:#fff;font-weight:600;line-height:1.35;}
+  .refitem .rs{font-size:12px;color:var(--muted);line-height:1.35;margin-top:2px;}
+  .refitem a{color:var(--hydro-blue);text-decoration:none;word-break:break-all;}
+  .refnote{font-size:11.5px;color:var(--muted);font-style:italic;line-height:1.35;margin-top:3px;}
+
+  /* team */
+  .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+  .teamgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .teamgrid .tcard{padding:22px 18px 20px;}
+  .teamgrid .tcard .photo{width:112px;height:112px;margin:6px 0 18px;
+    border-radius:50%;border:3px solid var(--dome-red);
+    box-shadow:0 0 0 4px #fff, 0 0 0 5px rgba(210,69,42,.5), 0 0 0 10px #fff, 0 0 0 11px rgba(210,69,42,.25);}
+  .teamgrid .tcard p{font-size:14px;}
+  .tcard{background:#fff;border-radius:16px;padding:30px 18px 26px;text-align:center;display:flex;flex-direction:column;align-items:center;}
+  .tcard .photo{width:132px;height:132px;border-radius:50%;object-fit:cover;margin-bottom:18px;border:3px solid var(--orange);}
+  .tcard h3{font-family:'Montserrat';font-weight:700;font-size:19px;color:var(--ink);margin:0 0 6px;line-height:1.15;}
+  .tcard .role{font-family:'Montserrat';font-size:13.5px;color:var(--orange);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:11px;}
+  .tcard p{font-size:14.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
+
+  .tk2{font-family:'Montserrat';font-weight:600;text-transform:uppercase;letter-spacing:3px;color:var(--orange);font-size:16px;}
+  .bigtitle{font-family:'Montserrat';font-weight:800;font-size:74px;color:#fff;line-height:1.0;margin:10px 0 20px;}
+
+  .imgph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    border:2px dashed #3a3a3a;border-radius:16px;text-align:center;padding:24px;
+    background:repeating-linear-gradient(45deg,#141414,#141414 12px,#171717 12px,#171717 24px);}
+  .imgph i{font-size:46px;color:var(--orange);}
+  .imgph .pl{font-size:14.5px;color:var(--white);font-family:'Montserrat';font-weight:600;letter-spacing:.5px;}
+  .imgph .sub{font-size:13px;color:var(--muted);max-width:240px;line-height:1.4;}
+
+  /* device / monitor frame (live app embedded in screen) */
+  /* Site-analysis film: the visual gets the slide, the text gets one line */
+  .pad.filmpad{padding:30px 54px 34px;}
+  .filmlede{font-size:19px;line-height:1.5;color:var(--muted);margin:12px 0 16px;max-width:none;}
+  .filmlede b{color:var(--white);font-weight:600;}
+  .filmbox{position:relative;flex:1 1 auto;min-height:0;border-radius:12px;overflow:hidden;
+    border:1px solid #2a2a2a;box-shadow:0 18px 44px rgba(0,0,0,.55);background:#080b0e;}
+  .filmbox iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;}
+  .reveal section.present .filmbox{animation:filmIn .7s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes filmIn{from{opacity:0;transform:translateY(22px) scale(.99);}to{opacity:1;transform:none;}}
+
+  .device{flex:0 0 50%;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .monitor{width:100%;background:#232323;border-radius:16px;padding:14px;border:1px solid #343434;box-shadow:0 18px 44px rgba(0,0,0,.55);}
+  .monitor .screen{position:relative;aspect-ratio:16/10;width:100%;border-radius:8px;overflow:hidden;border:1px solid #2a2a2a;
+    background:linear-gradient(160deg,#0d1117,#0c0f14);display:flex;align-items:center;justify-content:center;}
+  .monitor .screen .imgph{border:none;border-radius:0;width:100%;height:100%;background:transparent;}
+  .monitor .screen iframe.embed{position:absolute;top:0;left:0;width:250%;height:250%;transform:scale(.4);transform-origin:top left;border:0;display:block;}
+  .imgbox iframe{position:absolute;top:0;left:0;width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:0;display:block;}
+  .stand-neck{width:36px;height:20px;background:#1f1f1f;}
+  .stand-base{width:130px;height:13px;background:#232323;border-radius:0 0 9px 9px;}
+  /* Virtual Model: the screen glides in when the slide is shown */
+  .reveal section.present .vmodel{animation:modelIn .7s cubic-bezier(.2,.7,.2,1) both;}
+  @keyframes modelIn{from{opacity:0;transform:translateX(60px) scale(.95);}to{opacity:1;transform:none;}}
+
+  .vsgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .vscard{background:var(--bg2);border-radius:14px;border-top:4px solid var(--orange);padding:22px 20px;}
+  .vscard .vh{display:flex;align-items:center;gap:11px;margin-bottom:15px;}
+  .vscard .vh .vic{width:42px;height:42px;border-radius:10px;background:rgba(197,83,31,.16);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 auto;}
+  .vscard .vh h3{font-family:'Montserrat';font-weight:700;font-size:16.5px;color:#fff;line-height:1.15;}
+  .vscard ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px;}
+  .vscard li{display:flex;gap:10px;font-size:15px;color:var(--white);line-height:1.45;}
+  .vscard li i{color:var(--orange);font-size:17px;margin-top:2px;flex:0 0 auto;}
+  .vscard li b{color:#fff;font-weight:600;}
+  .vsfoot{margin-top:16px;font-size:13.5px;color:var(--muted);}
+
+  .vnav-cue{margin-top:18px;display:flex;align-items:center;gap:16px;
+    background:linear-gradient(90deg,rgba(197,83,31,.20),rgba(197,83,31,.04));
+    border:1px solid rgba(197,83,31,.45);border-radius:12px;padding:15px 22px;}
+  .vnav-cue i{font-size:34px;color:var(--orange);flex:0 0 auto;animation:bobdown 1.6s ease-in-out infinite;}
+  .vnav-cue div{font-size:16.5px;color:var(--white);line-height:1.45;}
+  .vnav-cue b{color:#fff;font-weight:700;}
+  .vnav-cue .hot{color:var(--orange);font-weight:600;}
+  @keyframes bobdown{0%,100%{transform:translateY(0);}50%{transform:translateY(5px);}}
+
+  /* title-slide navigation hint */
+  .navhint{margin-top:24px;display:inline-flex;align-items:center;gap:13px;
+    background:linear-gradient(90deg,rgba(197,83,31,.22),rgba(197,83,31,.04));
+    border:1px solid rgba(197,83,31,.45);border-radius:12px;padding:13px 20px;max-width:560px;}
+  .navhint i{font-size:26px;color:var(--orange);flex:0 0 auto;animation:nudge 1.5s ease-in-out infinite;}
+  .navhint span{font-size:16.5px;color:var(--white);line-height:1.45;}
+  .navhint b{color:#fff;font-weight:700;}
+  @keyframes nudge{0%,100%{transform:translateX(0);}50%{transform:translateX(6px);}}
+
+  /* high-vis navigation arrows, default chevrons were black on a black bg.
+     Now: dark chip + red outline, with a light-grey chevron inside. */
+  .reveal .controls button{
+    width:3.6em;height:3.6em;box-sizing:border-box;padding:0 !important;
+    border:2px solid var(--dome-red) !important;
+    background:#000 !important;
+    border-radius:50% !important;
+  }
+  /* the down button carries extra bottom padding by default, neutralize it so its chip is a true circle in the same spot */
+  .reveal .controls .navigate-down{bottom:0 !important;padding-bottom:0 !important;}
+  .reveal .controls .controls-arrow{color:var(--dome-red) !important;}
+
+  /* market metrics stack, taller, bigger, condensed to the right */
+  .mkt{display:flex;flex-direction:column;gap:20px;justify-content:center;flex:1;}
+  .mcard{background:var(--bg2);border-left:5px solid var(--orange);border-radius:12px;padding:24px 26px;}
+  .mcard .mt{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--muted);font-family:'Montserrat';
+    font-weight:600;letter-spacing:.6px;text-transform:uppercase;}
+  .mcard .mt i{color:var(--orange);font-size:20px;}
+  .mcard .mn{font-size:37px;font-weight:700;color:#fff;font-family:'Montserrat';margin:6px 0 4px;}
+  .mcard .mn .hot{color:var(--orange);}
+  .mcard .ms{font-size:16px;color:var(--muted);line-height:1.45;}
+
+  .infobox{background:var(--bg2);border-radius:12px;padding:18px 20px;}
+  .infobox + .infobox{margin-top:16px;}
+  .infobox h4{font-family:'Montserrat';font-weight:700;font-size:13px;letter-spacing:1px;text-transform:uppercase;
+    margin:0 0 12px;display:flex;align-items:center;gap:8px;}
+  .infobox.work h4{color:var(--orange);}
+  .infobox.short h4{color:#d9b38c;}
+  .infobox ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;}
+  .infobox li{display:flex;gap:9px;font-size:14.5px;color:var(--white);line-height:1.45;}
+  .infobox li i{font-size:16px;margin-top:2px;flex:0 0 auto;}
+  .infobox.work li i{color:var(--orange);}
+  .infobox.short li i{color:#d9b38c;}
+  .specrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;}
+  .spec{font-size:12.5px;color:var(--muted);background:var(--bg3);border-radius:6px;padding:5px 10px;
+    display:flex;align-items:center;gap:6px;}
+  .spec i{color:var(--orange);font-size:14px;}
+  .upcue{margin-top:16px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:8px;}
+  .upcue i{color:var(--orange);font-size:17px;}
+
+  .contact{display:flex;flex-direction:column;gap:16px;margin-top:14px;}
+  .crow{display:flex;align-items:center;gap:14px;}
+  .crow .cic{width:48px;height:48px;border-radius:12px;background:rgba(197,83,31,.16);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto;}
+  .crow .cl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'Montserrat';}
+  .crow .cv{font-size:20px;color:#fff;font-weight:600;line-height:1.3;}
+  .crow .cv .hot{color:var(--orange);}
+
+  /* Our Solution: spray-logic animation banner on top */
+  .solbanner{flex:0 0 auto;width:100%;height:192px;border-radius:14px;overflow:hidden;background:#0f0f0f;margin-bottom:18px;}
+  .solbanner iframe{width:100%;height:100%;border:0;display:block;}
+  .solrow{flex:1;display:flex;gap:36px;align-items:center;min-height:0;}
+  .solrow .blist{flex:1;}
+  .solbul li{gap:13px;}
+  .solbul li .bic{width:42px;height:42px;font-size:21px;border-radius:11px;}
+  .solbul li .btx{font-size:15px;line-height:1.45;}
+  .solimg{flex:0 0 33%;height:300px;border-radius:14px;overflow:hidden;border:1px solid #2c2c2c;align-self:center;}
+  .solimg img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* HOW IT WORKS (3 slides), water path, sequencing, control & the trailer */
+  .hiwdiagram{flex:0 0 auto;width:100%;box-sizing:border-box;background:var(--bg3);
+    border:1px solid #2a2a2a;border-radius:14px;padding:14px 20px;}
+  .hiwdiagram svg{display:block;width:100%;height:auto;}
+  .hiwlist{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:1fr 1fr;
+    grid-auto-flow:column;gap:15px 40px;}
+  .hiwlist.rows3{grid-template-rows:repeat(3,auto);}
+  .hiwlist.rows2{grid-template-rows:repeat(2,auto);}
+  .hiwlist li{display:flex;gap:13px;align-items:flex-start;}
+  .hiwlist li .bic{flex:0 0 auto;width:42px;height:42px;border-radius:11px;background:var(--bg2);
+    color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:21px;}
+  .hiwlist li .btx{font-size:15.5px;color:var(--white);line-height:1.45;}
+  .hiwlist li .btx b{color:#fff;font-weight:600;}
+
+  /* sequencing: the same line of towers, three frames, a different group lit in each */
+  .seqrow{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  .seqframe{background:var(--bg3);border:1px solid #2a2a2a;border-radius:14px;padding:12px 12px 9px;}
+  .seqframe svg{display:block;width:100%;height:auto;}
+  .seqframe .fcap{font-family:'Montserrat';font-weight:600;font-size:11.5px;letter-spacing:2.4px;
+    text-transform:uppercase;color:var(--muted);text-align:center;margin-top:8px;}
+
+  /* packed up vs. set up: the same trailer in two states, pictures first, light text under */
+  .pairrow{flex:0 0 auto;display:grid;grid-template-columns:1fr 44px 1fr;gap:14px;align-items:stretch;}
+  .pairpanel{background:var(--bg2);border-radius:14px;border-top:4px solid var(--orange);padding:14px 18px 16px;}
+  .pairpanel .pic{background:var(--bg3);border:1px solid #2a2a2a;border-radius:10px;padding:6px;}
+  .pairpanel .pic svg{display:block;width:100%;height:auto;}
+  .pairpanel h3{font-family:'Montserrat';font-weight:700;font-size:17px;color:#fff;margin:13px 0 9px;
+    display:flex;align-items:center;gap:9px;}
+  .pairpanel h3 i{color:var(--orange);font-size:20px;}
+  .pairpanel h3 .hot{color:var(--orange);}
+  .pairpanel ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;}
+  .pairpanel li{display:flex;gap:9px;font-size:14px;color:var(--white);line-height:1.42;}
+  .pairpanel li i{color:var(--orange);font-size:15px;margin-top:2px;flex:0 0 auto;}
+  .pairarrow{display:flex;align-items:center;justify-content:center;}
+  .pairarrow span{width:44px;height:44px;border-radius:50%;background:rgba(197,83,31,.16);color:var(--orange);
+    display:flex;align-items:center;justify-content:center;font-size:24px;}
+
+  /* password gate (simple client-side; deters casual viewers) */
+  #gate{position:fixed;inset:0;z-index:9999;background:#0f0f0f;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;}
+  #gate.hidden{display:none;}
+  #gate .gcard{background:var(--bg2);border:1px solid #2c2c2c;border-radius:16px;padding:38px 42px;width:min(380px,86vw);text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.6);}
+  #gate .glogo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;}
+  #gate .glogo .ring{width:40px;height:40px;border-radius:50%;box-shadow:0 0 0 3px var(--bg2),0 0 0 4px rgba(197,83,31,.45);border:2px solid var(--orange);display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:21px;}
+  #gate .glogo .h{font-family:'Montserrat';font-weight:800;font-size:18px;letter-spacing:1.5px;color:var(--hydro-blue);}
+  #gate .glogo .d{font-family:'Montserrat';font-weight:800;font-size:18px;letter-spacing:1.5px;color:var(--dome-red);}
+  #gate p{color:var(--muted);font-size:14px;margin:0 0 20px;line-height:1.5;}
+  #gate input{width:100%;box-sizing:border-box;background:var(--bg3);border:1px solid #333;border-radius:10px;padding:13px 15px;color:#fff;font-size:16px;font-family:'Inter';outline:none;}
+  #gate input:focus{border-color:var(--orange);}
+  #gate button{margin-top:14px;width:100%;background:var(--orange);color:#fff;border:0;border-radius:10px;padding:13px;font-size:15px;font-weight:600;font-family:'Montserrat';cursor:pointer;letter-spacing:.5px;}
+  #gate .err{color:#e0644a;font-size:13px;margin-top:12px;min-height:16px;}
+  #gate .gnote{margin-top:18px;padding-top:16px;border-top:1px solid #2c2c2c;color:var(--muted);font-size:12px;line-height:1.55;}
+
+  /* ===== FIELD DECK additions (client / operator version) ===== */
+
+  /* "confirm" tag: a value we have not pinned down yet. Muted on purpose so Nick can speak to it or skip it. */
+  .tbc{display:inline-flex;align-items:center;gap:4px;vertical-align:middle;margin-left:6px;
+    font-family:'Montserrat';font-size:10.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;
+    color:#8a847b;background:#1f1f1f;border:1px solid #333;border-radius:5px;padding:2px 7px;line-height:1.3;}
+  .tbc i{font-size:11px;}
+  .tbc.big{font-size:11.5px;padding:3px 9px;}
+
+  /* who we are: one row of six */
+  .teamrow{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:16px;}
+  .teamrow .tcard{padding:16px 10px 14px;border-radius:14px;}
+  .teamrow .tcard .photo{width:84px;height:84px;margin:0 0 12px;border:3px solid var(--dome-red);
+    box-shadow:0 0 0 3px #fff,0 0 0 4px rgba(210,69,42,.45);}
+  .teamrow .tcard h3{font-size:15px;margin-bottom:5px;}
+  .teamrow .tcard .role{font-size:11.5px;margin-bottom:0;letter-spacing:.3px;}
+
+  /* configurations: four cards, each with a plan-view line diagram */
+  .cfggrid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;flex:0 0 auto;}
+  .cfgcard{background:var(--bg2);border-radius:14px;border-top:4px solid var(--orange);padding:16px 16px 18px;display:flex;flex-direction:column;}
+  .cfgcard.soft{border-top-color:#4a4a4a;}
+  .cfgcard .pic{background:var(--bg3);border:1px solid #2a2a2a;border-radius:10px;padding:8px;margin-bottom:14px;}
+  .cfgcard .pic svg{display:block;width:100%;height:auto;}
+  .cfgcard h3{font-family:'Montserrat';font-weight:700;font-size:17px;color:#fff;line-height:1.2;margin:0 0 8px;display:flex;align-items:center;flex-wrap:wrap;gap:4px 0;}
+  .cfgcard p{font-size:14.5px;color:var(--white);line-height:1.5;margin:0 0 10px;}
+  .cfgcard .use{font-size:13.5px;color:var(--muted);line-height:1.45;margin-top:auto;}
+  .cfgcard .use b{color:#d9b38c;font-weight:600;}
+  .cfgnote{margin-top:16px;font-size:14.5px;color:var(--muted);display:flex;align-items:center;gap:9px;}
+  .cfgnote i{color:var(--orange);font-size:18px;}
+
+  /* setup: numbered steps in two columns */
+  .steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:column;
+    grid-template-rows:repeat(4,auto);gap:14px 40px;flex:0 0 auto;}
+  .steps li{display:flex;gap:14px;align-items:flex-start;background:var(--bg2);border-radius:12px;padding:14px 16px;}
+  .steps li .num{flex:0 0 auto;width:38px;height:38px;border-radius:50%;background:rgba(197,83,31,.16);color:var(--orange);
+    font-family:'Montserrat';font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 2px var(--bg2),0 0 0 3px rgba(197,83,31,.4);}
+  .steps li .stx{font-size:15.5px;color:var(--white);line-height:1.45;}
+  .steps li .stx b{color:#fff;font-weight:600;}
+  .steps li .stx .sub{display:block;color:var(--muted);font-size:13.5px;margin-top:3px;}
+  .steps li.done{background:linear-gradient(90deg,rgba(197,83,31,.18),var(--bg2));}
+
+  /* specifications: two tables side by side */
+  .specwrap{display:grid;grid-template-columns:1fr 1fr;gap:0 34px;flex:0 0 auto;}
+  table.spect{width:100%;border-collapse:collapse;font-size:13px;}
+  table.spect th{font-family:'Montserrat';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);
+    text-align:left;padding:0 8px 6px;border-bottom:2px solid rgba(197,83,31,.5);}
+  .pad.specpad{padding:26px 76px 24px;}
+  .pad.specpad .rule{margin:10px 0 14px;}
+  table.spect td{padding:4.5px 8px;border-bottom:1px solid #262626;vertical-align:top;line-height:1.3;}
+  table.spect td:first-child{color:var(--muted);width:41%;}
+  table.spect td:last-child{color:var(--white);}
+  table.spect td b{color:#fff;font-weight:600;}
+  table.spect td .tbc{margin-left:0;}
+  table.spect tr.dim td{color:#7d776f;}
+  .specfoot{margin-top:10px;font-size:13.5px;color:var(--muted);display:flex;align-items:center;gap:8px;}
+  .specfoot i{color:var(--orange);font-size:16px;}
+
+  /* coming from an SPU: two columns */
+  .spucols{display:grid;grid-template-columns:1fr 1.35fr;gap:22px;flex:0 0 auto;}
+  .spucol{background:var(--bg2);border-radius:14px;padding:18px 20px 16px;border-top:4px solid #4a4a4a;}
+  .spucol.diff{border-top-color:var(--orange);}
+  .spucol h3{font-family:'Montserrat';font-weight:700;font-size:16px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);
+    margin:0 0 12px;display:flex;align-items:center;gap:9px;}
+  .spucol.diff h3{color:var(--orange);}
+  .spucol h3 i{font-size:20px;}
+  .spucol ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px;}
+  .spucol.diff ul{display:grid;grid-template-columns:1fr 1fr;grid-auto-flow:column;grid-template-rows:repeat(4,auto);gap:9px 18px;}
+  .spucol li{display:flex;gap:9px;font-size:14.5px;color:var(--white);line-height:1.42;}
+  .spucol li i{color:#9a948b;font-size:16px;margin-top:2px;flex:0 0 auto;}
+  .spucol.diff li i{color:var(--orange);}
+  .spucol li b{color:#fff;font-weight:600;}
+
+  /* how it compares: one table */
+  table.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:14.5px;flex:0 0 auto;}
+  table.cmp th{font-family:'Montserrat';font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);
+    text-align:left;padding:10px 14px;border-bottom:2px solid #2c2c2c;}
+  table.cmp th.moat{color:var(--orange);}
+  table.cmp td{padding:12px 14px;border-bottom:1px solid #262626;color:var(--white);line-height:1.4;vertical-align:top;}
+  table.cmp td:first-child{color:var(--muted);font-family:'Montserrat';font-weight:600;font-size:13px;letter-spacing:.5px;text-transform:uppercase;width:15%;}
+  table.cmp td.moat{background:rgba(197,83,31,.10);color:#fff;}
+  table.cmp td.moat b{color:var(--orange);}
+  table.cmp tr:first-child td.moat{border-top-left-radius:0;}
+
+  /* what's next: four phases */
+  .phases.four{grid-template-columns:repeat(4,1fr);}
+  .reveal section.present .phases.four .phase:nth-child(4){animation-delay:3.05s;}
+  .pilotcue{margin-top:26px;display:flex;align-items:center;gap:16px;
+    background:linear-gradient(90deg,rgba(197,83,31,.20),rgba(197,83,31,.04));
+    border:1px solid rgba(197,83,31,.45);border-radius:12px;padding:16px 22px;font-size:19px;color:var(--white);}
+  .pilotcue i{font-size:30px;color:var(--orange);flex:0 0 auto;}
+  .pilotcue b{color:#fff;font-weight:700;}
+  .pilotcue .hot{color:var(--orange);font-weight:600;}
+
+  /* flattened how-it-works: no elevator, so no nav cues */
+  .hiwlist.rows3.field{margin-top:16px;}
+
+  /* speaker notes are hidden on the slide and shown in the speaker view (press S) */
+  .reveal aside.notes{display:none;}
+</style>
+</head>
+<body>
+<div id="gate">
+  <form class="gcard" id="gateForm">
+    <div class="glogo"><div class="ring"><i class="ti ti-flame"></i></div><div><span class="d">THE MOAT</span></div></div>
+    <p>This deck is private.<br>Enter the password to continue.</p>
+    <input id="gatePw" type="password" placeholder="Password" autocomplete="current-password" autofocus>
+    <button type="submit">Unlock</button>
+    <div class="err" id="gateErr"></div>
+    <div class="gnote">Please treat this deck as confidential. Kindly don't share or forward it unless you've been explicitly granted permission.</div>
+  </form>
+</div>
+<div class="reveal"><div class="slides">
+
+  <!-- 1. TITLE (doubles as the hero: the deployed line along a street) -->
+  <section data-transition="zoom">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+        <div style="display:flex;align-items:center;gap:14px;"><img class="carm" src="assets/carmanah-logo.svg" alt="Carmanah Wildfire"><div class="kicker">A project of Carmanah Wildfire</div></div>
+      </div>
+      <div class="split" style="margin-top:18px;">
+        <div class="ctext">
+          <div class="tk2">For crews, fire departments and site owners</div>
+          <h1 class="bigtitle">The <span class="hot">Moat</span></h1>
+          <p class="lede">One trailer, eight big-gun towers along a street. Two people have it running in under an hour, and it runs itself on live fire weather once it's on.</p>
+          <div class="navhint"><i class="ti ti-arrow-right"></i><span>To move through the deck, press the <b>right arrow</b> key (or swipe right on touch).</span></div>
+        </div>
+        <div class="imgbox dome"><img src="assets/community.jpg" alt="The Moat deployed along a community street: the trailer on a hydrant and a line of towers throwing arcing jets over the rooftops" style="object-position:12% 50%;"></div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Room is crews, chiefs, site owners. Most have run an SPU. Talk to that.
+      One sentence: a line of eight big guns on a trailer, up in an hour, runs itself.
+    </aside>
+  </section>
+
+  <!-- 2. WHO WE ARE (Carmanah + team, one slide) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Who we are</div>
+          <div class="head">Carmanah <span class="hot">Wildfire</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="banner" style="height:250px;"><img src="assets/carmanah-team.jpg" alt="Carmanah Wildfire crew"></div>
+      <p class="carmhist">Founded 2019, on the fireline since 2021. Grown from 30 to <b>160+ seasonal staff</b> running <b>Type II and III crews</b>, wildfire and crew training, and falling, danger tree and vegetation work across <b>BC, Alberta and the Yukon.</b> The Moat was designed by people who have done SPU work.</p>
+      <div class="teamrow auto-seq">
+        <div class="tcard"><img class="photo" src="assets/nick.jpg" alt="Nick Hill"><h3>Nick Hill</h3><div class="role">Founder / CEO</div></div>
+        <div class="tcard"><img class="photo" src="assets/brian.jpg" alt="Brian Mueller"><h3>Brian Mueller</h3><div class="role">Lead Systems Engineer</div></div>
+        <div class="tcard"><img class="photo" src="assets/dakotah.jpg" alt="Dakotah Daily"><h3>Dakotah Daily</h3><div class="role">Geospatial &amp; Project Lead</div></div>
+        <div class="tcard"><img class="photo" src="assets/mehran.jpg" alt="Mehran Mehrandezh"><h3>Mehran Mehrandezh</h3><div class="role">Technical Advisor</div></div>
+        <div class="tcard"><img class="photo" src="assets/amir.jpg" alt="Amirhossein Moshtaghioun"><h3>Amir Moshtaghioun</h3><div class="role">Electronics &amp; Controls</div></div>
+        <div class="tcard"><img class="photo" src="assets/yassine.jpg" alt="Yassine Bouhamed"><h3>Yassine Bouhamed</h3><div class="role">Spray &amp; Flow Modelling</div></div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Point is "built by people who've done SPU work", not resumes.
+      Nick and Brian are the ones in the room. Brian owns the build.
+    </aside>
+  </section>
+
+  <!-- 3. THE PROBLEM: EMBERS -->
+  <section data-transition="fade">
+    <div class="root">
+      <div class="embers"><span class="ember e1"></span><span class="ember e2"></span><span class="ember e3"></span><span class="ember e4"></span><span class="ember e5"></span><span class="ember e6"></span><span class="ember e7"></span><span class="ember e8"></span><span class="ember e9"></span><span class="ember e10"></span><span class="ember e11"></span><span class="ember e12"></span><span class="ember e13"></span><span class="ember e14"></span><span class="ember e15"></span><span class="ember e16"></span><span class="ember e17"></span><span class="ember e18"></span><span class="ember e19"></span><span class="ember e20"></span><span class="ember e21"></span><span class="ember e22"></span><span class="ember e23"></span><span class="ember e24"></span><span class="ember e25"></span><span class="ember e26"></span><span class="ember e27"></span><span class="ember e28"></span><span class="ember e29"></span><span class="ember e30"></span><span class="ember e31"></span><span class="ember e32"></span><span class="ember e33"></span><span class="ember e34"></span><span class="ember e35"></span><span class="ember e36"></span></div>
+      <div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">The problem</div>
+          <div class="head">Ember<span class="hot">Cast</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <p class="lede">The convection column throws burning debris out ahead of the front. <b>Structures light up hours before the flames get there.</b></p>
+          <ul class="blist auto-seq">
+            <li><span class="bic"><i class="ti ti-arrows-split"></i></span><span class="btx">Embers land in the dry ground between houses, not just on roofs.</span></li>
+            <li><span class="bic"><i class="ti ti-alert-triangle"></i></span><span class="btx">Spot fires split your crew at the worst possible moment.</span></li>
+            <li><span class="bic"><i class="ti ti-flame"></i></span><span class="btx">A defended street becomes a new fire source, house to house.</span></li>
+          </ul>
+        </div>
+        <div class="imgbox contain"><img src="assets/embercast.jpg" alt="EmberCast diagram"></div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      This is the argument for wetting the ground between structures. Everything else follows from it.
+      Ask who's watched a wet house lose to the dry lot next door.
+    </aside>
+  </section>
+
+  <!-- 4. WHAT AN SPU DOES WELL, AND WHERE IT RUNS OUT -->
+  <section>
+    <div class="root">
+      <div class="rain"><span class="drop" style="left:3%;height:38px;animation-duration:1.0s;animation-delay:0s;"></span><span class="drop" style="left:9%;height:50px;animation-duration:1.2s;animation-delay:.5s;"></span><span class="drop" style="left:14%;height:34px;animation-duration:.9s;animation-delay:.2s;"></span><span class="drop" style="left:19%;height:46px;animation-duration:1.1s;animation-delay:.8s;"></span><span class="drop" style="left:24%;height:40px;animation-duration:1.0s;animation-delay:.3s;"></span><span class="drop" style="left:29%;height:54px;animation-duration:1.3s;animation-delay:.6s;"></span><span class="drop" style="left:34%;height:36px;animation-duration:.85s;animation-delay:.1s;"></span><span class="drop" style="left:39%;height:48px;animation-duration:1.15s;animation-delay:.9s;"></span><span class="drop" style="left:44%;height:42px;animation-duration:1.0s;animation-delay:.4s;"></span><span class="drop" style="left:49%;height:52px;animation-duration:1.25s;animation-delay:.7s;"></span><span class="drop" style="left:54%;height:34px;animation-duration:.9s;animation-delay:.2s;"></span><span class="drop" style="left:59%;height:46px;animation-duration:1.1s;animation-delay:1.0s;"></span><span class="drop" style="left:64%;height:40px;animation-duration:1.0s;animation-delay:.5s;"></span><span class="drop" style="left:69%;height:56px;animation-duration:1.35s;animation-delay:.3s;"></span><span class="drop" style="left:74%;height:38px;animation-duration:.95s;animation-delay:.8s;"></span><span class="drop" style="left:79%;height:48px;animation-duration:1.2s;animation-delay:.1s;"></span><span class="drop" style="left:84%;height:42px;animation-duration:1.05s;animation-delay:.6s;"></span><span class="drop" style="left:89%;height:50px;animation-duration:1.25s;animation-delay:.4s;"></span><span class="drop" style="left:94%;height:36px;animation-duration:.9s;animation-delay:.9s;"></span><span class="drop" style="left:7%;height:44px;animation-duration:1.1s;animation-delay:1.1s;"></span><span class="drop" style="left:17%;height:52px;animation-duration:1.3s;animation-delay:.45s;"></span><span class="drop" style="left:27%;height:38px;animation-duration:.95s;animation-delay:1.2s;"></span><span class="drop" style="left:37%;height:46px;animation-duration:1.1s;animation-delay:.25s;"></span><span class="drop" style="left:47%;height:40px;animation-duration:1.0s;animation-delay:.95s;"></span><span class="drop" style="left:57%;height:54px;animation-duration:1.3s;animation-delay:.15s;"></span><span class="drop" style="left:67%;height:36px;animation-duration:.9s;animation-delay:.7s;"></span><span class="drop" style="left:77%;height:48px;animation-duration:1.15s;animation-delay:1.3s;"></span><span class="drop" style="left:87%;height:42px;animation-duration:1.05s;animation-delay:.35s;"></span></div>
+      <div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Structure protection today</div>
+          <div class="head">What an SPU does well, <span class="hot">and where it runs out</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="imgbox dome"><img src="assets/spu-traditional.jpg" alt="Traditional rooftop sprinkler protection unit"></div>
+        <div class="ctext">
+          <p class="lede">Structure protection units pre-wet buildings and have <b>saved thousands of homes.</b> We've run them. We also know where they stop.</p>
+          <ul class="blist tight auto-seq">
+            <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx"><b>Hose lay time.</b> Roughly an hour per structure. A five-person crew spends most of a shift plumbing 25 to 30 homes.</span></li>
+            <li><span class="bic"><i class="ti ti-ladder"></i></span><span class="btx"><b>Roof and gutter work.</b> Ladders, roof spikes, gutter mounts, and a hundred-plus small heads to place, check and maintain.</span></li>
+            <li><span class="bic"><i class="ti ti-droplet-off"></i></span><span class="btx"><b>Only the buildings get wet.</b> The gap between properties stays dry, and that's where the embers land.</span></li>
+            <li><span class="bic"><i class="ti ti-shield-check"></i></span><span class="btx"><b>The Moat is meant to sit next to an SPU, not replace one.</b> SPU on the structures, Moat on the ground between them.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Give SPUs their due first. This room has run them.
+      Land the last line: sits next to an SPU, not instead of one.
+    </aside>
+  </section>
+
+  <!-- 5. WHAT THE MOAT IS -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">What it is</div>
+          <div class="head">The <span class="hot">MOAT</span><span class="headexp">Mobile on-site asset-protection trailer</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="solbanner"><iframe src="spray-logic.html" title="Sequential spray logic" loading="lazy" scrolling="no"></iframe></div>
+      <div class="solrow">
+        <ul class="blist tight solbul auto-seq">
+          <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx"><b>8 Nelson Big Gun SR100 towers</b> in one straight line along the road shoulder, <b>500 to 800 m long, 6 to 8 ha protected.</b></span></li>
+          <li><span class="bic"><i class="ti ti-toggle-right"></i></span><span class="btx"><b>2 or 3 towers fire at a time.</b> A valve on every tower sequences them, so the pumps are sized for the running set, not all eight.</span></li>
+          <li><span class="bic"><i class="ti ti-engine"></i></span><span class="btx"><b>Two UP4 portable fire pumps</b>, about 50 kW each, on a common manifold. Run them together, or one at a time for redundancy.</span></li>
+          <li><span class="bic"><i class="ti ti-users"></i></span><span class="btx"><b>Two-person crew, under an hour</b> from arrival to water on the ground.</span></li>
+          <li><span class="bic"><i class="ti ti-wifi"></i></span><span class="btx">Every tower has its own radio, power and sensors. Once the crew walks away, <b>the line runs itself on live fire weather</b> and reports back over satellite.</span></li>
+        </ul>
+        <div class="solimg dome"><img src="assets/mill.jpg" alt="The Moat protecting an industrial site: towers throwing arcing jets over a log yard" style="object-position:50% 50%;"></div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Banner shows the sequencing: two guns per side, sliding outward.
+      Numbers to hold: 8 towers, 80 m centres, 500 to 800 m, 6 to 8 ha, 2 people, under an hour, two UP4s.
+    </aside>
+  </section>
+
+  <!-- 6. CONFIGURATIONS (NEW) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Deployment configurations</div>
+          <div class="head">One line, <span class="hot">a few ways to lay it</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="cfggrid auto-seq">
+
+        <div class="cfgcard">
+          <div class="pic">
+            <svg viewBox="0 0 300 130" role="img" aria-label="Plan view: trailer at the centre of a street, four towers each side, throw circles alternating north and south." font-family="Inter, sans-serif">
+              <g fill="#262626"><rect x="10" y="10" width="26" height="16" rx="2"/><rect x="48" y="10" width="26" height="16" rx="2"/><rect x="86" y="10" width="26" height="16" rx="2"/><rect x="124" y="10" width="26" height="16" rx="2"/><rect x="162" y="10" width="26" height="16" rx="2"/><rect x="200" y="10" width="26" height="16" rx="2"/><rect x="238" y="10" width="26" height="16" rx="2"/><rect x="10" y="104" width="26" height="16" rx="2"/><rect x="48" y="104" width="26" height="16" rx="2"/><rect x="86" y="104" width="26" height="16" rx="2"/><rect x="124" y="104" width="26" height="16" rx="2"/><rect x="162" y="104" width="26" height="16" rx="2"/><rect x="200" y="104" width="26" height="16" rx="2"/><rect x="238" y="104" width="26" height="16" rx="2"/></g>
+              <path d="M4 65 H296" stroke="#3a3a3a" stroke-width="9"/>
+              <path d="M4 71 H296" stroke="#2e86d6" stroke-width="2" opacity=".6"/>
+              <g fill="#2e86d6" opacity=".16"><circle cx="30" cy="65" r="26"/><circle cx="90" cy="65" r="26"/><circle cx="210" cy="65" r="26"/><circle cx="270" cy="65" r="26"/><circle cx="60" cy="65" r="26"/><circle cx="120" cy="65" r="26"/><circle cx="180" cy="65" r="26"/><circle cx="240" cy="65" r="26"/></g>
+              <g fill="#c5531f"><circle cx="30" cy="65" r="4"/><circle cx="60" cy="65" r="4"/><circle cx="90" cy="65" r="4"/><circle cx="120" cy="65" r="4"/><circle cx="180" cy="65" r="4"/><circle cx="210" cy="65" r="4"/><circle cx="240" cy="65" r="4"/><circle cx="270" cy="65" r="4"/></g>
+              <rect x="138" y="57" width="24" height="16" rx="3" fill="#232323" stroke="#8a8a8a" stroke-width="1.5"/>
+              <text x="150" y="50" text-anchor="middle" fill="#a39d94" font-size="9">Trailer</text>
+              <path d="M120 96 H180" stroke="#a39d94" stroke-width="1"/><text x="150" y="92" text-anchor="middle" fill="#a39d94" font-size="8.5">80 m centres</text>
+            </svg>
+          </div>
+          <h3>Full line</h3>
+          <p>Trailer at the centre, four towers each side at 80 m centres, one straight line along a street or road edge between two rows of structures.</p>
+          <div class="use"><b>Protects</b> about 6 to 8 ha. The standard deployment.</div>
+        </div>
+
+        <div class="cfgcard soft">
+          <div class="pic">
+            <svg viewBox="0 0 300 130" role="img" aria-label="Plan view: trailer at one end of the line, four towers running off one side, structures on one side of the road." font-family="Inter, sans-serif">
+              <g fill="#262626"><rect x="70" y="10" width="26" height="16" rx="2"/><rect x="110" y="10" width="26" height="16" rx="2"/><rect x="150" y="10" width="26" height="16" rx="2"/><rect x="190" y="10" width="26" height="16" rx="2"/><rect x="230" y="10" width="26" height="16" rx="2"/><rect x="264" y="10" width="26" height="16" rx="2"/></g>
+              <path d="M4 65 H296" stroke="#3a3a3a" stroke-width="9"/>
+              <path d="M50 71 H290" stroke="#2e86d6" stroke-width="2" opacity=".6"/>
+              <g fill="#2e86d6" opacity=".16"><circle cx="95" cy="65" r="26"/><circle cx="155" cy="65" r="26"/><circle cx="215" cy="65" r="26"/><circle cx="275" cy="65" r="26"/></g>
+              <g fill="#c5531f"><circle cx="95" cy="65" r="4"/><circle cx="155" cy="65" r="4"/><circle cx="215" cy="65" r="4"/><circle cx="275" cy="65" r="4"/></g>
+              <rect x="26" y="57" width="24" height="16" rx="3" fill="#232323" stroke="#8a8a8a" stroke-width="1.5"/>
+              <text x="38" y="50" text-anchor="middle" fill="#a39d94" font-size="9">Trailer</text>
+              <text x="38" y="88" text-anchor="middle" fill="#a39d94" font-size="8.5">1 pump</text>
+              <g stroke="#3a3a3a" stroke-width="1" stroke-dasharray="3 3" fill="none"><rect x="10" y="104" width="280" height="16" rx="2"/></g>
+              <text x="150" y="116" text-anchor="middle" fill="#5a5a5a" font-size="8.5">open ground / no structures</text>
+            </svg>
+          </div>
+          <h3>Half line, single pump <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></h3>
+          <p>The design allows four towers off one side on one pump, with the trailer at the end of the run.</p>
+          <div class="use"><b>For</b> a short frontage, a single row of structures, or when the second pump is staged somewhere else.</div>
+        </div>
+
+        <div class="cfgcard soft">
+          <div class="pic">
+            <svg viewBox="0 0 300 130" role="img" aria-label="Plan view: the trailer stays on the line while both pumps sit at a pond off to the side, feeding the manifold by hose and controlled by radio." font-family="Inter, sans-serif">
+              <g fill="#262626"><rect x="80" y="10" width="26" height="16" rx="2"/><rect x="118" y="10" width="26" height="16" rx="2"/><rect x="156" y="10" width="26" height="16" rx="2"/><rect x="194" y="10" width="26" height="16" rx="2"/><rect x="232" y="10" width="26" height="16" rx="2"/><rect x="266" y="10" width="26" height="16" rx="2"/></g>
+              <path d="M60 50 H296" stroke="#3a3a3a" stroke-width="9"/>
+              <path d="M60 56 H296" stroke="#2e86d6" stroke-width="2" opacity=".6"/>
+              <g fill="#2e86d6" opacity=".16"><circle cx="100" cy="50" r="20"/><circle cx="145" cy="50" r="20"/><circle cx="210" cy="50" r="20"/><circle cx="255" cy="50" r="20"/><circle cx="122" cy="50" r="20"/><circle cx="188" cy="50" r="20"/><circle cx="233" cy="50" r="20"/><circle cx="278" cy="50" r="20"/></g>
+              <g fill="#c5531f"><circle cx="100" cy="50" r="3.5"/><circle cx="122" cy="50" r="3.5"/><circle cx="145" cy="50" r="3.5"/><circle cx="210" cy="50" r="3.5"/><circle cx="233" cy="50" r="3.5"/><circle cx="255" cy="50" r="3.5"/><circle cx="278" cy="50" r="3.5"/><circle cx="188" cy="50" r="3.5"/></g>
+              <rect x="166" y="42" width="22" height="15" rx="3" fill="#232323" stroke="#8a8a8a" stroke-width="1.5"/>
+              <text x="177" y="36" text-anchor="middle" fill="#a39d94" font-size="9">Trailer</text>
+              <ellipse cx="40" cy="108" rx="34" ry="14" fill="#2e86d6" opacity=".25"/>
+              <text x="40" y="126" text-anchor="middle" fill="#a39d94" font-size="8.5">pond / tank / hydrant</text>
+              <rect x="56" y="88" width="18" height="11" rx="2" fill="#232323" stroke="#c5531f" stroke-width="1.3"/>
+              <rect x="76" y="88" width="18" height="11" rx="2" fill="#232323" stroke="#c5531f" stroke-width="1.3"/>
+              <text x="86" y="82" text-anchor="middle" fill="#a39d94" font-size="8.5">pumps at the water</text>
+              <path d="M94 93 C 130 93, 150 70, 166 58" stroke="#d8b24a" stroke-width="2.4" fill="none"/>
+              <path d="M177 42 Q 130 60 84 86" stroke="#c5531f" stroke-width="1.2" stroke-dasharray="3 3" fill="none" opacity=".8"/>
+            </svg>
+          </div>
+          <h3>Remote pump at the water <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></h3>
+          <p>Pumps carried out to the pond, hydrant or tank and run by radio from the trailer. The trailer stays at the line.</p>
+          <div class="use"><b>Why:</b> pumps push better than they suck. Getting the pump close to the water matters more than getting it close to the towers.</div>
+        </div>
+
+        <div class="cfgcard soft">
+          <div class="pic">
+            <svg viewBox="0 0 300 130" role="img" aria-label="Plan view: a road with a bend, two groups of four towers on either leg, the trailer and pumps at the corner between them with trunk line running both ways." font-family="Inter, sans-serif">
+              <g fill="#262626"><rect x="10" y="10" width="24" height="15" rx="2"/><rect x="44" y="10" width="24" height="15" rx="2"/><rect x="78" y="10" width="24" height="15" rx="2"/><rect x="112" y="10" width="24" height="15" rx="2"/><rect x="10" y="60" width="24" height="15" rx="2"/><rect x="44" y="60" width="24" height="15" rx="2"/><rect x="78" y="60" width="24" height="15" rx="2"/><rect x="200" y="60" width="15" height="22" rx="2"/><rect x="200" y="92" width="15" height="22" rx="2"/><rect x="240" y="60" width="15" height="22" rx="2"/><rect x="240" y="92" width="15" height="22" rx="2"/></g>
+              <path d="M4 40 H222 V128" stroke="#3a3a3a" stroke-width="9" fill="none"/>
+              <path d="M4 46 H228 V128" stroke="#2e86d6" stroke-width="2" opacity=".6" fill="none"/>
+              <g fill="#2e86d6" opacity=".16"><circle cx="30" cy="40" r="20"/><circle cx="70" cy="40" r="20"/><circle cx="110" cy="40" r="20"/><circle cx="150" cy="40" r="20"/><circle cx="222" cy="75" r="20"/><circle cx="222" cy="100" r="20"/><circle cx="222" cy="120" r="20"/><circle cx="190" cy="40" r="20"/></g>
+              <g fill="#c5531f"><circle cx="30" cy="40" r="3.5"/><circle cx="70" cy="40" r="3.5"/><circle cx="110" cy="40" r="3.5"/><circle cx="150" cy="40" r="3.5"/><circle cx="190" cy="40" r="3.5"/><circle cx="222" cy="75" r="3.5"/><circle cx="222" cy="100" r="3.5"/><circle cx="222" cy="120" r="3.5"/></g>
+              <rect x="232" y="30" width="24" height="16" rx="3" fill="#232323" stroke="#8a8a8a" stroke-width="1.5"/>
+              <text x="270" y="42" fill="#a39d94" font-size="9">Trailer</text>
+              <text x="255" y="22" text-anchor="middle" fill="#a39d94" font-size="8.5">at the corner</text>
+            </svg>
+          </div>
+          <h3>Split line <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></h3>
+          <p>The design allows two groups of four with the pumps and trunk line between them.</p>
+          <div class="use"><b>For</b> a bend in the road, two short streets, or a corner lot where one straight line doesn't fit.</div>
+        </div>
+
+      </div>
+      <div class="cfgnote"><i class="ti ti-info-circle"></i>The full line is the design case. The other three are what the hardware allows; spacing options other than 80 m are still being worked out.</div>
+    </div></div>
+    <aside class="notes">
+      Only the full line is locked. The other three are "the design allows", so speak to them or skip them.
+      Remote pump is the one operators ask about. Pumps push better than they suck.
+    </aside>
+  </section>
+
+  <!-- 7. THE WATER PATH -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">How it works &middot; the water path</div>
+          <div class="head">Two pumps, one manifold, <span class="hot">eight towers</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="hiwdiagram">
+        <svg viewBox="0 0 1288 262" role="img" aria-label="Water source feeds two UP4 pumps into a common manifold, which feeds the trunk line, which branches out to the sprinkler towers; each tower has a valve and a pressure regulator."
+             font-family="Inter, sans-serif">
+          <!-- water source -->
+          <rect x="6" y="44" width="152" height="64" rx="12" fill="#1b1b1b" stroke="#333"/>
+          <text x="82" y="81" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">Water source</text>
+          <!-- source splits to both pumps -->
+          <path d="M158 76 H180 M180 48 V104 M180 48 H204 M180 104 H204" stroke="#2e86d6" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <!-- the two pumps -->
+          <rect x="204" y="24" width="150" height="48" rx="10" fill="#1b1b1b" stroke="#333"/>
+          <text x="279" y="54" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">UP4 pump</text>
+          <rect x="204" y="80" width="150" height="48" rx="10" fill="#1b1b1b" stroke="#333"/>
+          <text x="279" y="110" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">UP4 pump</text>
+          <!-- both discharge into one manifold -->
+          <path d="M354 48 H400 M354 104 H400" stroke="#2e86d6" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <rect x="400" y="24" width="130" height="104" rx="10" fill="#1b1b1b" stroke="#333"/>
+          <text x="465" y="69" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">Common</text>
+          <text x="465" y="90" text-anchor="middle" fill="#f3efe9" font-size="15" font-weight="600">manifold</text>
+          <!-- trunk line out of the manifold outlet -->
+          <path d="M530 76 H1274" stroke="#2e86d6" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <text x="542" y="58" fill="#a39d94" font-size="13">Trunk line</text>
+          <text x="660" y="100" fill="#a39d94" font-size="13">Branch lines</text>
+          <!-- ground under the towers -->
+          <path d="M600 226 H1274" stroke="#3a3a3a" stroke-width="2"/>
+          <text x="878" y="248" text-anchor="middle" fill="#a39d94" font-size="13">Sprinkler towers</text>
+          <g stroke-linecap="round">
+            <!-- tower 1 -->
+            <path d="M644 76 V108 M644 127 V140 M644 161 V176" stroke="#2e86d6" stroke-width="4" fill="none"/>
+            <path d="M633 109 L633 127 L644 118 Z M655 109 L655 127 L644 118 Z" fill="#c5531f"/>
+            <circle cx="644" cy="151" r="10" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+            <path d="M639 151 H649" stroke="#c5531f" stroke-width="2"/>
+            <path d="M644 178 L622 226 M644 178 L666 226 M644 178 L648 226" stroke="#6a6a6a" stroke-width="3"/>
+            <path d="M644 178 L662 168" stroke="#f3efe9" stroke-width="4"/>
+            <circle cx="644" cy="178" r="5" fill="#c5531f"/>
+            <!-- tower 2 -->
+            <path d="M800 76 V108 M800 127 V140 M800 161 V176" stroke="#2e86d6" stroke-width="4" fill="none"/>
+            <path d="M789 109 L789 127 L800 118 Z M811 109 L811 127 L800 118 Z" fill="#c5531f"/>
+            <circle cx="800" cy="151" r="10" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+            <path d="M795 151 H805" stroke="#c5531f" stroke-width="2"/>
+            <path d="M800 178 L778 226 M800 178 L822 226 M800 178 L804 226" stroke="#6a6a6a" stroke-width="3"/>
+            <path d="M800 178 L818 168" stroke="#f3efe9" stroke-width="4"/>
+            <circle cx="800" cy="178" r="5" fill="#c5531f"/>
+            <!-- tower 3 -->
+            <path d="M956 76 V108 M956 127 V140 M956 161 V176" stroke="#2e86d6" stroke-width="4" fill="none"/>
+            <path d="M945 109 L945 127 L956 118 Z M967 109 L967 127 L956 118 Z" fill="#c5531f"/>
+            <circle cx="956" cy="151" r="10" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+            <path d="M951 151 H961" stroke="#c5531f" stroke-width="2"/>
+            <path d="M956 178 L934 226 M956 178 L978 226 M956 178 L960 226" stroke="#6a6a6a" stroke-width="3"/>
+            <path d="M956 178 L974 168" stroke="#f3efe9" stroke-width="4"/>
+            <circle cx="956" cy="178" r="5" fill="#c5531f"/>
+            <!-- tower 4 -->
+            <path d="M1112 76 V108 M1112 127 V140 M1112 161 V176" stroke="#2e86d6" stroke-width="4" fill="none"/>
+            <path d="M1101 109 L1101 127 L1112 118 Z M1123 109 L1123 127 L1112 118 Z" fill="#c5531f"/>
+            <circle cx="1112" cy="151" r="10" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+            <path d="M1107 151 H1117" stroke="#c5531f" stroke-width="2"/>
+            <path d="M1112 178 L1090 226 M1112 178 L1134 226 M1112 178 L1116 226" stroke="#6a6a6a" stroke-width="3"/>
+            <path d="M1112 178 L1130 168" stroke="#f3efe9" stroke-width="4"/>
+            <circle cx="1112" cy="178" r="5" fill="#c5531f"/>
+          </g>
+          <!-- legend -->
+          <path d="M32 189 L32 203 L40 196 Z M48 189 L48 203 L40 196 Z" fill="#c5531f"/>
+          <text x="58" y="201" fill="#a39d94" font-size="13">Valve</text>
+          <circle cx="140" cy="196" r="9" fill="#1b1b1b" stroke="#c5531f" stroke-width="2.5"/>
+          <path d="M135 196 H145" stroke="#c5531f" stroke-width="2"/>
+          <text x="156" y="201" fill="#a39d94" font-size="13">Pressure regulator</text>
+        </svg>
+      </div>
+      <ul class="hiwlist rows3 field auto-seq">
+        <li><span class="bic"><i class="ti ti-engine"></i></span><span class="btx">Two UP4 pumps <b>share a common manifold</b>, so they run together or on their own.</span></li>
+        <li><span class="bic"><i class="ti ti-shield-check"></i></span><span class="btx">Together they make the pressure and flow the line needs. On their own, <b>one pump is your backup.</b></span></li>
+        <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">The manifold outlet feeds <b>the trunk line.</b> Hose sizes and lengths carried: <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></span></li>
+        <li><span class="bic"><i class="ti ti-git-branch"></i></span><span class="btx">The trunk line has <b>branches out to each tower.</b></span></li>
+        <li><span class="bic"><i class="ti ti-gauge"></i></span><span class="btx">A <b>pressure regulator on every tower</b> evens out the pressure down the line. <b>Max 80 psi at the tower.</b></span></li>
+        <li><span class="bic"><i class="ti ti-droplet-half-2"></i></span><span class="btx">Source can be a <b>hydrant, open water, or a tank.</b> Minimum volume and refill rate: <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></span></li>
+      </ul>
+    </div></div>
+    <aside class="notes">
+      This is the slide a pump operator wants. Common manifold, two-way redundancy, regulator per tower.
+      Hose sizes, flow rates and source minimums are not locked. Say so if asked.
+    </aside>
+  </section>
+
+  <!-- 8. SEQUENCING -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">How it works &middot; sequencing</div>
+          <div class="head">Big guns on a small pump, <span class="hot">and not much water</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="seqrow auto-seq">
+        <div class="seqframe">
+          <svg viewBox="0 0 400 176" role="img" aria-label="Plan view of the line: the trailer at the centre, towers along the street, a different group of towers throwing in each frame." font-family="Inter, sans-serif"><rect x="12" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="12" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="150" width="20" height="14" rx="2" fill="#282828"/><path d="M8 88 H392" stroke="#3a3a3a" stroke-width="10"/><path d="M8 96 H392" stroke="#2e86d6" stroke-width="2.5" opacity=".55"/><path d="M160 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="160" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M80 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="80" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M280 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="280" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M360 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="360" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><circle cx="40" cy="88" r="5" fill="#5c5c5c"/><circle cx="80" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="80" cy="88" r="5" fill="#c5531f"/><circle cx="120" cy="88" r="5" fill="#5c5c5c"/><circle cx="160" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="160" cy="88" r="5" fill="#c5531f"/><circle cx="240" cy="88" r="5" fill="#5c5c5c"/><circle cx="280" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="280" cy="88" r="5" fill="#c5531f"/><circle cx="320" cy="88" r="5" fill="#5c5c5c"/><circle cx="360" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="360" cy="88" r="5" fill="#c5531f"/><rect x="185" y="79" width="30" height="18" rx="3" fill="#232323" stroke="#5a5a5a" stroke-width="1.5"/></svg>
+          <div class="fcap">One group live</div>
+        </div>
+        <div class="seqframe">
+          <svg viewBox="0 0 400 176" role="img" aria-label="Plan view of the line: the trailer at the centre, towers along the street, a different group of towers throwing in each frame." font-family="Inter, sans-serif"><rect x="12" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="12" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="150" width="20" height="14" rx="2" fill="#282828"/><path d="M8 88 H392" stroke="#3a3a3a" stroke-width="10"/><path d="M8 96 H392" stroke="#2e86d6" stroke-width="2.5" opacity=".55"/><path d="M120 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="120" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M40 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="40" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M240 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="240" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M320 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="320" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><circle cx="40" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="40" cy="88" r="5" fill="#c5531f"/><circle cx="80" cy="88" r="5" fill="#5c5c5c"/><circle cx="120" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="120" cy="88" r="5" fill="#c5531f"/><circle cx="160" cy="88" r="5" fill="#5c5c5c"/><circle cx="240" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="240" cy="88" r="5" fill="#c5531f"/><circle cx="280" cy="88" r="5" fill="#5c5c5c"/><circle cx="320" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="320" cy="88" r="5" fill="#c5531f"/><circle cx="360" cy="88" r="5" fill="#5c5c5c"/><rect x="185" y="79" width="30" height="18" rx="3" fill="#232323" stroke="#5a5a5a" stroke-width="1.5"/></svg>
+          <div class="fcap">The next group</div>
+        </div>
+        <div class="seqframe">
+          <svg viewBox="0 0 400 176" role="img" aria-label="Plan view of the line: the trailer at the centre, towers along the street, a different group of towers throwing in each frame." font-family="Inter, sans-serif"><rect x="12" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="12" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="48" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="84" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="120" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="156" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="192" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="228" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="264" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="300" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="336" y="150" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="12" width="20" height="14" rx="2" fill="#282828"/><rect x="372" y="150" width="20" height="14" rx="2" fill="#282828"/><path d="M8 88 H392" stroke="#3a3a3a" stroke-width="10"/><path d="M8 96 H392" stroke="#2e86d6" stroke-width="2.5" opacity=".55"/><path d="M40 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="40" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M160 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="160" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M240 95 V140" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="240" cy="145" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><path d="M360 81 V36" stroke="#8fc4f2" stroke-width="2.8" stroke-linecap="round"/><ellipse cx="360" cy="31" rx="12" ry="4.5" fill="#2e86d6" opacity=".45"/><circle cx="40" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="40" cy="88" r="5" fill="#c5531f"/><circle cx="80" cy="88" r="5" fill="#5c5c5c"/><circle cx="120" cy="88" r="5" fill="#5c5c5c"/><circle cx="160" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="160" cy="88" r="5" fill="#c5531f"/><circle cx="240" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="240" cy="88" r="5" fill="#c5531f"/><circle cx="280" cy="88" r="5" fill="#5c5c5c"/><circle cx="320" cy="88" r="5" fill="#5c5c5c"/><circle cx="360" cy="88" r="8" fill="none" stroke="#c5531f" stroke-width="1.6" opacity=".55"/><circle cx="360" cy="88" r="5" fill="#c5531f"/><rect x="185" y="79" width="30" height="18" rx="3" fill="#232323" stroke="#5a5a5a" stroke-width="1.5"/></svg>
+          <div class="fcap">And on down the line</div>
+        </div>
+      </div>
+      <ul class="hiwlist rows2 auto-seq">
+        <li><span class="bic"><i class="ti ti-toggle-right"></i></span><span class="btx"><b>Every tower has a valve</b>, so towers turn on and off in sequence. Two or three run at a time.</span></li>
+        <li><span class="bic"><i class="ti ti-rotate-clockwise"></i></span><span class="btx">Running in sequence gets the most out of <b>the pump you have and the water you can reach.</b></span></li>
+        <li><span class="bic"><i class="ti ti-droplet"></i></span><span class="btx">That's what lets you run <b>really big sprinklers, a lot of them, over a big area</b> on a portable pump and a modest source.</span></li>
+        <li><span class="bic"><i class="ti ti-clock"></i></span><span class="btx">Irrigation has worked this way for decades. <b>Proven, not new.</b></span></li>
+      </ul>
+      <div class="strip"><i class="ti ti-plant-2"></i><div>Same idea as an <b>irrigation field</b>: a few heads at a time, rotating.</div></div>
+    </div></div>
+    <aside class="notes">
+      Irrigation analogy lands with crews. A few heads at a time, rotating.
+      This is why two portable pumps can carry eight big guns.
+    </aside>
+  </section>
+
+  <!-- 9. SETUP, STEP BY STEP (NEW) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Setup &middot; truck stop to walk away</div>
+          <div class="head">Two people, <span class="hot">under an hour</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <ol class="steps auto-seq">
+        <li><span class="num">1</span><span class="stx"><b>Park the trailer at the centre of the planned line.</b> Chock it, drop the tongue.</span></li>
+        <li><span class="num">2</span><span class="stx"><b>Pull the towers from the rear slots</b> and get them out to their marks: 40, 120, 200 and 280 m each side.<span class="sub">How they travel out (carried, wheeled, or on the truck): <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></span></span></li>
+        <li><span class="num">3</span><span class="stx"><b>Lay trunk line from the manifold out each side.</b> Branch to each tower.<span class="sub">Hose sizes and lengths: <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></span></span></li>
+        <li><span class="num">4</span><span class="stx"><b>Set the pumps.</b> At the trailer if the water is close. If not, carry them to the source: hard suction into a pond or tank, or straight onto a hydrant.<span class="sub">Source minimums and draft lift: <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></span></span></li>
+        <li><span class="num">5</span><span class="stx"><b>Power up.</b> Towers check in on the dashboard. Confirm every valve reports.<span class="sub">Control power source: <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></span></span></li>
+        <li><span class="num">6</span><span class="stx"><b>Prime and pressure test.</b> Regulators set, target under 80 psi at the towers.</span></li>
+        <li><span class="num">7</span><span class="stx"><b>Set the fire-weather thresholds, or take the defaults.</b> Walk away.</span></li>
+        <li class="done"><span class="num"><i class="ti ti-check"></i></span><span class="stx"><b>Monitor from the dashboard</b>, on site or from town. The line runs itself and tells you if a tower goes down.<span class="sub">Time per step is not broken out yet. The whole job: two people, under an hour.</span></span></li>
+      </ol>
+    </div></div>
+    <aside class="notes">
+      Walk it like a briefing. Park, towers out, hose out, pumps set, power up, test, thresholds, walk away.
+      Step times aren't broken out. The number that's real is the whole job: two people, under an hour.
+    </aside>
+  </section>
+
+  <!-- 10. PACKED UP VS. SET UP -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">What's in the trailer</div>
+          <div class="head">Packs like an SPU, <span class="hot">runs wireless</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="pairrow auto-seq">
+        <div class="pairpanel">
+          <div class="pic">
+            <svg viewBox="0 0 600 272" role="img" aria-label="Rear view of the packed trailer, back door open: hose up on the wall, fittings and jewellery stored alongside, slots for the sprinkler towers and the hard suction hose, and the two UP4 pumps on the manifold."
+                 font-family="Inter, sans-serif">
+              <path d="M110 262 H490" stroke="#3a3a3a" stroke-width="2"/>
+              <!-- rear doors, swung open -->
+              <path d="M180 26 L128 48 L128 214 L180 236 Z" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="1.5"/>
+              <path d="M420 26 L472 48 L472 214 L420 236 Z" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="1.5"/>
+              <rect x="180" y="26" width="240" height="210" rx="9" fill="#161616" stroke="#4a4a4a" stroke-width="2"/>
+              <!-- hose up on the wall -->
+              <circle cx="212" cy="68" r="20" fill="none" stroke="#d8b24a" stroke-width="5"/>
+              <circle cx="212" cy="68" r="9" fill="none" stroke="#d8b24a" stroke-width="3"/>
+              <circle cx="212" cy="118" r="20" fill="none" stroke="#b84a3a" stroke-width="5"/>
+              <circle cx="212" cy="118" r="9" fill="none" stroke="#b84a3a" stroke-width="3"/>
+              <!-- slots for the sprinkler towers -->
+              <g fill="#1b1b1b" stroke="#6a6a6a" stroke-width="1.5">
+                <circle cx="264" cy="50" r="8"/><circle cx="288" cy="50" r="8"/><circle cx="312" cy="50" r="8"/><circle cx="336" cy="50" r="8"/>
+                <circle cx="264" cy="74" r="8"/><circle cx="288" cy="74" r="8"/><circle cx="312" cy="74" r="8"/><circle cx="336" cy="74" r="8"/>
+              </g>
+              <!-- hard suction hose -->
+              <g fill="#1b1b1b" stroke="#8a8a8a" stroke-width="1.5">
+                <circle cx="280" cy="110" r="13"/><circle cx="320" cy="110" r="13"/>
+              </g>
+              <!-- fittings and jewellery -->
+              <g fill="#232323" stroke="#8a8a8a" stroke-width="1.2">
+                <rect x="368" y="46" width="36" height="11" rx="3"/><rect x="368" y="64" width="36" height="11" rx="3"/>
+                <rect x="368" y="82" width="36" height="11" rx="3"/><rect x="368" y="100" width="36" height="11" rx="3"/>
+              </g>
+              <!-- two pumps on the manifold, behind the back door -->
+              <rect x="196" y="150" width="100" height="52" rx="6" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <text x="246" y="181" text-anchor="middle" fill="#f3efe9" font-size="14" font-weight="600">UP4</text>
+              <rect x="304" y="150" width="100" height="52" rx="6" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <text x="354" y="181" text-anchor="middle" fill="#f3efe9" font-size="14" font-weight="600">UP4</text>
+              <rect x="196" y="208" width="208" height="14" rx="5" fill="#2e86d6" opacity=".55"/>
+              <circle cx="230" cy="248" r="14" fill="#111" stroke="#4a4a4a" stroke-width="3"/>
+              <circle cx="370" cy="248" r="14" fill="#111" stroke="#4a4a4a" stroke-width="3"/>
+              <!-- callouts -->
+              <g stroke="#5a5a5a" stroke-width="1" fill="none">
+                <path d="M192 68 L122 56"/>
+                <path d="M196 176 L122 186"/>
+                <path d="M344 50 L478 34"/>
+                <path d="M404 88 L478 88"/>
+                <path d="M333 112 L478 142"/>
+              </g>
+              <g fill="#a39d94" font-size="13">
+                <text x="118" y="52" text-anchor="end">Hose on</text>
+                <text x="118" y="68" text-anchor="end">the wall</text>
+                <text x="118" y="182" text-anchor="end">Two UP4 pumps</text>
+                <text x="118" y="198" text-anchor="end">+ manifold</text>
+                <text x="482" y="38">Tower slots</text>
+                <text x="482" y="84">Fittings &amp;</text>
+                <text x="482" y="100">jewellery</text>
+                <text x="482" y="140">Hard suction</text>
+                <text x="482" y="156">hose</text>
+              </g>
+            </svg>
+          </div>
+          <h3><i class="ti ti-truck"></i>Packed up: <span class="hot">looks like your SPU</span></h3>
+          <ul>
+            <li><i class="ti ti-tool"></i><span>Hose up on the wall, fittings and jewellery stored alongside, same as a normal SPU.</span></li>
+            <li><i class="ti ti-layout-grid"></i><span>Slots at the back for all eight towers and the hard suction hose.</span></li>
+            <li><i class="ti ti-door"></i><span>Rear door opens on the two UP4 pumps and the manifold, where the hoses hook up.</span></li>
+          </ul>
+        </div>
+        <div class="pairarrow"><span><i class="ti ti-arrow-right"></i></span></div>
+        <div class="pairpanel">
+          <div class="pic">
+            <svg viewBox="0 0 600 272" role="img" aria-label="The same gear set up: the trailer with its LoRa radio, a pump carried down to the water, and tripod towers along the line, every one with an antenna on top and a radio link back to the trailer."
+                 font-family="Inter, sans-serif">
+              <!-- water, and the ground -->
+              <ellipse cx="62" cy="226" rx="56" ry="15" fill="#2e86d6" opacity=".22"/>
+              <path d="M22 222 q10 -6 20 0 t20 0 t20 0 t20 0" stroke="#2e86d6" stroke-width="2" fill="none"/>
+              <path d="M30 232 q10 -6 20 0 t20 0 t20 0" stroke="#2e86d6" stroke-width="2" fill="none" opacity=".5"/>
+              <path d="M112 214 H590" stroke="#3a3a3a" stroke-width="2"/>
+              <!-- hose: pump at the water into the trailer, trailer out along the line -->
+              <path d="M104 208 C 90 214, 80 218, 70 222" stroke="#d8b24a" stroke-width="3" fill="none"/>
+              <path d="M140 206 H168" stroke="#2e86d6" stroke-width="3"/>
+              <path d="M286 210 H566" stroke="#2e86d6" stroke-width="3" opacity=".75"/>
+
+              <!-- radio links: trailer to every pump and tower, both ways -->
+              <g stroke="#c5531f" stroke-width="1.4" stroke-dasharray="5 5" fill="none" opacity=".75">
+                <path d="M244 104 L128 150"/>
+                <path d="M244 104 Q 298 58 352 94"/>
+                <path d="M244 104 Q 344 30 442 94"/>
+                <path d="M244 104 Q 396 4 548 94"/>
+              </g>
+
+              <!-- the trailer, doors shut, radio on the roof -->
+              <rect x="168" y="150" width="118" height="54" rx="6" fill="#1b1b1b" stroke="#4a4a4a" stroke-width="2"/>
+              <path d="M168 196 H156" stroke="#4a4a4a" stroke-width="3"/>
+              <circle cx="202" cy="206" r="9" fill="#111" stroke="#4a4a4a" stroke-width="2.5"/>
+              <circle cx="226" cy="206" r="9" fill="#111" stroke="#4a4a4a" stroke-width="2.5"/>
+              <path d="M244 150 V108" stroke="#c5531f" stroke-width="3" stroke-linecap="round"/>
+              <circle cx="244" cy="104" r="5" fill="#c5531f"/>
+              <path d="M232 96 A15 15 0 0 0 232 116" stroke="#c5531f" stroke-width="2" fill="none"/>
+              <path d="M256 96 A15 15 0 0 1 256 116" stroke="#c5531f" stroke-width="2" fill="none"/>
+
+              <!-- a pump, carried out to the water, antenna up -->
+              <rect x="104" y="188" width="36" height="24" rx="4" fill="#232323" stroke="#c5531f" stroke-width="1.5"/>
+              <path d="M128 188 V154" stroke="#c5531f" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="128" cy="150" r="4" fill="#c5531f"/>
+
+              <!-- towers on the line, antennas up; one throwing -->
+              <path d="M444 124 Q 486 58 530 86" stroke="#8fc4f2" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".85"/>
+              <g stroke-linecap="round">
+                <path d="M352 126 L332 212 M352 126 L372 212 M352 126 L355 212" stroke="#6a6a6a" stroke-width="2.5"/>
+                <path d="M352 126 L366 118" stroke="#f3efe9" stroke-width="3"/>
+                <path d="M352 126 V98" stroke="#c5531f" stroke-width="2"/><circle cx="352" cy="94" r="4" fill="#c5531f"/>
+                <path d="M442 126 L422 212 M442 126 L462 212 M442 126 L445 212" stroke="#6a6a6a" stroke-width="2.5"/>
+                <path d="M442 126 L456 118" stroke="#f3efe9" stroke-width="3"/>
+                <path d="M442 126 V98" stroke="#c5531f" stroke-width="2"/><circle cx="442" cy="94" r="4" fill="#c5531f"/>
+                <path d="M548 126 L528 212 M548 126 L568 212 M548 126 L551 212" stroke="#6a6a6a" stroke-width="2.5"/>
+                <path d="M548 126 L562 118" stroke="#f3efe9" stroke-width="3"/>
+                <path d="M548 126 V98" stroke="#c5531f" stroke-width="2"/><circle cx="548" cy="94" r="4" fill="#c5531f"/>
+              </g>
+
+              <g fill="#a39d94" font-size="13" text-anchor="middle">
+                <text x="62" y="258">Pump at the water</text>
+                <text x="227" y="240">Radio in the trailer</text>
+                <text x="450" y="240">Towers report back</text>
+              </g>
+            </svg>
+          </div>
+          <h3><i class="ti ti-antenna-bars-5"></i>Set up: <span class="hot">all wireless</span></h3>
+          <ul>
+            <li><i class="ti ti-router"></i><span>Every valve is switched from the LoRa radio in the trailer. No walking the line to turn heads on.</span></li>
+            <li><i class="ti ti-engine"></i><span>Pumps are on the radio too, so a UP4 can be carried down to the water and still run from the trailer.</span></li>
+            <li><i class="ti ti-arrows-exchange"></i><span>The link is two-way. Towers report back, so you know a tower is down before you lose ground to it.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Answers "what's actually in the box". Hose on the wall, jewellery in bins, towers in slots at the back, pumps behind the door.
+      Two-way radio is the operational win: status from every tower.
+    </aside>
+  </section>
+
+  <!-- 11. SPECIFICATIONS (NEW) -->
+  <section>
+    <div class="root"><div class="pad specpad">
+      <div class="toprow">
+        <div><div class="kicker">Specifications</div>
+          <div class="head">The <span class="hot">numbers</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="specwrap">
+        <table class="spect">
+          <tr><th>The line</th><th></th></tr>
+          <tr><td>Towers</td><td><b>8</b> Nelson Big Gun SR100</td></tr>
+          <tr><td>Trajectory</td><td><b>43&deg;</b>, clears a two-storey roofline from the street</td></tr>
+          <tr><td>Tower spacing</td><td><b>80 m</b> centres (40 / 120 / 200 / 280 m out from the trailer, each side)</td></tr>
+          <tr><td>Throw per tower</td><td>About <b>48 m</b>, alternating north and south</td></tr>
+          <tr><td>Line length</td><td><b>500 to 800 m</b></td></tr>
+          <tr><td>Protected zone</td><td><b>6 to 8 ha</b></td></tr>
+          <tr><td>Towers firing at once</td><td><b>2 or 3</b>, sequenced by a valve on every tower</td></tr>
+          <tr><td>Max pressure at tower</td><td><b>80 psi</b>, regulator on every tower</td></tr>
+          <tr class="dim"><td>Flow per tower / total flow</td><td><span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></td></tr>
+          <tr class="dim"><td>Tower height, mast, footprint, anchoring</td><td><span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></td></tr>
+          <tr><th style="padding-top:12px;">Water</th><th></th></tr>
+          <tr><td>Pumps</td><td><b>2 &times; UP4</b> portable fire pumps, about 50 kW each</td></tr>
+          <tr><td>Plumbing</td><td>Common manifold, trunk line, branch lines to towers. Pumps run together or independently, and can move to the source</td></tr>
+          <tr class="dim"><td>Hose carried (sizes, total length)</td><td><span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></td></tr>
+          <tr class="dim"><td>Water source minimum, refill rate, draft lift, run time per tank</td><td><span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></td></tr>
+        </table>
+        <table class="spect">
+          <tr><th>Crew and setup</th><th></th></tr>
+          <tr><td>Crew</td><td><b>2 people</b></td></tr>
+          <tr><td>Setup time</td><td><b>Under 1 hour</b>, arrival to running</td></tr>
+          <tr><td>Packing</td><td>SPU style: hose on the wall, fittings alongside, tower slots and hard suction at the back, pumps and manifold behind the rear door</td></tr>
+          <tr><th style="padding-top:12px;">Control</th><th></th></tr>
+          <tr><td>Control link</td><td><b>LoRa radio</b> from the trailer to every valve and pump, two-way. Range: <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></td></tr>
+          <tr><td>Backhaul</td><td><b>Satellite.</b> No cell coverage needed</td></tr>
+          <tr><td>Monitoring</td><td>One dashboard: flow, pressure, water, fire weather. On site or remote</td></tr>
+          <tr><td>Operating logic</td><td>Live fire weather (CFFDRS FFMC and ember-ignition thresholds) decides when and how much to spray. Autonomous once running</td></tr>
+          <tr class="dim"><td>Power for controls</td><td><span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></td></tr>
+          <tr><th style="padding-top:12px;">Trailer</th><th></th></tr>
+          <tr class="dim"><td>Trailer size, GVWR, tow vehicle</td><td><span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></td></tr>
+          <tr class="dim"><td>Operating temperature, winterization</td><td><span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></td></tr>
+        </table>
+      </div>
+      <div class="specfoot"><i class="ti ti-info-circle"></i>Grey rows are still being pinned down in engineering. Ask, and we'll get you the number when it's real.</div>
+    </div></div>
+    <aside class="notes">
+      Locked: 8 SR100s at 43 degrees, 80 m centres, 48 m throw, 500 to 800 m, 6 to 8 ha, 80 psi cap, two UP4s, 2 people, under an hour.
+      Grey rows are open. Don't guess hose, flow, source minimums, weight or towing.
+    </aside>
+  </section>
+
+  <!-- 12. COMING FROM AN SPU (NEW) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">If you've run a Type 2 structure protection trailer</div>
+          <div class="head">Coming from <span class="hot">an SPU</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="spucols auto-seq">
+        <div class="spucol">
+          <h3><i class="ti ti-equal"></i>Same as your SPU</h3>
+          <ul>
+            <li><i class="ti ti-check"></i><span>Forestry hose and fittings you already carry.</span></li>
+            <li><i class="ti ti-check"></i><span>Portable fire pumps you already know how to run.</span></li>
+            <li><i class="ti ti-check"></i><span>Hard suction and drafting, same as always.</span></li>
+            <li><i class="ti ti-check"></i><span>Hose on the wall, gear in bins, tower slots at the back.</span></li>
+            <li><i class="ti ti-check"></i><span>A trailer you tow with a pickup. <span class="tbc"><i class="ti ti-help-circle"></i>confirm</span></span></li>
+          </ul>
+        </div>
+        <div class="spucol diff">
+          <h3><i class="ti ti-arrows-diff"></i>Different</h3>
+          <ul>
+            <li><i class="ti ti-droplet"></i><span><b>8 big guns</b> instead of 100-plus small heads.</span></li>
+            <li><i class="ti ti-map"></i><span><b>Wets the ground between structures</b> as well as the roofs.</span></li>
+            <li><i class="ti ti-ladder-off"></i><span><b>No ladders, gutters or roof spikes.</b></span></li>
+            <li><i class="ti ti-router"></i><span><b>Valves and pumps switch from the trailer or a phone.</b> Nobody walks the line to turn heads on.</span></li>
+            <li><i class="ti ti-clock"></i><span><b>One hour and two people</b>, instead of most of a shift and a crew.</span></li>
+            <li><i class="ti ti-cloud-storm"></i><span><b>Runs on fire weather</b>, so it isn't dumping water all night for nothing.</span></li>
+            <li><i class="ti ti-antenna-bars-5"></i><span><b>Status from every tower.</b> You know a head is dead before you lose ground to it.</span></li>
+            <li><i class="ti ti-engine"></i><span><b>Pumps can sit at the water</b> while the trailer sits at the line.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="strip" style="margin-top:20px;"><i class="ti ti-shield-check"></i><div>The pairing: <b>SPU on the structures, Moat on the ground between them.</b></div></div>
+    </div></div>
+    <aside class="notes">
+      Left column is comfort: same hose, same pumps, same drafting, same trailer. Right column is why they'd want one.
+      Close on the pairing. SPU on the structures, Moat between them.
+    </aside>
+  </section>
+
+  <!-- 13. SITE PLANNING -->
+  <section>
+    <div class="root"><div class="pad filmpad">
+      <div class="toprow">
+        <div><div class="kicker">Site planning</div>
+          <div class="head">We can plan your site <span class="hot">before we show up</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <p class="filmlede">Open data in, a defensible line out. Give us the address and we'll have tower positions, the water path and the protected zone worked out before the trailer leaves the yard.</p>
+      <div class="filmbox">
+        <iframe src="https://tetontopo.github.io/hydrodome-mobile-sim/?chrome=0"
+                title="The Moat, site analysis" loading="lazy"></iframe>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Film runs itself, about 90 seconds. Let it play while you talk.
+      Pitch: send us your site, we come back with the line drawn.
+    </aside>
+  </section>
+
+  <!-- 14. LIVE 3-D BLOCK-OUT -->
+  <section>
+    <div class="root"><div class="pad filmpad">
+      <div class="toprow">
+        <div><div class="kicker">The deployed line &middot; live 3-D block-out</div>
+          <div class="head">What it looks like <span class="hot">on the ground</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <p class="filmlede">Real CAD, real spacing: eight towers on the shoulder of one street at 80 m centres,
+        the trailer at the crossing, jets alternating north and south across a 48 m throw. Grab it to look around.</p>
+      <div class="filmbox">
+        <iframe src="assets/moat_blockout.html?cinematic=1&amp;flight=jet_orbit"
+                title="The Moat, jets on the deployed line, 3-D block-out" loading="lazy" data-moat></iframe>
+      </div>
+    </div></div>
+    <aside class="notes">
+      You can grab and orbit it. Arrow keys still move the deck.
+      Point out the 43 degree arc clearing the second storey.
+    </aside>
+  </section>
+
+  <!-- 15. COMMAND AND CONTROL -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Command and control</div>
+          <div class="head">One dashboard, <span class="hot">every tower</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <p class="lede">Watch where embers will land and <b>put exactly enough water there, nowhere else.</b></p>
+          <ul class="blist tight auto-seq">
+            <li><span class="bic"><i class="ti ti-cloud-storm"></i></span><span class="btx"><b>Live weather on site</b> <span class="sub">tells the system where embers will land.</span></span></li>
+            <li><span class="bic"><i class="ti ti-calculator"></i></span><span class="btx"><b>CFFDRS fine-fuel moisture (FFMC) and ember-ignition thresholds</b> <span class="sub">meter the water the fuels need, then re-wet only as they dry.</span></span></li>
+            <li><span class="bic"><i class="ti ti-layout-grid"></i></span><span class="btx"><b>Tower-by-tower sequencing</b> <span class="sub">covers the whole line on pumps sized for the running set.</span></span></li>
+            <li><span class="bic"><i class="ti ti-adjustments"></i></span><span class="btx"><b>Spray and pump cycling adjust themselves</b> <span class="sub">as conditions change.</span></span></li>
+            <li><span class="bic"><i class="ti ti-router"></i></span><span class="btx"><b>LoRa radio to every tower, satellite backhaul</b> <span class="sub">so no cell coverage is needed, and the line keeps running if comms drop.</span></span></li>
+            <li><span class="bic"><i class="ti ti-dashboard"></i></span><span class="btx"><b>One dashboard</b> <span class="sub">with live flow, pressure, water and fire weather.</span></span></li>
+          </ul>
+        </div>
+        <div class="device">
+          <div class="monitor"><div class="screen">
+            <iframe class="embed" src="https://tetontopo.github.io/hydrodome-mobile-command/" title="The Moat, command and control" loading="lazy"></iframe>
+          </div></div>
+          <div class="stand-neck"></div><div class="stand-base"></div>
+        </div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Live dashboard in the monitor. Flow, pressure, water, fire weather, every tower.
+      Key point for ops: it keeps running if comms drop. You're monitoring, not driving.
+    </aside>
+  </section>
+
+  <!-- 16. HOW IT COMPARES (operational only) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">How it compares</div>
+          <div class="head">Next to the gear <span class="hot">you already know</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <table class="cmp">
+        <tr><th></th><th class="moat">The Moat</th><th>Type 2 SPU trailer</th><th>Single robotic cannon</th><th>Telescopic mist tower</th></tr>
+        <tr><td>What it does</td><td class="moat"><b>Pre-wets the ground</b> between structures along a line, before the front arrives</td><td>Wets the structures themselves, roof and gutter, one property at a time</td><td>Point suppression: thermal camera finds the hottest spot and hits it</td><td>Wind-carried mist curtain downwind of one tall mast</td></tr>
+        <tr><td>Crew</td><td class="moat"><b>2</b></td><td>About 5</td><td>1</td><td>1 or 2</td></tr>
+        <tr><td>Setup</td><td class="moat"><b>Under 1 hour</b> for the full line</td><td>About 1 hour per structure, most of a shift for 25 to 30 homes</td><td>10 to 15 minutes</td><td>10 to 40 minutes</td></tr>
+        <tr><td>Coverage</td><td class="moat"><b>6 to 8 ha</b> along a 500 to 800 m line</td><td>The buildings and their footprint; the gaps stay dry</td><td>About 65 m throw, roughly 1.3 ha at one point</td><td>Swings with wind: 0.4 to 7 ha</td></tr>
+        <tr><td>Heads</td><td class="moat"><b>8</b> big guns, valve on each, 2 or 3 running</td><td>100-plus small sprinklers, hand-placed</td><td>1 cannon</td><td>1 cannon on a 30 m mast</td></tr>
+        <tr><td>Runs itself</td><td class="moat"><b>Yes.</b> Fire-weather logic, remote monitoring, two-way status</td><td>No. Manual valves, crew stays</td><td>Auto-aims once it's up</td><td>Runs continuously once it's up</td></tr>
+      </table>
+      <div class="note" style="margin-top:18px;">A robotic cannon and a Moat do different jobs. One chases a hot spot, the other keeps the ground from taking embers. <span class="hot">Complementary, not competition.</span> Same for the SPU.</div>
+    </div></div>
+    <aside class="notes">
+      Keep it operational. No prices in this room.
+      Cannons are complementary, not competition. Crews respect that.
+    </aside>
+  </section>
+
+  <!-- 17. WHAT'S NEXT -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">What's next</div>
+          <div class="head">Where the build <span class="hot">is at</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="phases four">
+        <div class="phase"><div class="pic"><i class="ti ti-tools"></i></div><div class="when">Now</div><div class="what">Engineering and design</div><div class="tag">CAD line, water path and controls being finalized</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-building-factory-2"></i></div><div class="when">This winter</div><div class="what">Prototype build</div><div class="tag">Trailer, towers, manifold, radios</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-map-pin"></i></div><div class="when">2027 fire season</div><div class="what">Field pilots</div><div class="tag hot">Communities and industrial sites</div></div>
+        <div class="phase"><div class="pic"><i class="ti ti-truck-delivery"></i></div><div class="when">After the pilots</div><div class="what">Units available</div><div class="tag">Buy, lease, or on-call for the season</div></div>
+      </div>
+      <div class="pilotcue"><i class="ti ti-message-circle-question"></i><div><b>Want a pilot on your site?</b> Talk to Nick. <span class="hot">250 588 7544</span></div></div>
+    </div></div>
+    <aside class="notes">
+      Design now, build this winter, pilots in the 2027 season, units after that.
+      The ask: who wants a pilot on their ground. Get names.
+    </aside>
+  </section>
+
+  <!-- 18. PERMANENT INSTALLATION (the only place "HydroDome" appears) -->
+  <section>
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div>
+          <div class="kicker">Further out &middot; the fixed version</div>
+          <div class="head">The permanent <span class="hot">HydroDome</span></div>
+        </div>
+        <div class="logo hd"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="h">HYDRO</div><div class="d">DOME</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <p class="lede">The trailer comes first. Longer term, the same controls scale to <b>HydroDome, a permanent installation</b> of fixed towers built into a community: always in place, one button to start, tied into the municipal water system, and built to run when the grid is down. The first envisioned pilot is Fort St. James, BC, with about 20 towers over the hospital, emergency shelter and municipal core.</p>
+        </div>
+        <div class="imgbox dome arch"><img src="assets/hd-permanent.jpg" alt="Permanent HydroDome towers spraying a protective curtain of moisture over a community as wildfire approaches"></div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Optional. Skip if short on time. Only slide where the HydroDome name shows up.
+      Same control system, fixed towers, municipal water.
+    </aside>
+  </section>
+
+  <!-- 19. CONTACT -->
+  <section data-transition="zoom">
+    <div class="root"><div class="pad">
+      <div class="toprow">
+        <div><div class="kicker">Let's talk</div>
+          <div class="head">Thank you <span class="hot">for your time</span></div></div>
+        <div class="logo"><div class="ring"><i class="ti ti-flame"></i></div>
+          <div class="word"><div class="t">THE</div><div class="d">MOAT</div></div></div>
+      </div>
+      <div class="rule"></div>
+      <div class="split">
+        <div class="ctext">
+          <p class="lede">A defence line on the ground between structures, <b>up in an hour and running before the fire arrives.</b></p>
+          <div class="contact">
+            <div class="crow"><span class="cic"><i class="ti ti-phone"></i></span><div><div class="cl">Phone</div><div class="cv">Nick Hill <span class="hot">250&nbsp;588&nbsp;7544</span><br>Dakotah Daily <span class="hot">307&nbsp;699&nbsp;0418</span></div></div></div>
+            <div class="crow"><span class="cic"><i class="ti ti-world"></i></span><div><div class="cl">Website</div><div class="cv">www.carmanahwildfire.com</div></div></div>
+          </div>
+        </div>
+        <div class="imgbox dome"><img src="assets/firefighter-night.jpg" alt="Wildfire crew working a fire at night" style="object-fit:cover;object-position:55% 50%;"></div>
+      </div>
+    </div></div>
+    <aside class="notes">
+      Nick's number first. Ask for site names and who's running SPUs this season.
+    </aside>
+  </section>
+
+</div></div>
+<script>
+  /* simple password gate: hashes input and compares; no plaintext password in source */
+  (function(){
+    var HASH='f3ea60d77716c76f151c09dbc489d68a6c1b90dc1f0e16fa24ca90faedcc1815';
+    var gate=document.getElementById('gate'),form=document.getElementById('gateForm'),
+        pw=document.getElementById('gatePw'),err=document.getElementById('gateErr');
+    function unlock(){gate.classList.add('hidden');try{sessionStorage.setItem('hd_ok','1');}catch(e){}}
+    try{if(sessionStorage.getItem('hd_ok')==='1')unlock();}catch(e){}
+    async function sha256(s){var b=new TextEncoder().encode(s);var h=await crypto.subtle.digest('SHA-256',b);
+      return Array.from(new Uint8Array(h)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');}
+    form.addEventListener('submit',async function(e){e.preventDefault();
+      try{var h=await sha256(pw.value.trim());if(h===HASH){unlock();}else{err.textContent='Incorrect password.';pw.value='';pw.focus();}}
+      catch(err2){err.textContent='This browser blocks the check over file://. Use the live https link.';}});
+  })();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/plugin/notes/notes.min.js"></script>
+<script>
+  Reveal.initialize({width:1440,height:810,margin:0,controls:true,progress:true,hash:true,center:false,transition:'slide',transitionSpeed:'slow',backgroundTransition:'fade',
+    plugins:[ RevealNotes ]});
+
+  // The site-analysis films loop, so if you step away and come back you would land in
+  // the middle of one. Send the incoming slide's film back to the top, and pause the
+  // 3-D block-out flight on the slide we just left so it is not burning frames offscreen.
+  function eachFilm(sec, fn){
+    if(!sec) return;
+    Array.prototype.forEach.call(sec.querySelectorAll('.filmbox iframe'), fn);
+  }
+  function moatCmd(f, cmd){
+    try { f.contentWindow.postMessage({ type:'moat', cmd:cmd }, '*'); } catch(e){}
+  }
+  function restartFilm(ev){
+    eachFilm(ev && ev.previousSlide, function(f){ if(f.hasAttribute('data-moat')) moatCmd(f,'pause'); });
+    eachFilm(ev && ev.currentSlide, function(f){
+      if(f.hasAttribute('data-moat')) moatCmd(f,'restart');
+      else { try { f.contentWindow.postMessage({ moat:'restart' }, '*'); } catch(e){} }
+    });
+  }
+  Reveal.on('slidechanged', restartFilm);
+  Reveal.on('ready', restartFilm);
+
+  // The block-out is grabbable, so once you click it the iframe holds the keyboard and
+  // the arrow keys would stop moving the deck. The viewer posts the navigation keys back
+  // up; only accept them from one of our own block-out frames.
+  window.addEventListener('message', function(e){
+    var d = e.data;
+    if(!d || d.type !== 'moat' || d.cmd !== 'key') return;
+    var mine = Array.prototype.some.call(document.querySelectorAll('iframe[data-moat]'),
+      function(f){ return f.contentWindow === e.source; });
+    if(!mine) return;
+    var k = d.key;
+    if(k === 'ArrowLeft') Reveal.left();
+    else if(k === 'ArrowRight') Reveal.right();
+    else if(k === 'ArrowUp') Reveal.up();
+    else if(k === 'ArrowDown') Reveal.down();
+    else if(k === 'PageUp') Reveal.prev();
+    else if(k === 'PageDown' || k === ' ') Reveal.next();
+    else if(k === 'Home') Reveal.slide(0, 0);
+    else if(k === 'End') Reveal.slide(Number.MAX_VALUE, 0);
+    else if(k === 'Escape') Reveal.toggleOverview();
+  });
+</script>
+</body>
+</html>

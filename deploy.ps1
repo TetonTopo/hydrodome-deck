@@ -4,7 +4,8 @@
 param([string]$Message = "Update deck")
 Set-Location $PSScriptRoot
 
-# keep index.html == the deck (carmanah-style.html) so the site root serves the current deck
+# keep index.html == the investor deck (carmanah-style.html) so the site root serves it.
+# field.html (the client / field deck) is its own file and is never touched here.
 if (Test-Path carmanah-style.html) { Copy-Item -Force carmanah-style.html index.html }
 
 git add -A
@@ -17,4 +18,5 @@ if ($LASTEXITCODE -eq 0) {
 git push origin main
 Write-Host ""
 Write-Host "Deployed. Live in ~30-60s (hard-refresh):"
-Write-Host "  https://tetontopo.github.io/hydrodome-deck/"
+Write-Host "  investor deck: https://tetontopo.github.io/hydrodome-deck/"
+Write-Host "  field deck:    https://tetontopo.github.io/hydrodome-deck/field.html"

@@ -5,7 +5,8 @@
 set -e
 cd "$(dirname "$0")"
 
-# keep index.html == the deck (carmanah-style.html) so the site root serves the current deck
+# keep index.html == the investor deck (carmanah-style.html) so the site root serves it.
+# field.html (the client / field deck) is its own file and is never touched here.
 if [ -f carmanah-style.html ]; then cp -f carmanah-style.html index.html; fi
 
 msg="${1:-Update deck}"
@@ -18,4 +19,5 @@ fi
 git push origin main
 echo ""
 echo "Deployed. Live in ~30-60s (hard-refresh):"
-echo "  https://tetontopo.github.io/hydrodome-deck/"
+echo "  investor deck: https://tetontopo.github.io/hydrodome-deck/"
+echo "  field deck:    https://tetontopo.github.io/hydrodome-deck/field.html"
